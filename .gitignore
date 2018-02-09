@@ -1,0 +1,30 @@
+# =============== #
+# Unity generated #
+# =============== #
+JumpDump/Temp/
+JumpDump/Library/
+JumpDump/obj/
+
+
+# ===================================== #
+# Visual Studio / MonoDevelop generated #
+# ===================================== #
+JumpDump/*.csproj
+*.pidb
+*.suo
+JumpDump/*.sln
+*.user
+*.unityproj
+*.booproj
+
+
+# ============ #
+# OS generated #
+# ============ #
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
