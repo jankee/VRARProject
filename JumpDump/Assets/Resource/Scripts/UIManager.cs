@@ -15,5 +15,8 @@ public class UIManager : MonoBehaviour {
         score += 10;
 
         _coinText.text = score.ToString();
+        //PlayerPrefs.SetInt("COIN", int.Parse(_coinText.text));
     }
+
+    
 }
