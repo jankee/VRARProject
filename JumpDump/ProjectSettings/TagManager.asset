@@ -3,7 +3,12 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+<<<<<<< HEAD
+  - Coin
+=======
+  - Coin_Sphere
+>>>>>>> 880082716693d13233b0c2a235de4b2e78b67b79
   layers:
   - Default
   - TransparentFX

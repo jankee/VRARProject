@@ -30,3 +30,5 @@ ehthumbs.db
 Thumbs.db
 JumpDump/.vs/JumpDump/v15/Server/sqlite3/storage.ide
 JumpDump/.vs/JumpDump/v15/Server/sqlite3/db.lock
+JumpDump/.vs/JumpDump/v15/Server/sqlite3/storage.ide-wal
+JumpDump/.vs/JumpDump/v15/Server/sqlite3/storage.ide-shm
