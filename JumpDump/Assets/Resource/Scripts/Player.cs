@@ -2,13 +2,67 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour {
-
+public class Player : MonoBehaviour
+{
     private UIManager _uiManager;
 
+<<<<<<< HEAD
 	void Start () {
+=======
+    private float speed;
+    private float delay;
+
+    [SerializeField]
+    private float speedTime;
+
+    // Use this for initialization
+    private void Start()
+    {
+>>>>>>> ea9ac0e717fcf48ac5799a6726c0b999e1643606
         _uiManager = GameObject.Find("UIManager").GetComponent<UIManager>();
-	}
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            MoveCharacter(0, 1);
+        }
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            MoveCharacter(0, -1);
+        }
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            MoveCharacter(1, 0);
+        }
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            MoveCharacter(-1, 0);
+        }
+    }
+
+    public bool MoveCharacter(int xDir, int zDir)
+    {
+        print("hi");
+        //float lerpTime = 1;
+        Vector3 start = transform.position;
+
+        Vector3 end = start + new Vector3(xDir, 0, zDir);
+
+        StartCoroutine(SmoothMovement(end));
+
+        return false;
+    }
+
+    public IEnumerator SmoothMovement(Vector3 end)
+    {
+        float sqrRemainingDistance = (transform.position - end).magnitude;
+
+        print(sqrRemainingDistance);
+
+        yield return null;
+    }
 
     // 코인과 충돌지 코인 획득과 코인파괴
     private void OnTriggerEnter(Collider collision)
