@@ -13,21 +13,21 @@ public class CPlayerMove : MonoBehaviour {
         anim = gameObject.GetComponent<Animator>();
     }
 
-
-    // 플레이어 회전
     private void Update()
     {
-
-        Bounce bs = thePlayer.GetComponent<Bounce>();
+        // 플레이어 점프코드
+        Bounce bs = thePlayer.transform.parent.GetComponent<Bounce>();
         if (bs.justJump == true)
-        {
-            anim.SetBool("Jump", true);
-        }
-        else
         {
             anim.SetBool("Jump", false);
         }
-        if(Input.GetButtonDown("right"))
+        else
+        {
+            anim.SetBool("Jump", true);
+        }
+
+        // 플레이어 회전
+        if (Input.GetButtonDown("right"))
         {
             gameObject.transform.rotation = Quaternion.Euler(0,90,0);
         }
@@ -43,13 +43,5 @@ public class CPlayerMove : MonoBehaviour {
         {
             gameObject.transform.rotation = Quaternion.Euler(0, 180, 0);
         }
-
-
-        /*float h = Input.GetAxis("Horizontal");
-        float v = Input.GetAxis("Vertical");
-
-        transform.Translate(Vector3.forward * v * _moveSpeed * Time.deltaTime);
-        transform.Rotate(Vector3.up * h * _rotSpeed * Time.deltaTime);*/
-
     }
 }
