@@ -7,6 +7,7 @@ public class InputManager : MonoBehaviour
     //플레이어 담을 변수
     private Player player;
 
+
     //마우스 처음 클릭 지점 위치
     private Vector3 startPos;
 
