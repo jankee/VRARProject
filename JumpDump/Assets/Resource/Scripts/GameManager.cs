@@ -5,7 +5,9 @@ using UnityEngine;
 public class GameManager : MonoBehaviour {
     
     public Transform _createPos; //생성위치
-    public GameObject _objectPrefab;
+    public GameObject _coinPrefab;
+
+    /*
 
     public float _topLimitPosX;
     public float _bottomLimitPosX;
@@ -20,7 +22,7 @@ public class GameManager : MonoBehaviour {
     {
         StartCoroutine("CreateCoinCoroutine");
     }
-
+    
     // 코인 랜덤 생성
     private IEnumerator CreateCoinCoroutine()
     {
@@ -33,11 +35,11 @@ public class GameManager : MonoBehaviour {
 
             //생성위치
             Vector2 createPos = new Vector2(_createPos.position.x + randX, _createPos.position.z + randZ);
-            Instantiate(_objectPrefab, createPos, Quaternion.identity);
+            Instantiate(_coinPrefab, createPos, Quaternion.identity);
 
             yield return new WaitForSeconds(_createDelayTime);
         }
 
     }
-  
+  */
 }

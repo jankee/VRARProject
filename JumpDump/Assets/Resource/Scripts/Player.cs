@@ -6,7 +6,6 @@ public class Player : MonoBehaviour {
 
     private UIManager _uiManager;
 
-	// Use this for initialization
 	void Start () {
         _uiManager = GameObject.Find("UIManager").GetComponent<UIManager>();
 	}
@@ -16,8 +15,12 @@ public class Player : MonoBehaviour {
     {
         if (collision.gameObject.tag == "Coin")
         {
+            // 스코어 1추가
             _uiManager.CoinUp();
+            // 보너스 사운드 재생
+            // 코인 삭제
             Destroy(collision.gameObject);
+            // 
         }
     }
 }
