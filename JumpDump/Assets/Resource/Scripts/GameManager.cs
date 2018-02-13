@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour {
+    
+    
     //게임매니저 시작!
 
-    //public CPlayerMove player;
     public Transform _createPos; //생성위치
     public GameObject _objectPrefab;
 
@@ -17,9 +18,24 @@ public class GameManager : MonoBehaviour {
     public float _startDelayTime;
     public float _createDelayTime;
 
+    
     private void Start()
     {
         StartCoroutine("CreateCoinCoroutine");
+    }
+
+    // 플레이어 테스트
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            
+        }
+
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            
+        }
     }
 
     // 코인 랜덤 생성
@@ -41,7 +57,8 @@ public class GameManager : MonoBehaviour {
 
     }
 
-
+    // 맵 생성
+    //private IEnumerator CreateMapCoroutine()
 
   
 }
