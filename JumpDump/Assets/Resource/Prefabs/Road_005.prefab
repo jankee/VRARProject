@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4231660050241752}
   - component: {fileID: 114574744336801204}
   m_Layer: 0
-  m_Name: Road_004
+  m_Name: Road_005
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -86,7 +86,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 57e167ac39ce0944ca95e53a46ece8eb, type: 2}
+  - {fileID: 2100000, guid: 4346cc0a5f991d440abafa82da5da764, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -136,4 +136,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1d26909c29117e4faedd94925e90ff9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roadType: 0
+  roadType: 2

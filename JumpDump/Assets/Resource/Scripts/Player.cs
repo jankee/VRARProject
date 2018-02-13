@@ -6,9 +6,6 @@ public class Player : MonoBehaviour
 {
     private UIManager _uiManager;
 
-<<<<<<< HEAD
-	void Start () {
-=======
     private float speed;
     private float delay;
 
@@ -18,8 +15,7 @@ public class Player : MonoBehaviour
     // Use this for initialization
     private void Start()
     {
->>>>>>> ea9ac0e717fcf48ac5799a6726c0b999e1643606
-        _uiManager = GameObject.Find("UIManager").GetComponent<UIManager>();
+        //_uiManager = GameObject.Find("UIManager").GetComponent<UIManager>();
     }
 
     private void Update()
@@ -74,7 +70,7 @@ public class Player : MonoBehaviour
             // 보너스 사운드 재생
             // 코인 삭제
             Destroy(collision.gameObject);
-            // 
+            //
         }
     }
 }
