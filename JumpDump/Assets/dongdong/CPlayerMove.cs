@@ -4,20 +4,52 @@ using UnityEngine;
 
 public class CPlayerMove : MonoBehaviour {
 
-    public float _moveSpeed;
-    //public float _gravity;
-    public float _rotSpeed;
-    //private Rigidbody _rigidbody;
+    Animator anim;
+    public GameObject thePlayer; //플레이어 오브젝트
 
+    private void Start()
+    {
+        //Jump 애니메이터
+        anim = gameObject.GetComponent<Animator>();
+    }
+
+
+    // 플레이어 회전
     private void Update()
     {
-        float h = Input.GetAxis("Horizontal");
+
+        Bounce bs = thePlayer.GetComponent<Bounce>();
+        if (bs.justJump == true)
+        {
+            anim.SetBool("Jump", true);
+        }
+        else
+        {
+            anim.SetBool("Jump", false);
+        }
+        if(Input.GetButtonDown("right"))
+        {
+            gameObject.transform.rotation = Quaternion.Euler(0,90,0);
+        }
+        if (Input.GetButtonDown("left"))
+        {
+            gameObject.transform.rotation = Quaternion.Euler(0, -90, 0);
+        }
+        if (Input.GetButtonDown("up"))
+        {
+            gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
+        if (Input.GetButtonDown("down"))
+        {
+            gameObject.transform.rotation = Quaternion.Euler(0, 180, 0);
+        }
+
+
+        /*float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
 
         transform.Translate(Vector3.forward * v * _moveSpeed * Time.deltaTime);
-        transform.Rotate(Vector3.up * h * _rotSpeed * Time.deltaTime);
+        transform.Rotate(Vector3.up * h * _rotSpeed * Time.deltaTime);*/
 
-        //_rigidbody.velocity = transform.forward * v * _moveSpeed;
-        //_rigidbody.angularVelocity = new Vector3(0f, h * _rotSpeed / 360f * Mathf.PI * 2f, 0f);
     }
 }
