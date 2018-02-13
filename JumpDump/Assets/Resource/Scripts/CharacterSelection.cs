@@ -7,6 +7,7 @@ public class CharacterSelection : MonoBehaviour {
 
     private GameObject[] characterList;
     private int index;
+   
 
     private void Start()
     {
@@ -56,8 +57,20 @@ public class CharacterSelection : MonoBehaviour {
         characterList[index].SetActive(true);
     }
 
-    /*public void ConfirmButton()
+    public void PlaymButton()
     {
-        SceneManager.LoadScene("");
-    }*/
+        SceneManager.LoadScene("Game");
+    }
+
+    public void RandPicButton()
+    {
+       
+        characterList[index].SetActive(false);
+        index = Random.Range(1, index);
+        if (index == characterList.Length)
+        {
+            index++;
+        }
+        characterList[index].SetActive(true);
+    }
 }
