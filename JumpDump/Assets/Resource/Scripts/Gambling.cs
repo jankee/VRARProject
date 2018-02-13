@@ -8,16 +8,29 @@ public class Gambling : MonoBehaviour {
 
     public Text _coinText;
     public Text _resultCoinText;
-    	       
+
+    private void Start()
+    {int value = int.Parse(_coinText.text);
+        
+    }
+
     // 뽑기 버튼 실행
     public void GambleButtonClick()
     {
         int value = int.Parse(_coinText.text);
-        int ranCoin = Random.Range(1, 500);
-        value -= 100;
-        _resultCoinText.text = ranCoin.ToString();
-        value = value + ranCoin;
-        _coinText.text = value.ToString();
+        if (value < 100)
+        {
+            _resultCoinText.text = "Fail";
+            return;
+        }
+        else
+        {
+            int ranCoin = Random.Range(1, 500);
+            value -= 100;
+            _resultCoinText.text = ranCoin.ToString();
+            value = value + ranCoin;
+            _coinText.text = value.ToString();
+        }
     }
 
    
