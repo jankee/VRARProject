@@ -7,6 +7,8 @@ public class UIManager : MonoBehaviour {
 
     public Text _coinText;
 
+    GameManager _gameManager;
+
     // 코인점수 증가
     public void CoinUp()
     {

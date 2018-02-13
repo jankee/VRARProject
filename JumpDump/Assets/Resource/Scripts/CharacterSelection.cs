@@ -59,18 +59,19 @@ public class CharacterSelection : MonoBehaviour {
 
     public void PlaymButton()
     {
-        SceneManager.LoadScene("Game");
+        SceneManager.LoadScene("Main");
     }
 
     public void RandPicButton()
     {
-       
         characterList[index].SetActive(false);
-        index = Random.Range(1, index);
-        if (index == characterList.Length)
+        index++;
+        if (index > 0)
         {
-            index++;
+            index = Random.Range(1, 3);
         }
+        
         characterList[index].SetActive(true);
     }
+    
 }
