@@ -2,33 +2,41 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Gambling : MonoBehaviour {
 
     public Text _coinText;
-    public Text _resultCoin;
+    public Text _resultCoinText;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-
-	public void GambleButtonClick()
-    {
-        CoinGambleDown();
-       int coin = Random.Range(1, 500);
-        _resultCoin.text = coin.ToString();
-        _coinText.text = coin.ToString();
+    private void Start()
+    {int value = int.Parse(_coinText.text);
+        
     }
 
-
-    public void CoinGambleDown()
+    // 뽑기 버튼 실행
+    public void GambleButtonClick()
     {
-        int score = int.Parse(_coinText.text);
-
-        score -= 100;
-
-        _coinText.text = score.ToString();
+        int value = int.Parse(_coinText.text);
+        if (value < 100)
+        {
+            _resultCoinText.text = "Fail";
+            return;
+        }
+        else
+        {
+            int ranCoin = Random.Range(1, 500);
+            value -= 100;
+            _resultCoinText.text = ranCoin.ToString();
+            value = value + ranCoin;
+            _coinText.text = value.ToString();
+        }
     }
+
+   
+    // 인터페이스로 돌아감
+    /*public void ReturnBotton()
+    {
+        SceneManager.LoadScene("");
+    }*/
 }
