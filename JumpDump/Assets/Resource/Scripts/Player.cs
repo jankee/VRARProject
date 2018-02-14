@@ -75,14 +75,4 @@ public class Player : MonoBehaviour
         yield return null;
     }
 
-    // 코인과 충돌지 코인 획득과 코인파괴
-    //private void OnTriggerEnter(Collider collision)
-    //{
-    //    if (collision.gameObject.tag == "Coin")
-    //    {
-    //        _uiManager.CoinUp();
-    //        Destroy(collision.gameObject);
-    //    }
-//}
-
 }
