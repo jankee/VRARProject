@@ -8,6 +8,9 @@ public class UIManager : MonoBehaviour {
     public Text _coinText;
     public Text _clickScoreText;
     public Text _bestClickScoreText;
+    public GameObject _select;
+    public GameObject _buy;
+    public GameObject _score;
 
     GameManager _gameManager;
 
@@ -36,6 +39,10 @@ public class UIManager : MonoBehaviour {
         }
         // 클릭 카운트 표시
         _clickScoreText.text = clickCount.ToString();
+
+        // 클릭, 베스트클릭 점수 저장
+        PlayerPrefs.SetInt("Score", int.Parse(_clickScoreText.text));
+        PlayerPrefs.SetInt("BestScore", int.Parse(_bestClickScoreText.text));
 
     }
 }

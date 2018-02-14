@@ -8,38 +8,42 @@ public class Gambling : MonoBehaviour {
 
     public Text _coinText;
     public Text _resultCoinText;
-    GameObject rr;
+    GameObject _cha1;
+    GameObject[] _chaSave;
     // 캐릭터 목록 프리팹
     public GameObject[] _characterPrefab;
     public Transform _genPos;
 
+    UIManager _uimanager;
+
     private void Start()
     {
+        _uimanager = GameObject.FindObjectOfType<UIManager>();
         int coin = int.Parse(_coinText.text);
 
-        rr = null;
+        _cha1 = null;
     }
 
     // 뽑기 버튼 실행
     public void GambleButtonClick()
     {
         int coin = int.Parse(_coinText.text);
-        // 100원 이하시 뽑기 금지
-        if (coin < 100)
+        // 500원 이하시 뽑기 금지
+        if (coin < 500)
         {
             _resultCoinText.text = "Fail";
             return;
         }
-        // 100원 이상시 뽑기 실행
+        // 500원 이상시 뽑기 실행
         else
         {
-            coin -= 100;
+            coin -= 500;
             _coinText.text = coin.ToString();
             //Destroy(rr.gameObject);
 
-            if (rr != null)
+            if (_cha1 != null)
             {
-                Destroy(rr.gameObject);
+                Destroy(_cha1.gameObject);
             }
             CharacterRandomBuy();
                         
@@ -65,15 +69,17 @@ public class Gambling : MonoBehaviour {
             prefab = _characterPrefab[0];
         }
 
-        rr = Instantiate(prefab, _genPos.position, Quaternion.identity);
-        
+        _cha1 = Instantiate(prefab, _genPos.position, Quaternion.identity);
 
+        
         
     }
    
     // 캐럭터 선택창으로 돌아감
     public void ReturnBotton()
     {
-        SceneManager.LoadScene("CharacterSelect");
+        _uimanager._select.SetActive(true);
+        _uimanager._score.SetActive(true);
+        _uimanager._buy.SetActive(false);
     }
 }

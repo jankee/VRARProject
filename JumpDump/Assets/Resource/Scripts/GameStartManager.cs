@@ -14,7 +14,7 @@ public class GameStartManager : MonoBehaviour {
 	void Update () {
         if (Input.anyKey)
         {
-            SceneManager.LoadScene("CharacterSelect");
+            SceneManager.LoadScene("UI");
         }
 	}
 }
