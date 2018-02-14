@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33782970648137122}
   - component: {fileID: 136870509183847656}
   - component: {fileID: 23768647368875052}
+  - component: {fileID: 54111308655344378}
   - component: {fileID: 114114472097553818}
   m_Layer: 0
   m_Name: RedCoin
@@ -57,7 +58,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: b8860d090e948d742a638cc13c420394, type: 2}
+  - {fileID: 2100000, guid: b30215ed79d59a148805f0153ec3f2ea, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -84,6 +85,21 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1767795175773066}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!54 &54111308655344378
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1767795175773066}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!114 &114114472097553818
 MonoBehaviour:
   m_ObjectHideFlags: 1

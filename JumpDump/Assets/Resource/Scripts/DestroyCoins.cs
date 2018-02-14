@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class DestroyCoins : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    
+    //플레이어와 충돌 시 코인 제거
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+            Destroy(gameObject);
+        }
+    }
+
 }
