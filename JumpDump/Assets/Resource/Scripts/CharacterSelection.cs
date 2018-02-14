@@ -27,6 +27,7 @@ public class CharacterSelection : MonoBehaviour {
        
     }
 
+    // 왼쪽 선택 버튼
     public void ToggleLeft()
     {
         // Toggle off the current model
@@ -42,6 +43,7 @@ public class CharacterSelection : MonoBehaviour {
         characterList[index].SetActive(true);
     }
 
+    // 오른쪽 선택 버튼
     public void ToggleRight()
     {
         // Toggle off the current model
@@ -57,21 +59,21 @@ public class CharacterSelection : MonoBehaviour {
         characterList[index].SetActive(true);
     }
 
+    // 플레이 버튼
     public void PlaymButton()
     {
         SceneManager.LoadScene("Main");
     }
 
+    // 랜덤 선택 버튼 선택후 바로 시작
     public void RandPicButton()
     {
         characterList[index].SetActive(false);
-        index++;
-        if (index > 0)
-        {
-            index = Random.Range(1, 3);
-        }
-        
+        int ran = Random.Range(0, 3);
+        index = ran;
+                
         characterList[index].SetActive(true);
+        SceneManager.LoadScene("Main");
     }
     
 }
