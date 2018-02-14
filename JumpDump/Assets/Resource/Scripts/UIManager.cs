@@ -19,15 +19,12 @@ public class UIManager : MonoBehaviour {
     public void CoinUp()
     {
 
-
         int score = int.Parse(_coinText.text);
-
-        score = score + 10;
-        score -= 10;
+        score += 10;
         _coinText.text = score.ToString();
         //_coinText.text = totalScore.ToString();
         // 코인 데이터 저장
-        PlayerPrefs.SetInt("COIN", int.Parse(_coinText.text));
+        //PlayerPrefs.SetInt("COIN", int.Parse(_coinText.text));
     }
 
     public void ScoreUp()
