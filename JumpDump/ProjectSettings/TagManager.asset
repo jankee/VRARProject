@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Coin
   - Coin_Sphere
+  - Buy
+  - Select
+  - Score
   layers:
   - Default
   - TransparentFX

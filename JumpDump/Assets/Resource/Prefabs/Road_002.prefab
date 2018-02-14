@@ -211,4 +211,4 @@ MonoBehaviour:
   - {fileID: 4281467540976450}
   - {fileID: 4299398422078084}
   coinTime: 1.5
-  Coins: {fileID: 1767795175773066, guid: 1b58b824f5b7d9e49a890210e5384a6b, type: 2}
+  Coins: {fileID: 1155013296525200, guid: 37eb1da450f470f428dcc2640a658705, type: 2}

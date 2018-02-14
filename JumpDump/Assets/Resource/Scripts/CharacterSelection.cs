@@ -7,10 +7,13 @@ public class CharacterSelection : MonoBehaviour {
 
     private GameObject[] characterList;
     private int index;
+    UIManager _uimanager;
    
 
     private void Start()
     {
+        _uimanager = GameObject.FindObjectOfType<UIManager>();
+
         characterList = new GameObject[transform.childCount];
 
         // Fill the array with our models
@@ -78,7 +81,11 @@ public class CharacterSelection : MonoBehaviour {
 
     public void ShopLoadButton()
     {
-        SceneManager.LoadScene("Gambling");
+        _uimanager._select.SetActive(false);
+        _uimanager._score.SetActive(false);
+        _uimanager._buy.SetActive(true);
+
+    
     }
     
 }
