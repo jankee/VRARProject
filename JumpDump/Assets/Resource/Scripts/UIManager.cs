@@ -11,17 +11,21 @@ public class UIManager : MonoBehaviour {
     public GameObject _select;
     public GameObject _buy;
     public GameObject _score;
+    int score = 10;
 
     GameManager _gameManager;
 
     // 코인점수 증가
     public void CoinUp()
     {
+
+
         int score = int.Parse(_coinText.text);
 
-        score += 10;
-
+        score = score + 10;
+        score -= 10;
         _coinText.text = score.ToString();
+        //_coinText.text = totalScore.ToString();
         // 코인 데이터 저장
         PlayerPrefs.SetInt("COIN", int.Parse(_coinText.text));
     }
