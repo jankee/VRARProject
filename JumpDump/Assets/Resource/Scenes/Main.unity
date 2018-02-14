@@ -882,7 +882,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c840ddbf28c4344388e741171da4155, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playermesh: {fileID: 407249988}
+  playerMesh: {fileID: 589003535}
 --- !u!1001 &996491138
 Prefab:
   m_ObjectHideFlags: 0
@@ -1001,6 +1001,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1d26909c29117e4faedd94925e90ff9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  roadType: 0
 --- !u!4 &1075833672 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4012976157424070, guid: 8d10393221c15c64a95ed456e0b200ba,
