@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour {
 
     public Text _coinText;
+    public Text _clickScoreText;
+    public Text _bestClickScoreText;
 
     GameManager _gameManager;
 
@@ -17,8 +19,23 @@ public class UIManager : MonoBehaviour {
         score += 10;
 
         _coinText.text = score.ToString();
-        //PlayerPrefs.SetInt("COIN", int.Parse(_coinText.text));
+        // 코인 데이터 저장
+        PlayerPrefs.SetInt("COIN", int.Parse(_coinText.text));
     }
 
-    
+    public void ScoreUp()
+    {
+
+        int clickCount = int.Parse(_clickScoreText.text);
+        int bestClickCount = int.Parse(_bestClickScoreText.text);
+        clickCount ++;
+        // 클릭 카운트가 베스트클릭카운트보다 높을시 갱신
+        if (clickCount > bestClickCount)
+        {
+            _bestClickScoreText.text = clickCount.ToString();
+        }
+        // 클릭 카운트 표시
+        _clickScoreText.text = clickCount.ToString();
+
+    }
 }

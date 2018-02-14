@@ -75,5 +75,10 @@ public class CharacterSelection : MonoBehaviour {
         characterList[index].SetActive(true);
         SceneManager.LoadScene("Main");
     }
+
+    public void ShopLoadButton()
+    {
+        SceneManager.LoadScene("Gambling");
+    }
     
 }
