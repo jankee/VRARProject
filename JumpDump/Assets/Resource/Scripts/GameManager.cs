@@ -3,12 +3,30 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour {
-    
-    public Transform _createPos; //생성위치
-    public GameObject _coinPrefab;
+
+    // 게임 종료 여부 (플래그(On/Off) 변수)
+    public static bool IsGameStop = false;
+
+    //게임 일시 정지
+    private void Update()
+    {
+        // 게임이 종료 상태면
+        if (IsGameStop)
+        {
+            // 이동을 정지함
+            Time.timeScale = 0; //게임전체 진행속도
+        }
+
+    }
+
+
+}
+
+
 
     /*
 
+    //
     public float _topLimitPosX;
     public float _bottomLimitPosX;
     public float _topLimitPosZ;
@@ -42,4 +60,3 @@ public class GameManager : MonoBehaviour {
 
     }
   */
-}
