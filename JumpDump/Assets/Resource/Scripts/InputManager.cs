@@ -7,12 +7,15 @@ public class InputManager : MonoBehaviour
     //플레이어 담을 변수
     private Player player;
 
-
     //마우스 처음 클릭 지점 위치
     private Vector3 startPos;
 
     //마우스 마지막 클릭 지점 위치
     private Vector3 endPos;
+
+    private string direction;
+
+    private RoadGenerator roadGene;
 
     // Use this for initialization
     private void Start()
@@ -20,6 +23,11 @@ public class InputManager : MonoBehaviour
         if (player == null)
         {
             player = GameObject.FindObjectOfType<Player>();
+        }
+
+        if (roadGene == null)
+        {
+            roadGene = GameObject.FindObjectOfType<RoadGenerator>();
         }
     }
 
@@ -85,6 +93,8 @@ public class InputManager : MonoBehaviour
                     return;
                 }
 
+                player.MoveCharacter("up");
+                roadGene.RoadDirection("up");
                 //플레이어에 앞으로 한칸을 이동 시킨다
                 print("한칸 앞으로");
             }
@@ -105,21 +115,29 @@ public class InputManager : MonoBehaviour
         {
             this.transform.localEulerAngles = new Vector3(0, -90, 0);
             print("왼쪽 : " + dirRot);
+            player.MoveCharacter("left");
+            roadGene.RoadDirection("left");
         }
         else if (45f <= dirRot && dirRot <= 135f)
         {
             this.transform.localEulerAngles = new Vector3(0, 180, 0);
             print("아래 : " + dirRot);
+            player.MoveCharacter("down");
+            roadGene.RoadDirection("down");
         }
         else if (135f <= dirRot && dirRot <= 225f)
         {
             this.transform.localEulerAngles = new Vector3(0, 90, 0);
             print("오른쪽 : " + dirRot);
+            player.MoveCharacter("right");
+            roadGene.RoadDirection("right");
         }
         else if (225f <= dirRot && dirRot <= 315f)
         {
             this.transform.localEulerAngles = new Vector3(0, 0, 0);
             print("위쪽 : " + dirRot);
+            player.MoveCharacter("up");
+            roadGene.RoadDirection("up");
         }
     }
 }

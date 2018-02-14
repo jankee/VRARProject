@@ -9,12 +9,16 @@ public class Player : MonoBehaviour
     private float speed;
     private float delay;
 
+    private Animator animator;
+
     [SerializeField]
     private float speedTime;
 
     // Use this for initialization
     private void Start()
     {
+        animator = transform.GetChild(0).GetComponent<Animator>();
+
         //_uiManager = GameObject.Find("UIManager").GetComponent<UIManager>();
     }
 
@@ -38,16 +42,28 @@ public class Player : MonoBehaviour
         //}
     }
 
-    public bool MoveCharacter(int xDir, int zDir)
+    public void MoveCharacter(string dir)
     {
-        //float lerpTime = 1;
-        Vector3 start = transform.position;
+        animator.SetTrigger("JUMP");
 
-        Vector3 end = start + new Vector3(xDir, 0, zDir);
+        switch (dir)
+        {
+            case "left":
+                this.transform.eulerAngles = new Vector3(0, 270, 0);
+                break;
 
-        StartCoroutine(SmoothMovement(end));
+            case "down":
+                this.transform.eulerAngles = new Vector3(0, 180, 0);
+                break;
 
-        return false;
+            case "right":
+                this.transform.eulerAngles = new Vector3(0, 90, 0);
+                break;
+
+            case "up":
+                this.transform.eulerAngles = new Vector3(0, 0, 0);
+                break;
+        }
     }
 
     public IEnumerator SmoothMovement(Vector3 end)

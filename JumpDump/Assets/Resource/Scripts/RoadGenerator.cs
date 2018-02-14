@@ -44,6 +44,36 @@ public class RoadGenerator : MonoBehaviour
         }
     }
 
+    public void RoadDirection(string dir)
+    {
+        switch (dir)
+        {
+            case "right":
+                this.transform.position += new Vector3(-1, 0, 0);
+                AddRoad(new Vector3(0, 0, -1));
+                RemoveRoad();
+                break;
+
+            case "down":
+                this.transform.position += new Vector3(0, 0, 1);
+                AddRoad(new Vector3(0, 0, -1));
+                RemoveRoad();
+                break;
+
+            case "left":
+                this.transform.position += new Vector3(1, 0, 0);
+                AddRoad(new Vector3(0, 0, -1));
+                RemoveRoad();
+                break;
+
+            case "up":
+                this.transform.position += new Vector3(0, 0, -1);
+                AddRoad(new Vector3(0, 0, -1));
+                RemoveRoad();
+                break;
+        }
+    }
+
     //시작되면 화면 26개의 road가 생성됩니다. 로드가 생성되면 roadsList에 등록되게 만들었습니다.
     public void InitializationRoad()
     {
@@ -92,6 +122,8 @@ public class RoadGenerator : MonoBehaviour
             {
                 Road tmp = Instantiate(road, transform.position + new Vector3(0, 0, i),
                     Quaternion.identity, this.transform);
+
+                tmp.GetComponent<Road>();
 
                 roadsList.Add(tmp);
             }
