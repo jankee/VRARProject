@@ -49,7 +49,9 @@ public class RoadGenerator : MonoBehaviour
         switch (dir)
         {
             case "right":
-                this.transform.position += new Vector3(-1, 0, 0);
+                //this.transform.position += new Vector3(-1, 0, 0);
+                StopAllCoroutines();
+                StartCoroutine(MoveRoutine(new Vector3(-1, 0, 0)));
                 AddRoad(new Vector3(0, 0, -1));
                 RemoveRoad();
                 break;
@@ -67,11 +69,36 @@ public class RoadGenerator : MonoBehaviour
                 break;
 
             case "up":
-                this.transform.position += new Vector3(0, 0, -1);
+                //this.transform.position += new Vector3(0, 0, -1);
+                StopAllCoroutines();
+                StartCoroutine(MoveRoutine(new Vector3(0, 0, -1)));
                 AddRoad(new Vector3(0, 0, -1));
                 RemoveRoad();
                 break;
         }
+    }
+
+    private IEnumerator MoveRoutine(Vector3 endPos)
+    {
+        float runTime = 0.5f;
+
+        float duration = 0f;
+
+        Vector3 start = this.transform.position;
+
+        Vector3 end = start + endPos;
+
+        while (runTime > 0)
+        {
+            transform.position = Vector3.Lerp(start, endPos, duration);
+
+            duration += Time.deltaTime;
+
+            yield return null;
+            runTime -= Time.deltaTime;
+        }
+
+        yield return null;
     }
 
     //시작되면 화면 26개의 road가 생성됩니다. 로드가 생성되면 roadsList에 등록되게 만들었습니다.
@@ -150,8 +177,6 @@ public class RoadGenerator : MonoBehaviour
         //road의 z 위치 값이 19를 넘거나 -6 이하 로 있으면 지울려고 합니다.
         if (roadsList.Count > 26)
         {
-            print("hi");
-
             //여기서 roadsList 카운트가 39개인데 road는 null이 뜹니다. 왜그런지 이유를 모르겠습니다
             //그래서 foreach문이 실행이 안됩니다.
             foreach (Road road in roadsList)
