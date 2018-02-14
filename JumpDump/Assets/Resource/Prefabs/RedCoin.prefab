@@ -22,9 +22,10 @@ GameObject:
   - component: {fileID: 33782970648137122}
   - component: {fileID: 136870509183847656}
   - component: {fileID: 23768647368875052}
+  - component: {fileID: 114114472097553818}
   m_Layer: 0
   m_Name: RedCoin
-  m_TagString: Untagged
+  m_TagString: Coin
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -83,6 +84,17 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1767795175773066}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &114114472097553818
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1767795175773066}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 505003dfad0114941a45ea0d8866252d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!136 &136870509183847656
 CapsuleCollider:
   m_ObjectHideFlags: 1
