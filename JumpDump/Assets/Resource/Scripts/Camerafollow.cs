@@ -8,6 +8,8 @@ public class Camerafollow : MonoBehaviour
 
     private Vector3 shouldPos;
 
+    private GameObject Coin;
+
     private void Update()
     {
         shouldPos = Vector3.Lerp(this.transform.position, playerMesh.transform.position, Time.deltaTime);
@@ -16,4 +18,13 @@ public class Camerafollow : MonoBehaviour
 
         // + 지정된 시간에 카마레가 조금씩 위로 올라간다 > 카메라 설정 범위를 넘으면 죽는다.
     }
+
+  
+
 }
+
+
+
+
+
+

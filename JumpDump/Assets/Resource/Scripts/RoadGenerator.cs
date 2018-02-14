@@ -28,7 +28,7 @@ public class RoadGenerator : MonoBehaviour
 
             AddRoad(new Vector3(0, 0, -1));
 
-            RemoveRoad();
+            //RemoveRoad();
         }
         if (Input.GetKeyDown(KeyCode.S))
         {
