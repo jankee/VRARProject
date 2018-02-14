@@ -20,27 +20,26 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            MoveCharacter(0, 1);
-        }
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            MoveCharacter(0, -1);
-        }
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            MoveCharacter(1, 0);
-        }
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            MoveCharacter(-1, 0);
-        }
+        //if (Input.GetKeyDown(KeyCode.W))
+        //{
+        //    MoveCharacter(0, 1);
+        //}
+        //if (Input.GetKeyDown(KeyCode.S))
+        //{
+        //    MoveCharacter(0, -1);
+        //}
+        //if (Input.GetKeyDown(KeyCode.A))
+        //{
+        //    MoveCharacter(1, 0);
+        //}
+        //if (Input.GetKeyDown(KeyCode.D))
+        //{
+        //    MoveCharacter(-1, 0);
+        //}
     }
 
     public bool MoveCharacter(int xDir, int zDir)
     {
-        print("hi");
         //float lerpTime = 1;
         Vector3 start = transform.position;
 
