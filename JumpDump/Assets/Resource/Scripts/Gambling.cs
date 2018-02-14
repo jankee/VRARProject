@@ -15,7 +15,7 @@ public class Gambling : MonoBehaviour {
 
     private void Start()
     {
-        int value = int.Parse(_coinText.text);
+        int coin = int.Parse(_coinText.text);
 
         rr = null;
     }
@@ -23,18 +23,18 @@ public class Gambling : MonoBehaviour {
     // 뽑기 버튼 실행
     public void GambleButtonClick()
     {
-        int value = int.Parse(_coinText.text);
+        int coin = int.Parse(_coinText.text);
         // 100원 이하시 뽑기 금지
-        if (value < 100)
+        if (coin < 100)
         {
             _resultCoinText.text = "Fail";
             return;
         }
         // 100원 이상시 뽑기 실행
         else
-        {            
-            value -= 100;
-            _coinText.text = value.ToString();
+        {
+            coin -= 100;
+            _coinText.text = coin.ToString();
             //Destroy(rr.gameObject);
 
             if (rr != null)
@@ -66,13 +66,14 @@ public class Gambling : MonoBehaviour {
         }
 
         rr = Instantiate(prefab, _genPos.position, Quaternion.identity);
+        
 
         
     }
    
-    // 인터페이스로 돌아감
-    /*public void ReturnBotton()
+    // 캐럭터 선택창으로 돌아감
+    public void ReturnBotton()
     {
-        SceneManager.LoadScene("");
-    }*/
+        SceneManager.LoadScene("CharacterSelect");
+    }
 }
