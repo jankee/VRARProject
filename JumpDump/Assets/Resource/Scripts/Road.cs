@@ -7,7 +7,8 @@ public enum RoadType
     WATER,
     WALKWAY,
     RAILROAD,
-    ROADWAY
+    ROADWAY01,
+    ROADWAY02,
 }
 
 public class Road : MonoBehaviour
