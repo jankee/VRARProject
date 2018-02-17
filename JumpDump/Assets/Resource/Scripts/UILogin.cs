@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using GooglePlayGames;
 using GooglePlayGames.BasicApi;
+using GameData;
 
 public class UILogin : MonoBehaviour
 {
@@ -75,6 +76,7 @@ public class UILogin : MonoBehaviour
         {
             PlayGamesPlatform.Instance.Authenticate(signInCallback);
 
+            //업적을 한번 불러 봄
             Social.ReportProgress(GPGSIds.achievement_1, 100F, null);
         }
     }
