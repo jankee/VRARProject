@@ -3,31 +3,47 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class CharacterSelection : MonoBehaviour {
+public class CharacterSelection : MonoBehaviour
+{
+    [SerializeField]
+    private GameObject[] characterArray;
 
-    private GameObject[] characterList;
+    [SerializeField]
+    private Camera mainCamera;
+
+    [SerializeField]
+    private Camera characterCamera;
+
+    [SerializeField]
+    private Transform selectRoot;
+
+    private List<GameObject> characterList = new List<GameObject>();
+
     private int index;
-    UIManager _uimanager;
-   
+    //private UIManager _uimanager;
 
     private void Start()
     {
-        _uimanager = GameObject.FindObjectOfType<UIManager>();
+        index = 0;
 
-        characterList = new GameObject[transform.childCount];
+        mainCamera.gameObject.SetActive(false);
 
-        // Fill the array with our models
-        for (int i = 0; i < transform.childCount; i++)
+        characterCamera.gameObject.SetActive(true);
+
+        for (int i = 0; i < characterArray.Length; i++)
         {
-            characterList[i] = transform.GetChild(i).gameObject.gameObject;
+            GameObject tmp = Instantiate(characterArray[i], selectRoot.position, Quaternion.identity, selectRoot);
+
+            characterList.Add(tmp);
         }
 
-        // We toggle off their renderer
-        foreach (GameObject go in characterList) go.SetActive(false);
+        //생성된
+        for (int i = 0; i < characterList.Count; i++)
+        {
+            characterList[i].SetActive(false);
+        }
 
-        // We toggle on the first index
-        if (characterList[0]) characterList[0].SetActive(true);
-       
+        characterList[index].SetActive(true);
     }
 
     // 왼쪽 선택 버튼
@@ -39,7 +55,7 @@ public class CharacterSelection : MonoBehaviour {
         index--; // index -=1; index = index -1;
         if (index < 0)
         {
-            index = characterList.Length - 1;
+            index = characterList.Count - 1;
         }
 
         // Toggle on the new model
@@ -53,7 +69,7 @@ public class CharacterSelection : MonoBehaviour {
         characterList[index].SetActive(false);
 
         index++; // index -=1; index = index -1;
-        if (index == characterList.Length)
+        if (index == characterList.Count)
         {
             index = 0;
         }
@@ -65,27 +81,38 @@ public class CharacterSelection : MonoBehaviour {
     // 플레이 버튼
     public void PlaymButton()
     {
-        SceneManager.LoadScene("Main");
+        print("index : " + index);
+
+        PlayerPrefs.SetInt("SELECTPLAYER", index);
+
+        //카메라를 바꾸어 준다
+        characterCamera.gameObject.SetActive(false);
+
+        mainCamera.gameObject.SetActive(true);
+
+        gameObject.SetActive(false);
     }
 
     // 랜덤 선택 버튼 선택후 바로 시작
     public void RandPicButton()
     {
-        characterList[index].SetActive(false);
-        int ran = Random.Range(0, 3);
+        int ran = Random.Range(0, characterList.Count);
         index = ran;
-                
-        characterList[index].SetActive(true);
-        SceneManager.LoadScene("Main");
+
+        PlayerPrefs.SetInt("SELECTPLAYER", index);
+
+        //카메라를 바꾸어 준다
+        characterCamera.gameObject.SetActive(false);
+
+        mainCamera.gameObject.SetActive(true);
+
+        gameObject.SetActive(false);
     }
 
     public void ShopLoadButton()
     {
-        _uimanager._select.SetActive(false);
-        _uimanager._score.SetActive(false);
-        _uimanager._buy.SetActive(true);
-
-    
+        //_uimanager._select.SetActive(false);
+        //_uimanager._score.SetActive(false);
+        //_uimanager._buy.SetActive(true);
     }
-    
 }

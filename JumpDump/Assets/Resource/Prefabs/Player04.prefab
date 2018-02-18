@@ -58,7 +58,7 @@ GameObject:
   - component: {fileID: 4894533625981742}
   - component: {fileID: 114314429321449012}
   m_Layer: 0
-  m_Name: Player
+  m_Name: Player04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -151,7 +151,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: b30215ed79d59a148805f0153ec3f2ea, type: 2}
+  - {fileID: 2100000, guid: a3d3f73e198093a4899f305d4e545e64, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -185,7 +185,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 0dd7433b9788f2c4083f0506da53c6b9, type: 2}
+  - {fileID: 2100000, guid: b30215ed79d59a148805f0153ec3f2ea, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -219,7 +219,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 46c259298724637468a126ba15a9b86b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

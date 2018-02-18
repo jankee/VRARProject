@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour {
-
+public class GameManager : MonoBehaviour
+{
     // 게임 종료 여부 (플래그(On/Off) 변수)
     public static bool IsGameStop = false;
 
@@ -16,7 +16,5 @@ public class GameManager : MonoBehaviour {
             // 이동을 정지함
             Time.timeScale = 0; //게임전체 진행속도
         }
-
     }
-
 }

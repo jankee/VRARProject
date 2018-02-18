@@ -4,17 +4,19 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class Gambling : MonoBehaviour {
-
+public class Gambling : MonoBehaviour
+{
     public Text _coinText;
     public Text _resultCoinText;
-    GameObject _cha1;
-    GameObject[] _chaSave;
+    private GameObject _cha1;
+    private GameObject[] _chaSave;
+
     // 캐릭터 목록 프리팹
     public GameObject[] _characterPrefab;
+
     public Transform _genPos;
 
-    UIManager _uimanager;
+    private UIManager _uimanager;
 
     private void Start()
     {
@@ -46,14 +48,12 @@ public class Gambling : MonoBehaviour {
                 Destroy(_cha1.gameObject);
             }
             CharacterRandomBuy();
-                        
         }
     }
 
     // 구매가능 캐릭터 랜덤 뽑기 설정
     public void CharacterRandomBuy()
     {
-       
         int prefabNum = Random.Range(0, 10);
         GameObject prefab;
         if (prefabNum > 7)
@@ -70,16 +70,13 @@ public class Gambling : MonoBehaviour {
         }
 
         _cha1 = Instantiate(prefab, _genPos.position, Quaternion.identity);
-
-        
-        
     }
-   
+
     // 캐럭터 선택창으로 돌아감
     public void ReturnBotton()
     {
-        _uimanager._select.SetActive(true);
-        _uimanager._score.SetActive(true);
-        _uimanager._buy.SetActive(false);
+        //_uimanager._select.SetActive(true);
+        //_uimanager._score.SetActive(true);
+        //_uimanager._buy.SetActive(false);
     }
 }

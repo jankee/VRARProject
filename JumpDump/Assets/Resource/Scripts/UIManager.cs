@@ -3,50 +3,82 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIManager : MonoBehaviour {
+public class UIManager : Singleton<UIManager>
+{
+    //public Text _coinText;
+    //public Text _clickScoreText;
+    //public Text _bestClickScoreText;
+    [SerializeField]
+    private GameObject startPanel;
 
-    public Text _coinText;
-    public Text _clickScoreText;
-    public Text _bestClickScoreText;
-    public GameObject _select;
-    public GameObject _buy;
-    public GameObject _score;
-    int score = 10;
+    [SerializeField]
+    private GameObject _selectPanel;
 
-    GameManager _gameManager;
+    [SerializeField]
+    private GameObject _buyPanel;
+
+    [SerializeField]
+    private UIPanel _uiPanel;
+
+    public int Score { get; set; }
+
+    public int Coin { get; set; }
+
+    public int BestScore { get; set; }
+
+    //private int score = 10;
+
+    public void Start()
+    {
+        //기존에 저장되 값을 불러온다
+        _uiPanel.bestClickScore.text = "TOP : " + PlayerPrefs.GetInt("BESTSCORE", 0).ToString();
+        _uiPanel.coinText.text = PlayerPrefs.GetInt("COIN", 0).ToString();
+
+        //BestScore 와 Coin 값에 예전 값을 넣어 둔다
+        BestScore = PlayerPrefs.GetInt("BESTSCORE", 0);
+        Coin = PlayerPrefs.GetInt("COIN", 0);
+
+        TimeStop();
+    }
 
     // 코인점수 증가
     public void CoinUp()
     {
+        Coin += 10;
 
+        _uiPanel.coinText.text = Coin.ToString();
 
-        int score = int.Parse(_coinText.text);
-
-        score = score + 10;
-        score -= 10;
-        _coinText.text = score.ToString();
-        //_coinText.text = totalScore.ToString();
-        // 코인 데이터 저장
-        PlayerPrefs.SetInt("COIN", int.Parse(_coinText.text));
+        PlayerPrefs.SetInt("COIN", Coin);
     }
 
     public void ScoreUp()
     {
+        Score++;
 
-        int clickCount = int.Parse(_clickScoreText.text);
-        int bestClickCount = int.Parse(_bestClickScoreText.text);
-        clickCount ++;
         // 클릭 카운트가 베스트클릭카운트보다 높을시 갱신
-        if (clickCount > bestClickCount)
+        if (Score > BestScore)
         {
-            _bestClickScoreText.text = clickCount.ToString();
+            BestScore = Score;
+
+            _uiPanel.bestClickScore.text = BestScore.ToString();
         }
         // 클릭 카운트 표시
-        _clickScoreText.text = clickCount.ToString();
+        _uiPanel.clickScore.text = Score.ToString();
 
-        // 클릭, 베스트클릭 점수 저장
-        PlayerPrefs.SetInt("Score", int.Parse(_clickScoreText.text));
-        PlayerPrefs.SetInt("BestScore", int.Parse(_bestClickScoreText.text));
+        // 베스트클릭 점수 저장
+        //PlayerPrefs.SetInt("SCORE", Score);
+        PlayerPrefs.SetInt("BESTSCORE", BestScore);
+    }
 
+    public void CharacterSelect()
+    {
+        _selectPanel.SetActive(true);
+
+        startPanel.SetActive(false);
+    }
+
+    public void TimeStop()
+    {
+        Time.timeScale = 0;
     }
 }
