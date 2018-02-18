@@ -3,10 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class CharacterSelection : MonoBehaviour
+public class CharacterSelection : Singleton<CharacterSelection>
 {
     [SerializeField]
     private GameObject[] characterArray;
+
+    public GameObject[] CharacterArray
+    {
+        get
+        {
+            return characterArray;
+        }
+    }
 
     [SerializeField]
     private Camera mainCamera;
@@ -20,6 +28,7 @@ public class CharacterSelection : MonoBehaviour
     private List<GameObject> characterList = new List<GameObject>();
 
     private int index;
+
     //private UIManager _uimanager;
 
     private void Start()
@@ -30,9 +39,9 @@ public class CharacterSelection : MonoBehaviour
 
         characterCamera.gameObject.SetActive(true);
 
-        for (int i = 0; i < characterArray.Length; i++)
+        for (int i = 0; i < CharacterArray.Length; i++)
         {
-            GameObject tmp = Instantiate(characterArray[i], selectRoot.position, Quaternion.identity, selectRoot);
+            GameObject tmp = Instantiate(CharacterArray[i], selectRoot.position, Quaternion.identity, selectRoot);
 
             characterList.Add(tmp);
         }
@@ -91,6 +100,8 @@ public class CharacterSelection : MonoBehaviour
         mainCamera.gameObject.SetActive(true);
 
         gameObject.SetActive(false);
+
+        GameManager.Instance.SelectPlayer();
     }
 
     // 랜덤 선택 버튼 선택후 바로 시작
@@ -107,6 +118,8 @@ public class CharacterSelection : MonoBehaviour
         mainCamera.gameObject.SetActive(true);
 
         gameObject.SetActive(false);
+
+        GameManager.Instance.SelectPlayer();
     }
 
     public void ShopLoadButton()

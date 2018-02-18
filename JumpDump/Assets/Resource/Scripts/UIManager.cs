@@ -60,7 +60,7 @@ public class UIManager : Singleton<UIManager>
         {
             BestScore = Score;
 
-            _uiPanel.bestClickScore.text = BestScore.ToString();
+            _uiPanel.bestClickScore.text = "TOP : " + BestScore.ToString();
         }
         // 클릭 카운트 표시
         _uiPanel.clickScore.text = Score.ToString();
