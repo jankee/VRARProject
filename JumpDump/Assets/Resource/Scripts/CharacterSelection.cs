@@ -17,12 +17,6 @@ public class CharacterSelection : Singleton<CharacterSelection>
     }
 
     [SerializeField]
-    private Camera mainCamera;
-
-    [SerializeField]
-    private Camera characterCamera;
-
-    [SerializeField]
     private Transform selectRoot;
 
     private List<GameObject> characterList = new List<GameObject>();
@@ -35,13 +29,13 @@ public class CharacterSelection : Singleton<CharacterSelection>
     {
         index = 0;
 
-        mainCamera.gameObject.SetActive(false);
+        GameManager.Instance.MainCamera.enabled = false;
 
-        characterCamera.gameObject.SetActive(true);
+        GameManager.Instance.CharacterCamera.enabled = true;
 
-        for (int i = 0; i < CharacterArray.Length; i++)
+        for (int i = 0; i < characterArray.Length; i++)
         {
-            GameObject tmp = Instantiate(CharacterArray[i], selectRoot.position, Quaternion.identity, selectRoot);
+            GameObject tmp = Instantiate(characterArray[i], selectRoot.position, Quaternion.identity, selectRoot);
 
             characterList.Add(tmp);
         }
@@ -88,20 +82,27 @@ public class CharacterSelection : Singleton<CharacterSelection>
     }
 
     // 플레이 버튼
-    public void PlaymButton()
+    public void PlayButton()
     {
-        print("index : " + index);
-
         PlayerPrefs.SetInt("SELECTPLAYER", index);
 
-        //카메라를 바꾸어 준다
-        characterCamera.gameObject.SetActive(false);
+        GameManager.Instance.StartPlay();
 
-        mainCamera.gameObject.SetActive(true);
-
+        //자신을 비활성화 한다
         gameObject.SetActive(false);
 
-        GameManager.Instance.SelectPlayer();
+        //print("index : " + index);
+
+        //PlayerPrefs.SetInt("SELECTPLAYER", index);
+
+        ////카메라를 바꾸어 준다
+        //characterCamera.gameObject.SetActive(false);
+
+        //mainCamera.gameObject.SetActive(true);
+        ////자신의
+        //gameObject.SetActive(false);
+
+        //GameManager.Instance.SelectPlayer();
     }
 
     // 랜덤 선택 버튼 선택후 바로 시작
@@ -113,9 +114,9 @@ public class CharacterSelection : Singleton<CharacterSelection>
         PlayerPrefs.SetInt("SELECTPLAYER", index);
 
         //카메라를 바꾸어 준다
-        characterCamera.gameObject.SetActive(false);
+        GameManager.Instance.CharacterCamera.enabled = false;
 
-        mainCamera.gameObject.SetActive(true);
+        GameManager.Instance.MainCamera.enabled = true;
 
         gameObject.SetActive(false);
 

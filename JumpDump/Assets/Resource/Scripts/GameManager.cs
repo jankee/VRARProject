@@ -7,6 +7,36 @@ public class GameManager : Singleton<GameManager>
     // 게임 종료 여부 (플래그(On/Off) 변수)
     public static bool IsGameStop = false;
 
+    public Camera MainCamera
+    {
+        get
+        {
+            return mainCamera;
+        }
+        set
+        {
+            mainCamera = value;
+        }
+    }
+
+    public Camera CharacterCamera
+    {
+        get
+        {
+            return characterCamera;
+        }
+        set
+        {
+            characterCamera = value;
+        }
+    }
+
+    [SerializeField]
+    private Camera mainCamera;
+
+    [SerializeField]
+    private Camera characterCamera;
+
     [SerializeField]
     private GameObject[] characterArray;
 
@@ -48,5 +78,16 @@ public class GameManager : Singleton<GameManager>
             // 이동을 정지함
             Time.timeScale = 0; //게임전체 진행속도
         }
+    }
+
+    public void StartPlay()
+    {
+        UIManager.Instance.StartPanel.SetActive(false);
+        //카메라를 바꾸어 준다
+        CharacterCamera.enabled = false;
+
+        MainCamera.enabled = true;
+
+        SelectPlayer();
     }
 }

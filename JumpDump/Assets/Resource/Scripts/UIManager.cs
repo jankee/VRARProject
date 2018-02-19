@@ -26,6 +26,45 @@ public class UIManager : Singleton<UIManager>
 
     public int BestScore { get; set; }
 
+    public GameObject StartPanel
+    {
+        get
+        {
+            return startPanel;
+        }
+
+        set
+        {
+            startPanel = value;
+        }
+    }
+
+    public GameObject SelectPanel
+    {
+        get
+        {
+            return _selectPanel;
+        }
+
+        set
+        {
+            _selectPanel = value;
+        }
+    }
+
+    public GameObject BuyPanel
+    {
+        get
+        {
+            return _buyPanel;
+        }
+
+        set
+        {
+            _buyPanel = value;
+        }
+    }
+
     //private int score = 10;
 
     public void Start()
