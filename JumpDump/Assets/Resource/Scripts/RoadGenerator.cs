@@ -30,6 +30,8 @@ public class RoadGenerator : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        print("Time : " + Time.deltaTime);
+
         if (Input.GetKeyDown(KeyCode.W))
         {
             this.transform.position += new Vector3(0, 0, -1);
@@ -112,6 +114,7 @@ public class RoadGenerator : MonoBehaviour
                 moveRoutine = StartCoroutine(MoveRoutine(new Vector3(0, 0, -1)));
 
                 AddRoad(new Vector3(0, 0, -1));
+
                 RemoveRoad();
                 break;
         }
@@ -127,7 +130,7 @@ public class RoadGenerator : MonoBehaviour
 
         while (duration < 0.5f)
         {
-            duration = duration + Time.deltaTime;
+            duration += 0.02f;
 
             float perc = duration * 2f;
 
@@ -156,8 +159,6 @@ public class RoadGenerator : MonoBehaviour
             columCount = i;
 
             RandomRoad(columCount);
-
-            print(columCount);
         }
     }
 

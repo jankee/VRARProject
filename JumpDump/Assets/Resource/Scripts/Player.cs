@@ -19,6 +19,7 @@ public class Player : MonoBehaviour
     {
         animator = transform.GetChild(0).GetComponent<Animator>();
 
+        print("ANIMATOR : " + animator.name);
         //_uiManager = GameObject.Find("UIManager").GetComponent<UIManager>();
     }
 
