@@ -225,6 +225,20 @@ Prefab:
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 65726985867768026, guid: ca500b8e23c345d4bb8d0a1d89db9c5e,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 65698095303405844, guid: ca500b8e23c345d4bb8d0a1d89db9c5e,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1224942428665586, guid: ca500b8e23c345d4bb8d0a1d89db9c5e, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ca500b8e23c345d4bb8d0a1d89db9c5e, type: 2}
   m_IsPrefabParent: 0
@@ -442,6 +456,10 @@ Prefab:
     - target: {fileID: 4335971624727508, guid: 543626b375d55184f89addc5f78cb7a5, type: 2}
       propertyPath: m_RootOrder
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1681741967924716, guid: 543626b375d55184f89addc5f78cb7a5, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 543626b375d55184f89addc5f78cb7a5, type: 2}
