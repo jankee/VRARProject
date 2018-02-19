@@ -5,6 +5,9 @@ JumpDump/Temp/
 JumpDump/Library/
 JumpDump/obj/
 
+CrossyRoad/Temp/
+CrossyRoad/Library/
+CrossyRoad/obj/
 
 # ===================================== #
 # Visual Studio / MonoDevelop generated #
@@ -17,6 +20,13 @@ JumpDump/*.sln
 *.unityproj
 *.booproj
 
+CrossyRoad/*.csproj
+*.pidb
+*.suo
+CrossyRoad/*.sln
+*.user
+*.unityproj
+*.booproj
 
 # ============ #
 # OS generated #
