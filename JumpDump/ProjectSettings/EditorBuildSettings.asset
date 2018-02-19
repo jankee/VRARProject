@@ -9,9 +9,6 @@ EditorBuildSettings:
     path: Assets/Resource/Scenes/Main_Yang.unity
     guid: a31633d4d3ea5814396b52af9b64760e
   - enabled: 1
-    path: Assets/CharacterSelect.unity
-    guid: a5d2d8ea44029344bacf1be695054b5e
-  - enabled: 1
     path: Assets/Resource/Scenes/Gambling.unity
     guid: 4e6a803e573283b4d9b386f80ce8cb03
   - enabled: 1

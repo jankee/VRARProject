@@ -17,14 +17,12 @@ public class InputManager : MonoBehaviour
 
     private RoadGenerator roadGene;
 
+    [SerializeField]
+    private Camera mainCamera;
+
     // Use this for initialization
     private void Start()
     {
-        if (player == null)
-        {
-            player = GameObject.FindObjectOfType<Player>();
-        }
-
         if (roadGene == null)
         {
             roadGene = GameObject.FindObjectOfType<RoadGenerator>();
@@ -40,12 +38,20 @@ public class InputManager : MonoBehaviour
     //실제 인풋이 들어 오는 함수
     public void HandleInput()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Ray ray;
 
         RaycastHit hitInfo;
 
         if (Input.GetMouseButtonDown(0))
         {
+            ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+
+            if (player == null)
+            {
+                player = GameManager.Instance.Player.GetComponent<Player>();
+                print("player : " + player.name);
+            }
+
             //마우스가 누른다
             print("마우스가 누른다");
 
@@ -56,6 +62,7 @@ public class InputManager : MonoBehaviour
         }
         else if (Input.GetMouseButton(0))
         {
+            ray = mainCamera.ScreenPointToRay(Input.mousePosition);
             //마우스 거리가 0.5이상 드레그 중인가
             print("마우스 드레그 중인가");
 
@@ -78,6 +85,8 @@ public class InputManager : MonoBehaviour
         }
         else if (Input.GetMouseButtonUp(0))
         {
+            ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+
             if (Physics.Raycast(ray, out hitInfo))
             {
                 endPos = new Vector3(hitInfo.point.x, 0, hitInfo.point.z);

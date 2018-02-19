@@ -62,6 +62,8 @@ public class Player : MonoBehaviour
 
             case "up":
                 this.transform.eulerAngles = new Vector3(0, 0, 0);
+
+                UIManager.Instance.ScoreUp();
                 break;
         }
     }
@@ -74,5 +76,4 @@ public class Player : MonoBehaviour
 
         yield return null;
     }
-
 }
