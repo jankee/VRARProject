@@ -26,6 +26,12 @@ public class UIManager : Singleton<UIManager>
 
     public int BestScore { get; set; }
 
+    [SerializeField]
+    private Light mainLight;
+
+    [SerializeField]
+    private Light secondLight;
+
     public GameObject StartPanel
     {
         get
@@ -77,7 +83,10 @@ public class UIManager : Singleton<UIManager>
         BestScore = PlayerPrefs.GetInt("BESTSCORE", 0);
         Coin = PlayerPrefs.GetInt("COIN", 0);
 
-        TimeStop();
+        //StartPanelUI 실행
+        StartPanelUI();
+
+        GamePause();
     }
 
     // 코인점수 증가
@@ -109,15 +118,49 @@ public class UIManager : Singleton<UIManager>
         PlayerPrefs.SetInt("BESTSCORE", BestScore);
     }
 
-    public void CharacterSelect()
+    public void CharacterSelectUI()
     {
         _selectPanel.SetActive(true);
 
         startPanel.SetActive(false);
+
+        _buyPanel.SetActive(false);
+
+        mainLight.enabled = false;
+
+        secondLight.enabled = true;
     }
 
-    public void TimeStop()
+    public void StartPanelUI()
     {
-        Time.timeScale = 0;
+        startPanel.SetActive(true);
+
+        _selectPanel.SetActive(false);
+
+        _buyPanel.SetActive(false);
+    }
+
+    public void GamePause()
+    {
+        secondLight.enabled = false;
+
+        mainLight.enabled = true;
+
+        Time.timeScale = 0f;
+    }
+
+    public void GameUnpause()
+    {
+        startPanel.SetActive(false);
+
+        _selectPanel.SetActive(false);
+
+        _buyPanel.SetActive(false);
+
+        secondLight.enabled = false;
+
+        mainLight.enabled = true;
+
+        Time.timeScale = 1f;
     }
 }

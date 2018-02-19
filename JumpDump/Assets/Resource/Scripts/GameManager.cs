@@ -5,7 +5,12 @@ using UnityEngine;
 public class GameManager : Singleton<GameManager>
 {
     // 게임 종료 여부 (플래그(On/Off) 변수)
-    public static bool IsGameStop = false;
+    public bool IsGameOver { get; set; }
+
+    private bool isPaused = false;
+
+    [SerializeField]
+    private Camera mainCamera;
 
     public Camera MainCamera
     {
@@ -19,6 +24,9 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
+    [SerializeField]
+    private Camera characterCamera;
+
     public Camera CharacterCamera
     {
         get
@@ -30,12 +38,6 @@ public class GameManager : Singleton<GameManager>
             characterCamera = value;
         }
     }
-
-    [SerializeField]
-    private Camera mainCamera;
-
-    [SerializeField]
-    private Camera characterCamera;
 
     [SerializeField]
     private GameObject[] characterArray;
@@ -52,6 +54,8 @@ public class GameManager : Singleton<GameManager>
 
     public void Start()
     {
+        IsGameOver = false;
+
         SelectPlayer();
     }
 
@@ -67,17 +71,19 @@ public class GameManager : Singleton<GameManager>
         player = Instantiate(characterArray[num]);
 
         Player.transform.position = Vector3.zero;
+
+        UIManager.Instance.GamePause();
     }
 
     //게임 일시 정지
     private void Update()
     {
         // 게임이 종료 상태면
-        if (IsGameStop)
-        {
-            // 이동을 정지함
-            Time.timeScale = 0; //게임전체 진행속도
-        }
+        //if (IsGameOver)
+        //{
+        //    // 이동을 정지함
+        //    Time.timeScale = 0; //게임전체 진행속도
+        //}
     }
 
     public void StartPlay()
@@ -88,6 +94,22 @@ public class GameManager : Singleton<GameManager>
 
         MainCamera.enabled = true;
 
+        IsGameOver = true;
+
+        UIManager.Instance.GameUnpause();
+
         SelectPlayer();
     }
+
+    //public void Pause()
+    //{
+    //    //
+    //    isPaused = true;
+
+    //    Time.timeScale = 0;
+    //}
+
+    //public void Unpause()
+    //{
+    //}
 }

@@ -115,7 +115,7 @@ public class RoadGenerator : MonoBehaviour
 
                 moveRoutine = StartCoroutine(MoveRoutine(new Vector3(0, 0, -1)));
 
-                Camerafollow.Instance.MoveCamera(new Vector3(0, 0, -1));
+                //Camerafollow.Instance.MoveCamera(new Vector3(0, 0, -1));
 
                 AddRoad(new Vector3(0, 0, -1));
 
