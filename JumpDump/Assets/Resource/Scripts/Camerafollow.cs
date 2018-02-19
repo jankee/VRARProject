@@ -30,8 +30,7 @@ public class Camerafollow : MonoBehaviour
             //카메라가 자동으로 앞으로 서서히 이동함
             transform.Translate(Vector3.forward * Input.GetAxis("Vertical") * Time.deltaTime * speed);
         }
-
-
+    
         // 카메라 범위 밖으로 플레이어가 닿으면 
         Ray ray = cam.ViewportPointToRay(new Vector3(0.5F, 0.5F, 0));
 
