@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 65465372015679752}
   - component: {fileID: 23974509206521952}
   - component: {fileID: 95326185296397948}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PlayerMesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,7 +41,7 @@ GameObject:
   - component: {fileID: 33432724087714200}
   - component: {fileID: 65726985867768026}
   - component: {fileID: 23598150929034482}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -57,7 +57,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4894533625981742}
   - component: {fileID: 114314429321449012}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player02
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -75,7 +75,7 @@ GameObject:
   - component: {fileID: 33771436663140228}
   - component: {fileID: 65698095303405844}
   - component: {fileID: 23820874158298228}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -324,4 +324,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b517e910752a10645b685ad76744c07c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 95326185296397948}
   speedTime: 0.5

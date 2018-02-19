@@ -12,7 +12,7 @@ public class CoinGenerator_road1 : MonoBehaviour
 
     private void Start()
     {
-        //InvokeRepeating("CreateCoins", coinTime, coinTime);
+        InvokeRepeating("CreateCoins", coinTime, coinTime);
     }
 
     private void CreateCoins()

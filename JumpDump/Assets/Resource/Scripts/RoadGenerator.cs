@@ -13,6 +13,8 @@ public class RoadGenerator : MonoBehaviour
 
     private int columCount = 0;
 
+    private int rowCount = -6;
+
     private Coroutine moveRoutine;
 
     private Vector3 startPos;
@@ -69,7 +71,7 @@ public class RoadGenerator : MonoBehaviour
 
                 moveRoutine = StartCoroutine(MoveRoutine(new Vector3(-1, 0, 0)));
 
-                AddRoad(new Vector3(0, 0, -1));
+                //AddRoad(new Vector3(0, 0, -1));
                 //RemoveRoad();
                 break;
 
@@ -83,8 +85,8 @@ public class RoadGenerator : MonoBehaviour
 
                 moveRoutine = StartCoroutine(MoveRoutine(new Vector3(0, 0, 1)));
 
-                AddRoad(new Vector3(0, 0, -1));
-                //RemoveRoad();
+                AddRoad(new Vector3(0, 0, 1));
+                RemoveRoad(new Vector3(0, 0, 1));
                 break;
 
             case "left":
@@ -97,7 +99,7 @@ public class RoadGenerator : MonoBehaviour
 
                 moveRoutine = StartCoroutine(MoveRoutine(new Vector3(1, 0, 0)));
 
-                AddRoad(new Vector3(0, 0, -1));
+                //AddRoad(new Vector3(0, 0, -1));
                 //RemoveRoad();
                 break;
 
@@ -115,7 +117,7 @@ public class RoadGenerator : MonoBehaviour
 
                 AddRoad(new Vector3(0, 0, -1));
 
-                RemoveRoad();
+                RemoveRoad(new Vector3(0, 0, -1));
                 break;
         }
     }
@@ -140,13 +142,13 @@ public class RoadGenerator : MonoBehaviour
             yield return null;
         }
 
-        ////위치 값의 소수점을 버림
-        //transform.position = new Vector3
-        //    (
-        //        Mathf.Round(transform.position.x),
-        //        0,
-        //        Mathf.Round(transform.position.z)
-        //    );
+        //위치 값의 소수점을 버림
+        transform.position = new Vector3
+            (
+                Mathf.Round(transform.position.x),
+                0,
+                Mathf.Round(transform.position.z)
+            );
     }
 
     //시작되면 화면 26개의 road가 생성됩니다. 로드가 생성되면 roadsList에 등록되게 만들었습니다.
@@ -215,11 +217,21 @@ public class RoadGenerator : MonoBehaviour
             //컬럼에 하나를 더 해준다
             columCount++;
 
+            rowCount++;
+
             RandomRoad(columCount);
+        }
+        else if (count.z == 1)
+        {
+            columCount--;
+
+            rowCount--;
+
+            RandomRoad(rowCount);
         }
     }
 
-    public void RemoveRoad()
+    public void RemoveRoad(Vector3 vector)
     {
         //여기서 roadsList의 갯수가 26개 일것 같은데 39개로 나옵니다
         print("remove : " + roadsList.Count);
@@ -231,17 +243,13 @@ public class RoadGenerator : MonoBehaviour
             //    //그래서 foreach문이 실행이 안됩니다.
             foreach (Road road in roadsList)
             {
-                print("road : " + road.RoadType.ToString());
-                //        if (road.transform.position.z > 19)
-                //        {
-                //            roadsList.Remove(road);
-                //            Destroy(road.gameObject);
-                //        }
-                //        else if (road.transform.position.z < -6)
-                //        {
-                //            roadsList.Remove(road);
-                //            Destroy(road.gameObject);
-                //        }
+                print(road.transform.position);
+
+                if (road.transform.localRotation.z > 19 || road.transform.position.z < -6)
+                {
+                    roadsList.Remove(road);
+                    Destroy(road.gameObject);
+                }
             }
         }
     }

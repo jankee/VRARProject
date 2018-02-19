@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     private float speed;
     private float delay;
 
+    [SerializeField]
     private Animator animator;
 
     [SerializeField]
@@ -17,9 +18,9 @@ public class Player : MonoBehaviour
     // Use this for initialization
     private void Start()
     {
-        animator = transform.GetChild(0).GetComponent<Animator>();
+        //animator = transform.GetChild(0).GetComponent<Animator>();
 
-        print("ANIMATOR : " + animator.name);
+        //print("ANIMATOR : " + animator.name);
         //_uiManager = GameObject.Find("UIManager").GetComponent<UIManager>();
     }
 

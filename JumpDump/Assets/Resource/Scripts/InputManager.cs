@@ -52,9 +52,6 @@ public class InputManager : MonoBehaviour
                 print("player : " + player.name);
             }
 
-            //마우스가 누른다
-            print("마우스가 누른다");
-
             if (Physics.Raycast(ray, out hitInfo))
             {
                 startPos = new Vector3(hitInfo.point.x, 0, hitInfo.point.z);
@@ -63,24 +60,22 @@ public class InputManager : MonoBehaviour
         else if (Input.GetMouseButton(0))
         {
             ray = mainCamera.ScreenPointToRay(Input.mousePosition);
-            //마우스 거리가 0.5이상 드레그 중인가
-            print("마우스 드레그 중인가");
 
             if (Physics.Raycast(ray, out hitInfo))
             {
                 endPos = new Vector3(hitInfo.point.x, 0, hitInfo.point.z);
                 float distance = Vector3.Distance(endPos, startPos);
 
-                if (distance > 0.2)
-                {
-                    if (Input.GetMouseButtonUp(0))
-                    {
-                    }
-                    return;
-                }
-                else
-                {
-                }
+                //if (distance > 0.2)
+                //{
+                //    if (Input.GetMouseButtonUp(0))
+                //    {
+                //    }
+                //    return;
+                //}
+                //else
+                //{
+                //}
             }
         }
         else if (Input.GetMouseButtonUp(0))
@@ -104,11 +99,7 @@ public class InputManager : MonoBehaviour
 
                 player.MoveCharacter("up");
                 roadGene.RoadDirection("up");
-                //플레이어에 앞으로 한칸을 이동 시킨다
-                print("한칸 앞으로");
             }
-            //마우스를 띄였을 때
-            print("마우스를 띄였을 때");
         }
     }
 
