@@ -61,6 +61,7 @@ public class RoadGenerator : MonoBehaviour
 
                 if (moveRoutine != null)
                 {
+                    StopCoroutine(moveRoutine);
                     moveRoutine = null;
                 }
 
@@ -74,6 +75,7 @@ public class RoadGenerator : MonoBehaviour
                 //this.transform.position += new Vector3(0, 0, 1);
                 if (moveRoutine != null)
                 {
+                    StopCoroutine(moveRoutine);
                     moveRoutine = null;
                 }
 
@@ -87,6 +89,7 @@ public class RoadGenerator : MonoBehaviour
                 //this.transform.position += new Vector3(1, 0, 0);
                 if (moveRoutine != null)
                 {
+                    StopCoroutine(moveRoutine);
                     moveRoutine = null;
                 }
 
@@ -102,6 +105,7 @@ public class RoadGenerator : MonoBehaviour
 
                 if (moveRoutine != null)
                 {
+                    StopCoroutine(moveRoutine);
                     moveRoutine = null;
                 }
 
@@ -121,24 +125,25 @@ public class RoadGenerator : MonoBehaviour
 
         Vector3 end = startPos + endPos;
 
-        while (duration <= 0.5f)
+        while (duration < 0.5f)
         {
-            duration += Time.deltaTime;
+            duration = duration + Time.deltaTime;
 
             float perc = duration * 2f;
-            print("start : " + startPos + ", end : " + end);
+
+            print("start : " + startPos + ", end : " + end + ", duration : " + Time.deltaTime);
             transform.position = Vector3.Lerp(startPos, end, perc);
 
             yield return null;
         }
 
-        //위치 값의 소수점을 버림
-        transform.position = new Vector3
-            (
-                Mathf.Round(transform.position.x),
-                0,
-                Mathf.Round(transform.position.z)
-            );
+        ////위치 값의 소수점을 버림
+        //transform.position = new Vector3
+        //    (
+        //        Mathf.Round(transform.position.x),
+        //        0,
+        //        Mathf.Round(transform.position.z)
+        //    );
     }
 
     //시작되면 화면 26개의 road가 생성됩니다. 로드가 생성되면 roadsList에 등록되게 만들었습니다.
