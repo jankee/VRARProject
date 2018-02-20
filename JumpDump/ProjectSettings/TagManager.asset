@@ -9,6 +9,7 @@ TagManager:
   - Buy
   - Select
   - Score
+  - Water
   layers:
   - Default
   - TransparentFX

@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    private UIManager _uiManager;
-
     private float speed;
     private float delay;
 
@@ -45,7 +43,29 @@ public class Player : MonoBehaviour
             case "up":
                 this.transform.eulerAngles = new Vector3(0, 0, 0);
 
-                UIManager.Instance.ScoreUp();
+                GameManager.Instance.ScoreUp();
+                break;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        switch (other.tag)
+        {
+            case "Coin":
+                int value = other.GetComponent<Coins>().CoinValue;
+                GameManager.Instance.CoinUp(value);
+                Destroy(other.gameObject);
+                break;
+
+            case "Water":
+                Destroy(gameObject);
+                GameManager.Instance.GamePause();
+                GameManager.Instance.IsPaused = true;
+                GameManager.Instance.IsGameOver = true;
+                break;
+
+            default:
                 break;
         }
     }

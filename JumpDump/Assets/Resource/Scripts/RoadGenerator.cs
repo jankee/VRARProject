@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RoadGenerator : MonoBehaviour
+public class RoadGenerator : Singleton<RoadGenerator>
 {
     [SerializeField]
     private Road[] roads;
@@ -102,8 +102,6 @@ public class RoadGenerator : MonoBehaviour
                 break;
 
             case "up":
-                //this.transform.position += new Vector3(0, 0, -1);
-                print("startPos : " + startPos);
 
                 if (moveRoutine != null)
                 {
@@ -153,6 +151,15 @@ public class RoadGenerator : MonoBehaviour
     //시작되면 화면 26개의 road가 생성됩니다. 로드가 생성되면 roadsList에 등록되게 만들었습니다.
     public void InitializationRoad()
     {
+        this.transform.position = Vector3.zero;
+
+        foreach (Road road in roadsList)
+        {
+            Destroy(road.gameObject);
+        }
+
+        roadsList.Clear();
+
         for (int i = -6; i < 20; i++)
         {
             columCount = i;
@@ -237,7 +244,7 @@ public class RoadGenerator : MonoBehaviour
             //    //그래서 foreach문이 실행이 안됩니다.
             foreach (Road road in roadsList)
             {
-                if (road.transform.localRotation.z > 19 || road.transform.position.z < -6)
+                if (road.transform.position.z > 19 || road.transform.position.z < -6)
                 {
                     roadsList.Remove(road);
                     Destroy(road.gameObject);

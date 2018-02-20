@@ -16,11 +16,9 @@ public class Gambling : MonoBehaviour
 
     public Transform _genPos;
 
-    private UIManager _uimanager;
-
     private void Start()
     {
-        _uimanager = GameObject.FindObjectOfType<UIManager>();
+        //_uimanager = GameObject.FindObjectOfType<UIManager>();
         int coin = int.Parse(_coinText.text);
 
         _cha1 = null;

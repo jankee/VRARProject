@@ -68,6 +68,9 @@ public class GameManager : Singleton<GameManager>
     private GameObject buyPanel;
 
     [SerializeField]
+    private GameObject pausePanel;
+
+    [SerializeField]
     private UIPanel uiPanel;
 
     [SerializeField]
@@ -75,45 +78,6 @@ public class GameManager : Singleton<GameManager>
 
     [SerializeField]
     private Light secondLight;
-
-    //public GameObject StartPanel
-    //{
-    //    get
-    //    {
-    //        return startPanel;
-    //    }
-
-    //    set
-    //    {
-    //        startPanel = value;
-    //    }
-    //}
-
-    //public GameObject SelectPanel
-    //{
-    //    get
-    //    {
-    //        return selectPanel;
-    //    }
-
-    //    set
-    //    {
-    //        selectPanel = value;
-    //    }
-    //}
-
-    //public GameObject BuyPanel
-    //{
-    //    get
-    //    {
-    //        return buyPanel;
-    //    }
-
-    //    set
-    //    {
-    //        buyPanel = value;
-    //    }
-    //}
 
     public void Start()
     {
@@ -127,6 +91,7 @@ public class GameManager : Singleton<GameManager>
         //BestScore 와 Coin 값에 예전 값을 넣어 둔다
         BestScore = PlayerPrefs.GetInt("BESTSCORE", 0);
         Coin = PlayerPrefs.GetInt("COIN", 0);
+        Score = 0;
 
         UIIntroPanel();
 
@@ -155,6 +120,8 @@ public class GameManager : Singleton<GameManager>
 
         buyPanel.SetActive(false);
 
+        pausePanel.SetActive(false);
+
         //카메라 조정
         mainCamera.enabled = true;
         characterCamera.enabled = false;
@@ -172,6 +139,8 @@ public class GameManager : Singleton<GameManager>
 
         buyPanel.SetActive(false);
 
+        pausePanel.SetActive(false);
+
         //카메라 조정
         mainCamera.enabled = false;
         characterCamera.enabled = true;
@@ -179,6 +148,8 @@ public class GameManager : Singleton<GameManager>
         //라이트 조정
         mainLight.enabled = false;
         secondLight.enabled = true;
+
+        RoadGenerator.Instance.InitializationRoad();
     }
 
     public void StartPlay()
@@ -190,6 +161,8 @@ public class GameManager : Singleton<GameManager>
 
         buyPanel.SetActive(false);
 
+        pausePanel.SetActive(false);
+
         //카메라 조정
         mainCamera.enabled = true;
         characterCamera.enabled = false;
@@ -199,6 +172,8 @@ public class GameManager : Singleton<GameManager>
         secondLight.enabled = false;
 
         SetPlayer();
+
+        GameUnpause();
     }
 
     // 코인점수 증가
@@ -237,6 +212,8 @@ public class GameManager : Singleton<GameManager>
         //일시중지는 참
         IsPaused = true;
 
+        pausePanel.SetActive(true);
+
         Time.timeScale = 0f;
     }
 
@@ -244,6 +221,8 @@ public class GameManager : Singleton<GameManager>
     {
         //일시중지는 거짓
         IsPaused = false;
+
+        pausePanel.SetActive(false);
 
         Time.timeScale = 1f;
     }

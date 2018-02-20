@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 114574744336801204}
   m_Layer: 0
   m_Name: Road_004
-  m_TagString: Untagged
+  m_TagString: Water
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -40,7 +40,7 @@ GameObject:
   - component: {fileID: 23403567196437740}
   m_Layer: 0
   m_Name: RoadMesh
-  m_TagString: Untagged
+  m_TagString: Water
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -66,8 +66,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1467223036559850}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.5, z: 0}
-  m_LocalScale: {x: 30, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: -0.6, z: 0}
+  m_LocalScale: {x: 30, y: 0.9, z: 1}
   m_Children: []
   m_Father: {fileID: 4231660050241752}
   m_RootOrder: 0
@@ -137,3 +137,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roadType: 0
+  vehicles:
+  - {fileID: 1056377160542092, guid: 8c494c33f87baaa47a456a18b10ed98b, type: 2}

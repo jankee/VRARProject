@@ -32,7 +32,10 @@ public class InputManager : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        HandleInput();
+        if (!GameManager.Instance.IsPaused)
+        {
+            HandleInput();
+        }
     }
 
     //실제 인풋이 들어 오는 함수
@@ -49,7 +52,6 @@ public class InputManager : MonoBehaviour
             if (player == null)
             {
                 player = GameManager.Instance.Player.GetComponent<Player>();
-                print("player : " + player.name);
             }
 
             if (Physics.Raycast(ray, out hitInfo))
@@ -108,8 +110,6 @@ public class InputManager : MonoBehaviour
         Vector3 dirPos = endPos - startPos;
 
         float dirRot = (Mathf.Atan2(dirPos.z, dirPos.x) * Mathf.Rad2Deg) + 180f;
-
-        print("방향 : " + dirRot);
 
         if (315f <= dirRot || dirRot <= 45f)
         {
