@@ -9,7 +9,6 @@ public class Player : MonoBehaviour
     private float speed;
     private float delay;
 
-    [SerializeField]
     private Animator animator;
 
     [SerializeField]
@@ -18,30 +17,11 @@ public class Player : MonoBehaviour
     // Use this for initialization
     private void Start()
     {
-        //animator = transform.GetChild(0).GetComponent<Animator>();
-
-        //print("ANIMATOR : " + animator.name);
-        //_uiManager = GameObject.Find("UIManager").GetComponent<UIManager>();
+        animator = transform.GetChild(0).GetComponent<Animator>();
     }
 
     private void Update()
     {
-        //if (Input.GetKeyDown(KeyCode.W))
-        //{
-        //    MoveCharacter(0, 1);
-        //}
-        //if (Input.GetKeyDown(KeyCode.S))
-        //{
-        //    MoveCharacter(0, -1);
-        //}
-        //if (Input.GetKeyDown(KeyCode.A))
-        //{
-        //    MoveCharacter(1, 0);
-        //}
-        //if (Input.GetKeyDown(KeyCode.D))
-        //{
-        //    MoveCharacter(-1, 0);
-        //}
     }
 
     public void MoveCharacter(string dir)

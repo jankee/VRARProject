@@ -32,8 +32,6 @@ public class RoadGenerator : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        print("Time : " + Time.deltaTime);
-
         if (Input.GetKeyDown(KeyCode.W))
         {
             this.transform.position += new Vector3(0, 0, -1);
@@ -134,11 +132,10 @@ public class RoadGenerator : MonoBehaviour
 
         while (duration < 0.5f)
         {
-            duration += 0.02f;
+            duration += Time.deltaTime;
 
             float perc = duration * 2f;
 
-            print("start : " + startPos + ", end : " + end + ", duration : " + Time.deltaTime);
             transform.position = Vector3.Lerp(startPos, end, perc);
 
             yield return null;
@@ -156,8 +153,6 @@ public class RoadGenerator : MonoBehaviour
     //시작되면 화면 26개의 road가 생성됩니다. 로드가 생성되면 roadsList에 등록되게 만들었습니다.
     public void InitializationRoad()
     {
-        print("Roads List : " + roadsList.Count);
-
         for (int i = -6; i < 20; i++)
         {
             columCount = i;
@@ -235,9 +230,6 @@ public class RoadGenerator : MonoBehaviour
 
     public void RemoveRoad(Vector3 vector)
     {
-        //여기서 roadsList의 갯수가 26개 일것 같은데 39개로 나옵니다
-        print("remove : " + roadsList.Count);
-
         //road의 z 위치 값이 19를 넘거나 -6 이하 로 있으면 지울려고 합니다.
         if (roadsList.Count > 26)
         {
@@ -245,8 +237,6 @@ public class RoadGenerator : MonoBehaviour
             //    //그래서 foreach문이 실행이 안됩니다.
             foreach (Road road in roadsList)
             {
-                print(road.transform.position);
-
                 if (road.transform.localRotation.z > 19 || road.transform.position.z < -6)
                 {
                     roadsList.Remove(road);

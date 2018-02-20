@@ -23,8 +23,6 @@ public class CharacterSelection : Singleton<CharacterSelection>
 
     private int index;
 
-    //private UIManager _uimanager;
-
     private void Start()
     {
         index = 0;
@@ -90,19 +88,6 @@ public class CharacterSelection : Singleton<CharacterSelection>
 
         //자신을 비활성화 한다
         gameObject.SetActive(false);
-
-        //print("index : " + index);
-
-        //PlayerPrefs.SetInt("SELECTPLAYER", index);
-
-        ////카메라를 바꾸어 준다
-        //characterCamera.gameObject.SetActive(false);
-
-        //mainCamera.gameObject.SetActive(true);
-        ////자신의
-        //gameObject.SetActive(false);
-
-        //GameManager.Instance.SelectPlayer();
     }
 
     // 랜덤 선택 버튼 선택후 바로 시작
@@ -113,20 +98,9 @@ public class CharacterSelection : Singleton<CharacterSelection>
 
         PlayerPrefs.SetInt("SELECTPLAYER", index);
 
-        //카메라를 바꾸어 준다
-        GameManager.Instance.CharacterCamera.enabled = false;
+        GameManager.Instance.StartPlay();
 
-        GameManager.Instance.MainCamera.enabled = true;
-
+        //자신을 비활성화 한다
         gameObject.SetActive(false);
-
-        GameManager.Instance.SelectPlayer();
-    }
-
-    public void ShopLoadButton()
-    {
-        //_uimanager._select.SetActive(false);
-        //_uimanager._score.SetActive(false);
-        //_uimanager._buy.SetActive(true);
     }
 }

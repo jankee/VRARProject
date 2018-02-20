@@ -7,7 +7,13 @@ public class GameManager : Singleton<GameManager>
     // 게임 종료 여부 (플래그(On/Off) 변수)
     public bool IsGameOver { get; set; }
 
-    private bool isPaused = false;
+    public int Score { get; set; }
+
+    public int Coin { get; set; }
+
+    public int BestScore { get; set; }
+
+    public bool IsPaused { get; set; }
 
     [SerializeField]
     private Camera mainCamera;
@@ -52,14 +58,82 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
+    [SerializeField]
+    private GameObject introPanel;
+
+    [SerializeField]
+    private GameObject selectPanel;
+
+    [SerializeField]
+    private GameObject buyPanel;
+
+    [SerializeField]
+    private UIPanel uiPanel;
+
+    [SerializeField]
+    private Light mainLight;
+
+    [SerializeField]
+    private Light secondLight;
+
+    //public GameObject StartPanel
+    //{
+    //    get
+    //    {
+    //        return startPanel;
+    //    }
+
+    //    set
+    //    {
+    //        startPanel = value;
+    //    }
+    //}
+
+    //public GameObject SelectPanel
+    //{
+    //    get
+    //    {
+    //        return selectPanel;
+    //    }
+
+    //    set
+    //    {
+    //        selectPanel = value;
+    //    }
+    //}
+
+    //public GameObject BuyPanel
+    //{
+    //    get
+    //    {
+    //        return buyPanel;
+    //    }
+
+    //    set
+    //    {
+    //        buyPanel = value;
+    //    }
+    //}
+
     public void Start()
     {
         IsGameOver = false;
+        IsPaused = false;
 
-        SelectPlayer();
+        //기존에 저장되 값을 불러온다
+        uiPanel.bestClickScore.text = "TOP : " + PlayerPrefs.GetInt("BESTSCORE", 0).ToString();
+        uiPanel.coinText.text = PlayerPrefs.GetInt("COIN", 0).ToString();
+
+        //BestScore 와 Coin 값에 예전 값을 넣어 둔다
+        BestScore = PlayerPrefs.GetInt("BESTSCORE", 0);
+        Coin = PlayerPrefs.GetInt("COIN", 0);
+
+        UIIntroPanel();
+
+        SetPlayer();
     }
 
-    public void SelectPlayer()
+    public void SetPlayer()
     {
         if (player != null)
         {
@@ -71,45 +145,129 @@ public class GameManager : Singleton<GameManager>
         player = Instantiate(characterArray[num]);
 
         Player.transform.position = Vector3.zero;
-
-        UIManager.Instance.GamePause();
     }
 
-    //게임 일시 정지
-    private void Update()
+    public void UIIntroPanel()
     {
-        // 게임이 종료 상태면
-        //if (IsGameOver)
-        //{
-        //    // 이동을 정지함
-        //    Time.timeScale = 0; //게임전체 진행속도
-        //}
+        introPanel.SetActive(true);
+
+        selectPanel.SetActive(false);
+
+        buyPanel.SetActive(false);
+
+        //카메라 조정
+        mainCamera.enabled = true;
+        characterCamera.enabled = false;
+
+        //라이트 조정
+        mainLight.enabled = true;
+        secondLight.enabled = false;
+    }
+
+    public void UICharacterSelect()
+    {
+        introPanel.SetActive(false);
+
+        selectPanel.SetActive(true);
+
+        buyPanel.SetActive(false);
+
+        //카메라 조정
+        mainCamera.enabled = false;
+        characterCamera.enabled = true;
+
+        //라이트 조정
+        mainLight.enabled = false;
+        secondLight.enabled = true;
     }
 
     public void StartPlay()
     {
-        UIManager.Instance.StartPanel.SetActive(false);
-        //카메라를 바꾸어 준다
-        CharacterCamera.enabled = false;
+        //패널 조정
+        introPanel.SetActive(false);
 
-        MainCamera.enabled = true;
+        selectPanel.SetActive(false);
+
+        buyPanel.SetActive(false);
+
+        //카메라 조정
+        mainCamera.enabled = true;
+        characterCamera.enabled = false;
+
+        //라이트 조정
+        mainLight.enabled = true;
+        secondLight.enabled = false;
+
+        SetPlayer();
+    }
+
+    // 코인점수 증가
+    public void CoinUp(int coinValue)
+    {
+        Coin += coinValue;
+
+        if (uiPanel.coinText)
+        {
+            uiPanel.coinText.text = Coin.ToString();
+        }
+
+        PlayerPrefs.SetInt("COIN", Coin);
+    }
+
+    public void ScoreUp()
+    {
+        Score++;
+
+        // 클릭 카운트가 베스트클릭카운트보다 높을시 갱신
+        if (Score > BestScore)
+        {
+            BestScore = Score;
+
+            uiPanel.bestClickScore.text = "TOP : " + BestScore.ToString();
+        }
+        // 클릭 카운트 표시
+        uiPanel.clickScore.text = Score.ToString();
+
+        // 베스트클릭 점수 저장
+        PlayerPrefs.SetInt("BESTSCORE", BestScore);
+    }
+
+    public void GamePause()
+    {
+        //일시중지는 참
+        IsPaused = true;
+
+        Time.timeScale = 0f;
+    }
+
+    public void GameUnpause()
+    {
+        //일시중지는 거짓
+        IsPaused = false;
+
+        Time.timeScale = 1f;
+    }
+
+    private void Restart()
+    {
+        //Application.loadedLevel(Application.loadedLevelName);
+    }
+
+    private void MainMenu()
+    {
+        //Application.loadedLevel();
+    }
+
+    private IEnumerator GameOver(float delay)
+    {
+        yield return new WaitForSeconds(delay);
 
         IsGameOver = true;
 
-        UIManager.Instance.GameUnpause();
+        if (true)
+        {
+        }
 
-        SelectPlayer();
+        int totalCoins = PlayerPrefs.GetInt("COIN", 0);
     }
-
-    //public void Pause()
-    //{
-    //    //
-    //    isPaused = true;
-
-    //    Time.timeScale = 0;
-    //}
-
-    //public void Unpause()
-    //{
-    //}
 }

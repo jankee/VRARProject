@@ -26,6 +26,8 @@ public class UIManager : Singleton<UIManager>
 
     public int BestScore { get; set; }
 
+    public bool IsPaused { get; set; }
+
     [SerializeField]
     private Light mainLight;
 
@@ -75,6 +77,8 @@ public class UIManager : Singleton<UIManager>
 
     public void Start()
     {
+        IsPaused = false;
+
         //기존에 저장되 값을 불러온다
         _uiPanel.bestClickScore.text = "TOP : " + PlayerPrefs.GetInt("BESTSCORE", 0).ToString();
         _uiPanel.coinText.text = PlayerPrefs.GetInt("COIN", 0).ToString();
@@ -90,11 +94,14 @@ public class UIManager : Singleton<UIManager>
     }
 
     // 코인점수 증가
-    public void CoinUp()
+    public void CoinUp(int coinValeu)
     {
-        Coin += 10;
+        Coin += coinValeu;
 
-        _uiPanel.coinText.text = Coin.ToString();
+        if (_uiPanel.coinText)
+        {
+            _uiPanel.coinText.text = Coin.ToString();
+        }
 
         PlayerPrefs.SetInt("COIN", Coin);
     }
@@ -142,15 +149,23 @@ public class UIManager : Singleton<UIManager>
 
     public void GamePause()
     {
+        //일시중지는 참
+        IsPaused = true;
+
         secondLight.enabled = false;
 
         mainLight.enabled = true;
 
-        Time.timeScale = 0f;
+        print("cham");
+
+        //Time.timeScale = 0f;
     }
 
     public void GameUnpause()
     {
+        //일시중지는 거짓
+        IsPaused = false;
+
         startPanel.SetActive(false);
 
         _selectPanel.SetActive(false);
@@ -161,6 +176,6 @@ public class UIManager : Singleton<UIManager>
 
         mainLight.enabled = true;
 
-        Time.timeScale = 1f;
+        //Time.timeScale = 1f;
     }
 }
