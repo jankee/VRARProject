@@ -47,22 +47,28 @@ public class Road : MonoBehaviour
             moveDirection = -1;
         }
 
-        moveSpeed.x = Random.Range(moveSpeed.x, moveSpeed.y);
+        if (vehicles.Length > 0)
+        {
+            moveSpeed.x = Random.Range(moveSpeed.x, moveSpeed.y);
 
-        float laneLength = Vector3.Distance(laneStart, laneEnd);
+            float laneLength = Vector3.Distance(laneStart, laneEnd);
 
-        newVehicle = Instantiate(vehicles[0]);
+            newVehicle = Instantiate(vehicles[0]);
 
-        newVehicle.transform.SetParent(this.transform);
-        newVehicle.transform.position = this.transform.position + laneStart;
-        newVehicle.transform.LookAt(this.transform.position + laneEnd);
+            newVehicle.transform.SetParent(this.transform);
+            newVehicle.transform.position = this.transform.position + laneStart;
+            newVehicle.transform.LookAt(this.transform.position + laneEnd);
+        }
 
         //newVehicle.transform.Translate(Vector3.forward * moveSpeed.x * Time.deltaTime);
     }
 
     private void Update()
     {
-        newVehicle.transform.Translate(Vector3.forward * moveSpeed.x * Time.deltaTime);
+        if (vehicles.Length > 0)
+        {
+            newVehicle.transform.Translate(Vector3.forward * moveSpeed.x * Time.deltaTime);
+        }
     }
 
     private IEnumerator CreateVehicleRoutine(float wait, int pos)

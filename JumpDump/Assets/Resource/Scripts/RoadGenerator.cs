@@ -84,7 +84,7 @@ public class RoadGenerator : Singleton<RoadGenerator>
                 moveRoutine = StartCoroutine(MoveRoutine(new Vector3(0, 0, 1)));
 
                 AddRoad(new Vector3(0, 0, 1));
-                RemoveRoad(new Vector3(0, 0, 1));
+                //RemoveRoad(new Vector3(0, 0, 1));
                 break;
 
             case "left":
@@ -115,7 +115,7 @@ public class RoadGenerator : Singleton<RoadGenerator>
 
                 AddRoad(new Vector3(0, 0, -1));
 
-                RemoveRoad(new Vector3(0, 0, -1));
+                //RemoveRoad(new Vector3(0, 0, -1));
                 break;
         }
     }
@@ -240,10 +240,10 @@ public class RoadGenerator : Singleton<RoadGenerator>
         //road의 z 위치 값이 19를 넘거나 -6 이하 로 있으면 지울려고 합니다.
         if (roadsList.Count > 26)
         {
-            //    //여기서 roadsList 카운트가 39개인데 road는 null이 뜹니다. 왜그런지 이유를 모르겠습니다
-            //    //그래서 foreach문이 실행이 안됩니다.
+            //그래서 foreach문이 실행이 안됩니다.
             foreach (Road road in roadsList)
             {
+                print(road.name + " : " + road.transform.position + ", " + road.transform.localPosition);
                 if (road.transform.position.z > 19 || road.transform.position.z < -6)
                 {
                     roadsList.Remove(road);
