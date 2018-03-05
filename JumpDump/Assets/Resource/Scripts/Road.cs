@@ -30,6 +30,10 @@ public class Road : MonoBehaviour
     private Vector3 laneStart = new Vector3(-15, 0, 0);
     private Vector3 laneEnd = new Vector3(15, 0, 0);
 
+    [SerializeField]
+    private Vector2 movingObjcetNumber = new Vector2(1, 3);
+
+    [SerializeField]
     private Vector2 moveSpeed = new Vector2(0.5f, 1.5f);
 
     private int moveDirection = 1;
@@ -49,32 +53,49 @@ public class Road : MonoBehaviour
 
         if (vehicles.Length > 0)
         {
-            moveSpeed.x = Random.Range(moveSpeed.x, moveSpeed.y);
-
-            float laneLength = Vector3.Distance(laneStart, laneEnd);
-
-            newVehicle = Instantiate(vehicles[0]);
-
-            newVehicle.transform.SetParent(this.transform);
-            newVehicle.transform.position = this.transform.position + laneStart;
-            newVehicle.transform.LookAt(this.transform.position + laneEnd);
+            CreateRaft();
         }
 
         //newVehicle.transform.Translate(Vector3.forward * moveSpeed.x * Time.deltaTime);
     }
 
-    private void Update()
+    private void CreateRaft()
     {
-        if (vehicles.Length > 0)
-        {
-            newVehicle.transform.Translate(Vector3.forward * moveSpeed.x * Time.deltaTime);
-        }
+        moveSpeed.x = Random.Range(moveSpeed.x, moveSpeed.y);
+
+        float laneLength = Vector3.Distance(laneStart, laneEnd);
+
+        newVehicle = Instantiate(vehicles[0]);
+
+        newVehicle.transform.SetParent(this.transform);
+        newVehicle.transform.position = this.transform.position + laneStart;
+        newVehicle.transform.LookAt(this.transform.position + laneEnd);
+
+        StartCoroutine(CreateVehicleRoutine(1.5f));
     }
 
-    private IEnumerator CreateVehicleRoutine(float wait, int pos)
+    private void Update()
+    {
+        //if (vehicles.Length > 0)
+        //{
+        //    newVehicle.transform.Translate(Vector3.forward * moveSpeed.x * Time.deltaTime);
+        //}
+    }
+
+    private IEnumerator CreateVehicleRoutine(float wait)
     {
         yield return new WaitForSeconds(wait);
 
-        Instantiate(vehicles[0], new Vector3(pos, 0, 0), Quaternion.identity, this.transform);
+        while (newVehicle.transform.position.x < laneEnd.x)
+        {
+            newVehicle.transform.Translate(Vector3.forward * moveSpeed.x * Time.deltaTime);
+
+            yield return null;
+        }
+
+        Destroy(newVehicle.gameObject);
+
+        CreateRaft();
+        //Instantiate(vehicles[0], new Vector3(pos, 0, 0), Quaternion.identity, this.transform);
     }
 }
