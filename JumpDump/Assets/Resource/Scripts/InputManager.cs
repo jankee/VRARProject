@@ -113,6 +113,10 @@ public class InputManager : MonoBehaviour
 
         float dirRot = (Mathf.Atan2(dirPos.z, dirPos.x) * Mathf.Rad2Deg) + 180f;
 
+        mainCamera.transform.SetParent(roadGene.transform);
+
+        print(mainCamera.name);
+
         if (315f <= dirRot || dirRot <= 45f)
         {
             this.transform.localEulerAngles = new Vector3(0, -90, 0);

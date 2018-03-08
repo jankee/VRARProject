@@ -15,10 +15,6 @@ public class Camerafollow : MonoBehaviour
 
     public GameObject playerMesh;
 
-    private Vector3 shouldPos; // 플레이어 이동에 맞게 카메라 함께 이동
-
-    private GameObject Coin;
-
     private void Update()
     {
         //shouldPos = Vector3.Lerp(this.transform.position, GameManager.Instance.Player.transform.position, Time.deltaTime);
@@ -48,4 +44,6 @@ public class Camerafollow : MonoBehaviour
         //    else
         //        print("게임 지속");
     }
+
+    //카메라 이동 방법 : RoadGenerator의 자식으로
 }
