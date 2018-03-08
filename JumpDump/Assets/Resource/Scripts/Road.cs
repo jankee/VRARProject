@@ -51,7 +51,8 @@ public class Road : MonoBehaviour
             moveDirection = -1;
         }
 
-        if (vehicles.Length > 0)
+        //로드타입을 확인, 만약 물이면 실행
+        if (roadType == RoadType.WATER)
         {
             CreateRaft();
         }

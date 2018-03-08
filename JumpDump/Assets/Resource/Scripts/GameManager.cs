@@ -96,6 +96,11 @@ public class GameManager : Singleton<GameManager>
         UIIntroPanel();
 
         SetPlayer();
+
+        //시작을 한후 일시 정지
+        //GamePause();
+        Time.timeScale = 0;
+        IsPaused = false;
     }
 
     public void SetPlayer()

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class InputManager : MonoBehaviour
 {
@@ -29,10 +30,11 @@ public class InputManager : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
+    // Update is called once per fra
     private void Update()
     {
-        if (!GameManager.Instance.IsPaused)
+        //
+        if (!GameManager.Instance.IsPaused && EventSystem.current.IsPointerOverGameObject() == false)
         {
             HandleInput();
         }
