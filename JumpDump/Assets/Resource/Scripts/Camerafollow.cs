@@ -10,40 +10,89 @@ public class Camerafollow : MonoBehaviour
     // 플레이어가 멈춰있을 때 카메라자동이동 속도
     public float speed = 0.05f;
 
+    private Coroutine endPosRoutine;
+
+    private Vector3 originPos = new Vector3(8.3f, 23f, -14.5f);
+
+    private Vector3 endPos = new Vector3(6.6f, 23f, -11.5f);
+
     // 게임 종료 여부
     public static bool IsGameStop = false;
 
-    public GameObject playerMesh;
+    private GameObject playerMesh;
 
     private void Update()
     {
-        //shouldPos = Vector3.Lerp(this.transform.position, GameManager.Instance.Player.transform.position, Time.deltaTime);
-        //this.transform.position = new Vector3(shouldPos.x, 4, 1);
-
-        //// 게임이 시작되면
-        //if (IsGameStop)
-        //{
-        //    //카메라가 자동으로 앞으로 서서히 이동함
-        //    transform.Translate(Vector3.forward * Input.GetAxis("Vertical") * Time.deltaTime * speed);
-        //}
-
-        // 카메라 범위 밖으로 플레이어가 닿으면
-        //Ray ray = cam.ViewportPointToRay(new Vector3(0.5F, 0.5F, 0));
-
-        //RaycastHit hit;
-
-        //if (Physics.Raycast(ray, out hit))
-        //    // 게임 종료
-        //    if (IsGameStop)
-        //    {
-        //        // 이동을 정지
-        //        //Time.timeScale = 0;
-        //    }
-
-        //    // 게임 지속
-        //    else
-        //        print("게임 지속");
     }
 
     //카메라 이동 방법 : RoadGenerator의 자식으로
+    public void OriginPosition()
+    {
+        StartCoroutine(OriginPositionRoutine());
+
+        //
+        //endPosRoutine = StartCoroutine(TimeOutRoutine());
+
+        //print("실행 완료");
+    }
+
+    private IEnumerator OriginPositionRoutine()
+    {
+        yield return new WaitForSeconds(0.25f);
+
+        this.transform.parent = null;
+
+        float timer = 0.25f;
+
+        float coolTime = 0f;
+
+        Vector3 tmpPos = this.transform.position;
+        print(" 1 ");
+        while (coolTime < timer)
+        {
+            coolTime += Time.deltaTime;
+
+            this.transform.position = Vector3.MoveTowards(tmpPos, originPos, coolTime / timer);
+
+            yield return null;
+        }
+
+        this.transform.position = originPos;
+
+        InputManager.Instance.IsMoved = false;
+
+        if (endPosRoutine != null)
+        {
+            //우선 움직이면 코투틴이 멈춘다
+            StopCoroutine(endPosRoutine);
+        }
+
+        endPosRoutine = StartCoroutine(TimeOutRoutine());
+    }
+
+    /// <summary>
+    /// 일정 시간 후 카메라가 앞으로 전진하여 캐릭터가 사망을 한다
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator TimeOutRoutine()
+    {
+        yield return new WaitForSeconds(4f);
+
+        print("Tiem out");
+
+        float outTimer = 6f;
+
+        float coolTime = 0f;
+
+        while (coolTime < outTimer)
+        {
+            coolTime += Time.deltaTime;
+
+            this.transform.position = Vector3.Lerp(originPos, endPos, coolTime / outTimer);
+
+            yield return null;
+        }
+
+        this.transform.position = endPos;
+    }
 }

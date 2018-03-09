@@ -59,7 +59,7 @@ public class Player : MonoBehaviour
                 break;
 
             case "Water":
-                Destroy(gameObject);
+                //Destroy(gameObject);
                 GameManager.Instance.GamePause();
                 GameManager.Instance.IsPaused = true;
                 GameManager.Instance.IsGameOver = true;

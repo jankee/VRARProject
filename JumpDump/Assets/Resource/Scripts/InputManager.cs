@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class InputManager : MonoBehaviour
+public class InputManager : Singleton<InputManager>
 {
     //플레이어 담을 변수
     private Player player;
@@ -18,6 +18,8 @@ public class InputManager : MonoBehaviour
 
     private RoadGenerator roadGene;
 
+    public bool IsMoved { get; set; }
+
     [SerializeField]
     private Camera mainCamera;
 
@@ -28,13 +30,15 @@ public class InputManager : MonoBehaviour
         {
             roadGene = GameObject.FindObjectOfType<RoadGenerator>();
         }
+
+        IsMoved = false;
     }
 
     // Update is called once per fra
     private void Update()
     {
         //
-        if (!GameManager.Instance.IsPaused && EventSystem.current.IsPointerOverGameObject() == false)
+        if (!GameManager.Instance.IsPaused && EventSystem.current.IsPointerOverGameObject() == false && !IsMoved)
         {
             HandleInput();
         }
@@ -69,17 +73,6 @@ public class InputManager : MonoBehaviour
             {
                 endPos = new Vector3(hitInfo.point.x, 0, hitInfo.point.z);
                 float distance = Vector3.Distance(endPos, startPos);
-
-                //if (distance > 0.2)
-                //{
-                //    if (Input.GetMouseButtonUp(0))
-                //    {
-                //    }
-                //    return;
-                //}
-                //else
-                //{
-                //}
             }
         }
         else if (Input.GetMouseButtonUp(0))
@@ -101,8 +94,16 @@ public class InputManager : MonoBehaviour
                     return;
                 }
 
+                //카메라에 부모를 만들어 따라가게 만듬
+                mainCamera.transform.SetParent(roadGene.transform);
+
+                IsMoved = true;
+
                 player.MoveCharacter("up");
                 roadGene.RoadDirection("up");
+
+                //카메라가 다시 제위치를 찾게 만들어 줌
+                mainCamera.GetComponent<Camerafollow>().OriginPosition();
             }
         }
     }
@@ -115,35 +116,31 @@ public class InputManager : MonoBehaviour
 
         mainCamera.transform.SetParent(roadGene.transform);
 
-        print(mainCamera.name);
-
         if (315f <= dirRot || dirRot <= 45f)
         {
             this.transform.localEulerAngles = new Vector3(0, -90, 0);
-            print("왼쪽 : " + dirRot);
             player.MoveCharacter("left");
             roadGene.RoadDirection("left");
         }
         else if (45f <= dirRot && dirRot <= 135f)
         {
             this.transform.localEulerAngles = new Vector3(0, 180, 0);
-            print("아래 : " + dirRot);
             player.MoveCharacter("down");
             roadGene.RoadDirection("down");
         }
         else if (135f <= dirRot && dirRot <= 225f)
         {
             this.transform.localEulerAngles = new Vector3(0, 90, 0);
-            print("오른쪽 : " + dirRot);
             player.MoveCharacter("right");
             roadGene.RoadDirection("right");
         }
         else if (225f <= dirRot && dirRot <= 315f)
         {
             this.transform.localEulerAngles = new Vector3(0, 0, 0);
-            print("위쪽 : " + dirRot);
             player.MoveCharacter("up");
             roadGene.RoadDirection("up");
         }
+
+        mainCamera.GetComponent<Camerafollow>().OriginPosition();
     }
 }
