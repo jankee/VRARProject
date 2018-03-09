@@ -5,7 +5,7 @@ using UnityEngine;
 public class Camerafollow : MonoBehaviour
 {
     // 카메라 지정
-    private Camera cam;
+    //private Camera cam;
 
     // 플레이어가 멈춰있을 때 카메라자동이동 속도
     public float speed = 0.05f;
@@ -19,45 +19,52 @@ public class Camerafollow : MonoBehaviour
     // 게임 종료 여부
     public static bool IsGameStop = false;
 
-    private GameObject playerMesh;
+    private Player target;
 
-    private void Update()
+    private void Start()
     {
+        //카메라
+        //cam = Camera.main;
+
+        target = FindObjectOfType<Player>();
     }
 
     //카메라 이동 방법 : RoadGenerator의 자식으로
     public void OriginPosition()
     {
-        StartCoroutine(OriginPositionRoutine());
+        print(" Camera On ");
+        if (target != null)
+        {
+            print(" Camera Start ");
+            Vector3 endPos = target.transform.position;
 
-        //
-        //endPosRoutine = StartCoroutine(TimeOutRoutine());
-
-        //print("실행 완료");
+            StartCoroutine(OriginPositionRoutine(endPos));
+        }
     }
 
-    private IEnumerator OriginPositionRoutine()
+    private IEnumerator OriginPositionRoutine(Vector3 endPos)
     {
         yield return new WaitForSeconds(0.25f);
-
-        this.transform.parent = null;
 
         float timer = 0.25f;
 
         float coolTime = 0f;
 
+        //타겟의 위치와 카메라 위치값을 더 한다
+        endPos += originPos;
+
         Vector3 tmpPos = this.transform.position;
-        print(" 1 ");
+
         while (coolTime < timer)
         {
             coolTime += Time.deltaTime;
 
-            this.transform.position = Vector3.MoveTowards(tmpPos, originPos, coolTime / timer);
+            this.transform.position = Vector3.MoveTowards(tmpPos, endPos, coolTime / timer);
 
             yield return null;
         }
 
-        this.transform.position = originPos;
+        this.transform.position = endPos;
 
         InputManager.Instance.IsMoved = false;
 
@@ -77,8 +84,6 @@ public class Camerafollow : MonoBehaviour
     private IEnumerator TimeOutRoutine()
     {
         yield return new WaitForSeconds(4f);
-
-        print("Tiem out");
 
         float outTimer = 6f;
 

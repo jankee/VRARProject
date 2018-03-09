@@ -18,6 +18,7 @@ public class InputManager : Singleton<InputManager>
 
     private RoadGenerator roadGene;
 
+    //움직이고 있는지 확인 변수
     public bool IsMoved { get; set; }
 
     [SerializeField]
@@ -95,7 +96,7 @@ public class InputManager : Singleton<InputManager>
                 }
 
                 //카메라에 부모를 만들어 따라가게 만듬
-                mainCamera.transform.SetParent(roadGene.transform);
+                //mainCamera.transform.SetParent(roadGene.transform);
 
                 IsMoved = true;
 
@@ -103,7 +104,7 @@ public class InputManager : Singleton<InputManager>
                 roadGene.RoadDirection("up");
 
                 //카메라가 다시 제위치를 찾게 만들어 줌
-                mainCamera.GetComponent<Camerafollow>().OriginPosition();
+                //mainCamera.GetComponent<Camerafollow>().OriginPosition();
             }
         }
     }
@@ -114,7 +115,9 @@ public class InputManager : Singleton<InputManager>
 
         float dirRot = (Mathf.Atan2(dirPos.z, dirPos.x) * Mathf.Rad2Deg) + 180f;
 
-        mainCamera.transform.SetParent(roadGene.transform);
+        //카메라 셋팅
+        mainCamera.GetComponent<Camerafollow>().OriginPosition();
+        //mainCamera.transform.SetParent(roadGene.transform);
 
         if (315f <= dirRot || dirRot <= 45f)
         {
@@ -141,6 +144,6 @@ public class InputManager : Singleton<InputManager>
             roadGene.RoadDirection("up");
         }
 
-        mainCamera.GetComponent<Camerafollow>().OriginPosition();
+        //mainCamera.GetComponent<Camerafollow>().OriginPosition();
     }
 }

@@ -32,92 +32,94 @@ public class RoadGenerator : Singleton<RoadGenerator>
     // Update is called once per frame
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            this.transform.position += new Vector3(0, 0, -1);
+        ///로드가 움이지이는 걸 막았음
+        //if (Input.GetKeyDown(KeyCode.W))
+        //{
+        //    this.transform.position += new Vector3(0, 0, -1);
 
-            AddRoad(new Vector3(0, 0, -1));
+        //    AddRoad(new Vector3(0, 0, -1));
 
-            //RemoveRoad();
-        }
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            this.transform.position += new Vector3(0, 0, 1);
-        }
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            this.transform.position += new Vector3(1, 0, 0);
-        }
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            this.transform.position += new Vector3(-1, 0, 0);
-        }
+        //    //RemoveRoad();
+        //}
+        //if (Input.GetKeyDown(KeyCode.S))
+        //{
+        //    this.transform.position += new Vector3(0, 0, 1);
+        //}
+        //if (Input.GetKeyDown(KeyCode.A))
+        //{
+        //    this.transform.position += new Vector3(1, 0, 0);
+        //}
+        //if (Input.GetKeyDown(KeyCode.D))
+        //{
+        //    this.transform.position += new Vector3(-1, 0, 0);
+        //}
     }
 
     public void RoadDirection(string dir)
     {
-        switch (dir)
-        {
-            case "right":
-                //this.transform.position += new Vector3(-1, 0, 0);
+        ///로드가 움직임을 막았음
+        //switch (dir)
+        //{
+        //    case "right":
+        //        //this.transform.position += new Vector3(-1, 0, 0);
 
-                if (moveRoutine != null)
-                {
-                    StopCoroutine(moveRoutine);
-                    moveRoutine = null;
-                }
+        //        if (moveRoutine != null)
+        //        {
+        //            StopCoroutine(moveRoutine);
+        //            moveRoutine = null;
+        //        }
 
-                moveRoutine = StartCoroutine(MoveRoutine(new Vector3(-1, 0, 0)));
+        //        moveRoutine = StartCoroutine(MoveRoutine(new Vector3(-1, 0, 0)));
 
-                //AddRoad(new Vector3(0, 0, -1));
-                //RemoveRoad();
-                break;
+        //        //AddRoad(new Vector3(0, 0, -1));
+        //        //RemoveRoad();
+        //        break;
 
-            case "down":
-                //this.transform.position += new Vector3(0, 0, 1);
-                if (moveRoutine != null)
-                {
-                    StopCoroutine(moveRoutine);
-                    moveRoutine = null;
-                }
+        //    case "down":
+        //        //this.transform.position += new Vector3(0, 0, 1);
+        //        if (moveRoutine != null)
+        //        {
+        //            StopCoroutine(moveRoutine);
+        //            moveRoutine = null;
+        //        }
 
-                moveRoutine = StartCoroutine(MoveRoutine(new Vector3(0, 0, 1)));
+        //        moveRoutine = StartCoroutine(MoveRoutine(new Vector3(0, 0, 1)));
 
-                AddRoad(new Vector3(0, 0, 1));
-                //RemoveRoad(new Vector3(0, 0, 1));
-                break;
+        //        AddRoad(new Vector3(0, 0, 1));
+        //        //RemoveRoad(new Vector3(0, 0, 1));
+        //        break;
 
-            case "left":
-                //this.transform.position += new Vector3(1, 0, 0);
-                if (moveRoutine != null)
-                {
-                    StopCoroutine(moveRoutine);
-                    moveRoutine = null;
-                }
+        //    case "left":
+        //        //this.transform.position += new Vector3(1, 0, 0);
+        //        if (moveRoutine != null)
+        //        {
+        //            StopCoroutine(moveRoutine);
+        //            moveRoutine = null;
+        //        }
 
-                moveRoutine = StartCoroutine(MoveRoutine(new Vector3(1, 0, 0)));
+        //        moveRoutine = StartCoroutine(MoveRoutine(new Vector3(1, 0, 0)));
 
-                //AddRoad(new Vector3(0, 0, -1));
-                //RemoveRoad();
-                break;
+        //        //AddRoad(new Vector3(0, 0, -1));
+        //        //RemoveRoad();
+        //        break;
 
-            case "up":
+        //    case "up":
 
-                if (moveRoutine != null)
-                {
-                    StopCoroutine(moveRoutine);
-                    moveRoutine = null;
-                }
+        //        if (moveRoutine != null)
+        //        {
+        //            StopCoroutine(moveRoutine);
+        //            moveRoutine = null;
+        //        }
 
-                moveRoutine = StartCoroutine(MoveRoutine(new Vector3(0, 0, -1)));
+        //        moveRoutine = StartCoroutine(MoveRoutine(new Vector3(0, 0, -1)));
 
-                //Camerafollow.Instance.MoveCamera(new Vector3(0, 0, -1));
+        //        //Camerafollow.Instance.MoveCamera(new Vector3(0, 0, -1));
 
-                AddRoad(new Vector3(0, 0, -1));
+        //        AddRoad(new Vector3(0, 0, -1));
 
-                //RemoveRoad(new Vector3(0, 0, -1));
-                break;
-        }
+        //        //RemoveRoad(new Vector3(0, 0, -1));
+        //        break;
+        //}
     }
 
     private IEnumerator MoveRoutine(Vector3 endPos)

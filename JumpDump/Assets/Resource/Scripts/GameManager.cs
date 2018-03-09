@@ -79,7 +79,7 @@ public class GameManager : Singleton<GameManager>
     [SerializeField]
     private Light secondLight;
 
-    public void Start()
+    public void Awake()
     {
         IsGameOver = false;
         IsPaused = false;
