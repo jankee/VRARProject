@@ -86,9 +86,11 @@ public class Player : MonoBehaviour
 
         Vector3 starPos = this.transform.position;
 
-        starPos = new Vector3(Mathf.Round(starPos.x), Mathf.Round(starPos.y), Mathf.Round(starPos.z));
+        starPos = FloatRound(starPos);
 
         Vector3 endPos = starPos + end;
+
+        print(" 1 ");
 
         while (cooltime < timer)
         {
@@ -99,6 +101,18 @@ public class Player : MonoBehaviour
             yield return null;
         }
 
+        print("3");
+
+        this.transform.position = FloatRound(endPos);
+
         InputManager.Instance.IsMoved = false;
+    }
+
+    // 소수점값을 반올림 한다
+    private Vector3 FloatRound(Vector3 value)
+    {
+        value = new Vector3(Mathf.Round(value.x), Mathf.Round(value.y), Mathf.Round(value.z));
+
+        return value;
     }
 }

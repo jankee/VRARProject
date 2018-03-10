@@ -19,52 +19,59 @@ public class Camerafollow : MonoBehaviour
     // 게임 종료 여부
     public static bool IsGameStop = false;
 
-    private Player target;
+    private GameObject target;
 
     private void Start()
     {
-        //카메라
-        //cam = Camera.main;
-
-        target = FindObjectOfType<Player>();
+        target = GameObject.Find("Player");
     }
+
+    //private void FloatRound(Vector3 originValue)
+    //{
+    //    originPos
+
+    //}
 
     //카메라 이동 방법 : RoadGenerator의 자식으로
     public void OriginPosition()
     {
-        print(" Camera On ");
-        if (target != null)
+        // 이상하게 스타트에서 플레어가
+        if (target == null)
         {
-            print(" Camera Start ");
-            Vector3 endPos = target.transform.position;
-
-            StartCoroutine(OriginPositionRoutine(endPos));
+            target = GameObject.Find("Player");
         }
+
+        //타겟의 위지값을 저장
+        Vector3 targetPos = target.transform.position;
+
+        StartCoroutine(OriginPositionRoutine(targetPos));
     }
 
-    private IEnumerator OriginPositionRoutine(Vector3 endPos)
+    private IEnumerator OriginPositionRoutine(Vector3 tarPos)
     {
-        yield return new WaitForSeconds(0.25f);
+        //아래만큼 쉬었다가 실행한다
+        yield return new WaitForSeconds(0.2f);
 
         float timer = 0.25f;
 
         float coolTime = 0f;
 
-        //타겟의 위치와 카메라 위치값을 더 한다
-        endPos += originPos;
+        //타겟의 위치와 카메라 위치값을 더 함
+        tarPos += originPos;
 
-        Vector3 tmpPos = this.transform.position;
+        //카메라의 포지션 저장
+        Vector3 camPos = this.transform.position;
 
         while (coolTime < timer)
         {
             coolTime += Time.deltaTime;
 
-            this.transform.position = Vector3.MoveTowards(tmpPos, endPos, coolTime / timer);
+            this.transform.position = Vector3.Lerp(camPos, tarPos, coolTime / timer);
 
             yield return null;
         }
 
-        this.transform.position = endPos;
+        this.transform.position = tarPos;
 
         InputManager.Instance.IsMoved = false;
 
@@ -74,16 +81,23 @@ public class Camerafollow : MonoBehaviour
             StopCoroutine(endPosRoutine);
         }
 
-        endPosRoutine = StartCoroutine(TimeOutRoutine());
+        //타겟의 위치값을 저장
+        Vector3 targetPos = target.transform.position;
+
+        endPosRoutine = StartCoroutine(TimeOutRoutine(targetPos));
     }
 
     /// <summary>
     /// 일정 시간 후 카메라가 앞으로 전진하여 캐릭터가 사망을 한다
     /// </summary>
     /// <returns></returns>
-    private IEnumerator TimeOutRoutine()
+    private IEnumerator TimeOutRoutine(Vector3 tarPos)
     {
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(10f);
+
+        tarPos += endPos;
+
+        Vector3 camPos = this.transform.position;
 
         float outTimer = 6f;
 
@@ -93,11 +107,11 @@ public class Camerafollow : MonoBehaviour
         {
             coolTime += Time.deltaTime;
 
-            this.transform.position = Vector3.Lerp(originPos, endPos, coolTime / outTimer);
+            this.transform.position = Vector3.Lerp(camPos, tarPos, coolTime / outTimer);
 
             yield return null;
         }
 
-        this.transform.position = endPos;
+        this.transform.position = tarPos;
     }
 }

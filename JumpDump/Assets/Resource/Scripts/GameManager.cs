@@ -114,6 +114,8 @@ public class GameManager : Singleton<GameManager>
 
         player = Instantiate(characterArray[num]);
 
+        player.name = "Player";
+
         Player.transform.position = Vector3.zero;
     }
 
