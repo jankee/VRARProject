@@ -139,3 +139,5 @@ MonoBehaviour:
   roadType: 0
   vehicles:
   - {fileID: 1056377160542092, guid: 8c494c33f87baaa47a456a18b10ed98b, type: 2}
+  movingObjcetNumber: {x: 1, y: 3}
+  moveSpeed: {x: 0.5, y: 1.5}

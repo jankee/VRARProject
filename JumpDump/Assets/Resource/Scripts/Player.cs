@@ -7,6 +7,9 @@ public class Player : MonoBehaviour
     private float speed;
     private float delay;
 
+    [SerializeField]
+    private float HP;
+
     private Animator animator;
 
     [SerializeField]
@@ -55,23 +58,49 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    /// <summary>
+    /// 콜리젼과 콜라이더의 차이 점 때문에 코인은 여기서 처리
+    /// </summary>
+    /// <param name="other"></param>
+    public void OnTriggerEnter(Collider other)
     {
-        switch (other.tag)
+        if (other.tag == "Coin")
         {
-            case "Coin":
-                int value = other.GetComponent<Coins>().CoinValue;
-                GameManager.Instance.CoinUp(value);
-                Destroy(other.gameObject);
+            int value = other.transform.GetComponent<Coins>().CoinValue;
+            GameManager.Instance.CoinUp(value);
+            Destroy(other.gameObject);
+        }
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        switch (other.transform.tag)
+        {
+            case "Water":
+                print("Water");
+                //GameManager.Instance.GamePause();
+                //GameManager.Instance.IsPaused = true;
+                //GameManager.Instance.IsGameOver = true;
                 break;
 
-                //case "Water":
-                //    //Destroy(gameObject);
-                //    GameManager.Instance.GamePause();
-                //    GameManager.Instance.IsPaused = true;
-                //    GameManager.Instance.IsGameOver = true;
-                //    break;
+            case "Raft":
+                //Destroy(gameObject);
+                TakeOnRaft(other);
+                break;
         }
+    }
+
+    public void OnCollisionExit(Collision other)
+    {
+        if (other.transform.tag == "Raft")
+        {
+            this.transform.parent = null;
+        }
+    }
+
+    private void TakeOnRaft(Collision other)
+    {
+        this.transform.SetParent(other.transform);
     }
 
     /// <summary>
@@ -106,6 +135,9 @@ public class Player : MonoBehaviour
         this.transform.position = FloatRound(endPos);
 
         InputManager.Instance.IsMoved = false;
+
+        //로드 제네레이터의 플레이어 함수를 찾는다
+        RoadGenerator.Instance.FindPlayer();
     }
 
     // 소수점값을 반올림 한다

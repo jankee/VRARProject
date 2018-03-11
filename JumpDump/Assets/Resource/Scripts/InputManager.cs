@@ -16,8 +16,6 @@ public class InputManager : Singleton<InputManager>
 
     private string direction;
 
-    private RoadGenerator roadGene;
-
     //움직이고 있는지 확인 변수
     public bool IsMoved { get; set; }
 
@@ -27,11 +25,6 @@ public class InputManager : Singleton<InputManager>
     // Use this for initialization
     private void Start()
     {
-        if (roadGene == null)
-        {
-            roadGene = GameObject.FindObjectOfType<RoadGenerator>();
-        }
-
         IsMoved = false;
     }
 
@@ -95,16 +88,14 @@ public class InputManager : Singleton<InputManager>
                     return;
                 }
 
-                //카메라에 부모를 만들어 따라가게 만듬
-                //mainCamera.transform.SetParent(roadGene.transform);
+                //카메라 셋팅
+                mainCamera.GetComponent<Camerafollow>().OriginPosition();
 
                 IsMoved = true;
 
                 player.MoveCharacter("up");
-                roadGene.RoadDirection("up");
-
-                //카메라가 다시 제위치를 찾게 만들어 줌
-                //mainCamera.GetComponent<Camerafollow>().OriginPosition();
+                RoadGenerator.Instance.RoadDirection("up");
+                //roadGene.FindPlayer();
             }
         }
     }
@@ -123,25 +114,25 @@ public class InputManager : Singleton<InputManager>
         {
             this.transform.localEulerAngles = new Vector3(0, -90, 0);
             player.MoveCharacter("left");
-            roadGene.RoadDirection("left");
+            RoadGenerator.Instance.RoadDirection("left");
         }
         else if (45f <= dirRot && dirRot <= 135f)
         {
             this.transform.localEulerAngles = new Vector3(0, 180, 0);
             player.MoveCharacter("down");
-            roadGene.RoadDirection("down");
+            RoadGenerator.Instance.RoadDirection("down");
         }
         else if (135f <= dirRot && dirRot <= 225f)
         {
             this.transform.localEulerAngles = new Vector3(0, 90, 0);
             player.MoveCharacter("right");
-            roadGene.RoadDirection("right");
+            RoadGenerator.Instance.RoadDirection("right");
         }
         else if (225f <= dirRot && dirRot <= 315f)
         {
             this.transform.localEulerAngles = new Vector3(0, 0, 0);
             player.MoveCharacter("up");
-            roadGene.RoadDirection("up");
+            RoadGenerator.Instance.RoadDirection("up");
         }
 
         //mainCamera.GetComponent<Camerafollow>().OriginPosition();

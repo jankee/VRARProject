@@ -93,7 +93,7 @@ public class Camerafollow : MonoBehaviour
     /// <returns></returns>
     private IEnumerator TimeOutRoutine(Vector3 tarPos)
     {
-        yield return new WaitForSeconds(10f);
+        yield return new WaitForSeconds(6f);
 
         tarPos += endPos;
 

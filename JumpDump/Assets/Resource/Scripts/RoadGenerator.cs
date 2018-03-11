@@ -7,6 +7,12 @@ public class RoadGenerator : Singleton<RoadGenerator>
     [SerializeField]
     private Road[] roads;
 
+    [SerializeField]
+    private int roadStart = -8;
+
+    [SerializeField]
+    private int roadEnd = 26;
+
     private List<Road> roadsList = new List<Road>();
 
     private RoadType roadType;
@@ -20,6 +26,8 @@ public class RoadGenerator : Singleton<RoadGenerator>
     private Vector3 startPos;
 
     private Vector3 endPos;
+
+    private int roadCount = 0;
 
     // Use this for initialization
     private void Start()
@@ -162,7 +170,7 @@ public class RoadGenerator : Singleton<RoadGenerator>
 
         roadsList.Clear();
 
-        for (int i = -6; i < 20; i++)
+        for (int i = roadStart; i < roadEnd; i++)
         {
             columCount = i;
 
@@ -172,7 +180,18 @@ public class RoadGenerator : Singleton<RoadGenerator>
 
     private void RandomRoad(int columCount)
     {
-        int rand = Random.Range(0, 5);
+        int rand;
+
+        //플레이어가 있는 0, 1 위치에는 일반 도로 생성
+        if (columCount == 0 || columCount == 1)
+        {
+            rand = 0;
+        }
+        else
+        {
+            rand = Random.Range(0, 5);
+        }
+
         switch (rand)
         {
             case 0:
@@ -234,6 +253,27 @@ public class RoadGenerator : Singleton<RoadGenerator>
             rowCount--;
 
             RandomRoad(rowCount);
+        }
+    }
+
+    public void FindPlayer()
+    {
+        List<Player> tmp = new List<Player>();
+
+        Player[] tmpPlayer = GameObject.FindObjectsOfType<Player>();
+
+        for (int i = 0; i < tmpPlayer.Length; i++)
+        {
+            if (roadCount < (int)tmpPlayer[i].transform.position.z)
+            {
+                roadCount = (int)tmpPlayer[i].transform.position.z;
+
+                columCount++;
+
+                RandomRoad(columCount);
+
+                print(" Count : " + roadCount);
+            }
         }
     }
 

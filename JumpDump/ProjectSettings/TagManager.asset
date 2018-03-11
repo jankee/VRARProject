@@ -10,6 +10,7 @@ TagManager:
   - Select
   - Score
   - Water
+  - Raft
   layers:
   - Default
   - TransparentFX
