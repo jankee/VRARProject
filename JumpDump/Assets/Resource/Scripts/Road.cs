@@ -24,8 +24,41 @@ public class Road : MonoBehaviour
         }
     }
 
-    [SerializeField]
-    private GameObject[] vehicles;
+    public Vector2 MoveSpeed
+    {
+        get
+        {
+            return moveSpeed;
+        }
+        set
+        {
+            moveSpeed = value;
+        }
+    }
+
+    public Vector3 LaneStart
+    {
+        get
+        {
+            return laneStart;
+        }
+    }
+
+    public Vector3 LaneEnd
+    {
+        get
+        {
+            return laneEnd;
+        }
+    }
+
+    public int MoveDirection
+    {
+        get
+        {
+            return moveDirection;
+        }
+    }
 
     private Vector3 laneStart = new Vector3(-15, 0, 0);
     private Vector3 laneEnd = new Vector3(15, 0, 0);
@@ -34,45 +67,28 @@ public class Road : MonoBehaviour
     private Vector2 movingObjcetNumber = new Vector2(1, 3);
 
     [SerializeField]
-    private Vector2 moveSpeed = new Vector2(0.5f, 1.5f);
+    private Vector2 moveSpeed = new Vector2(0.5f, 3.5f);
 
     private int moveDirection = 1;
 
+    [SerializeField]
     private bool randomDirection = true;
 
-    private GameObject newVehicle;
-
-    private void Start()
+    protected virtual void Start()
     {
-        int ran = Random.Range(0, 2);
+        //랜덤으로 moveSpeed를 설정 한다
+        moveSpeed.x = Random.Range(moveSpeed.x, moveSpeed.y);
 
-        if (randomDirection == true && Random.value > 0.5f)
+        float ran = Random.Range(0, 3f);
+
+        if (randomDirection == true && ran > 1.5f)
         {
             moveDirection = -1;
-        }
 
-        //로드타입을 확인, 만약 물이면 실행
-        if (roadType == RoadType.WATER)
-        {
-            CreateRaft();
+            //moveSpeed = -moveSpeed;
         }
 
         //newVehicle.transform.Translate(Vector3.forward * moveSpeed.x * Time.deltaTime);
-    }
-
-    private void CreateRaft()
-    {
-        moveSpeed.x = Random.Range(moveSpeed.x, moveSpeed.y);
-
-        float laneLength = Vector3.Distance(laneStart, laneEnd);
-
-        newVehicle = Instantiate(vehicles[0]);
-
-        newVehicle.transform.SetParent(this.transform);
-        newVehicle.transform.position = this.transform.position + laneStart;
-        newVehicle.transform.LookAt(this.transform.position + laneEnd);
-
-        StartCoroutine(CreateVehicleRoutine(1.5f));
     }
 
     private void Update()
@@ -81,22 +97,5 @@ public class Road : MonoBehaviour
         //{
         //    newVehicle.transform.Translate(Vector3.forward * moveSpeed.x * Time.deltaTime);
         //}
-    }
-
-    private IEnumerator CreateVehicleRoutine(float wait)
-    {
-        yield return new WaitForSeconds(wait);
-
-        while (newVehicle.transform.position.x < laneEnd.x)
-        {
-            newVehicle.transform.Translate(Vector3.forward * moveSpeed.x * Time.deltaTime);
-
-            yield return null;
-        }
-
-        Destroy(newVehicle.gameObject);
-
-        CreateRaft();
-        //Instantiate(vehicles[0], new Vector3(pos, 0, 0), Quaternion.identity, this.transform);
     }
 }

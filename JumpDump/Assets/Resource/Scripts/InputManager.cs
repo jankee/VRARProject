@@ -19,6 +19,8 @@ public class InputManager : Singleton<InputManager>
     //움직이고 있는지 확인 변수
     public bool IsMoved { get; set; }
 
+    public bool IsBakeMoved { get; set; }
+
     [SerializeField]
     private Camera mainCamera;
 
@@ -26,6 +28,8 @@ public class InputManager : Singleton<InputManager>
     private void Start()
     {
         IsMoved = false;
+
+        IsBakeMoved = false;
     }
 
     // Update is called once per fra
@@ -88,10 +92,12 @@ public class InputManager : Singleton<InputManager>
                     return;
                 }
 
-                //카메라 셋팅
-                mainCamera.GetComponent<Camerafollow>().OriginPosition();
-
-                IsMoved = true;
+                //캐릭터가 뒤로 가고 있으면 카메라 무브를 실행 안함
+                if (IsBakeMoved == false)
+                {
+                    //카메라 셋팅
+                    mainCamera.GetComponent<Camerafollow>().OriginPosition();
+                }
 
                 player.MoveCharacter("up");
                 RoadGenerator.Instance.RoadDirection("up");
@@ -106,10 +112,6 @@ public class InputManager : Singleton<InputManager>
 
         float dirRot = (Mathf.Atan2(dirPos.z, dirPos.x) * Mathf.Rad2Deg) + 180f;
 
-        //카메라 셋팅
-        mainCamera.GetComponent<Camerafollow>().OriginPosition();
-        //mainCamera.transform.SetParent(roadGene.transform);
-
         if (315f <= dirRot || dirRot <= 45f)
         {
             this.transform.localEulerAngles = new Vector3(0, -90, 0);
@@ -119,8 +121,11 @@ public class InputManager : Singleton<InputManager>
         else if (45f <= dirRot && dirRot <= 135f)
         {
             this.transform.localEulerAngles = new Vector3(0, 180, 0);
-            player.MoveCharacter("down");
-            RoadGenerator.Instance.RoadDirection("down");
+
+            IsBakeMoved = true;
+
+            player.MoveCharacter("Back");
+            RoadGenerator.Instance.RoadDirection("Back");
         }
         else if (135f <= dirRot && dirRot <= 225f)
         {
@@ -135,6 +140,10 @@ public class InputManager : Singleton<InputManager>
             RoadGenerator.Instance.RoadDirection("up");
         }
 
-        //mainCamera.GetComponent<Camerafollow>().OriginPosition();
+        if (IsBakeMoved == false)
+        {
+            //카메라 셋팅
+            mainCamera.GetComponent<Camerafollow>().OriginPosition();
+        }
     }
 }

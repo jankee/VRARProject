@@ -946,4 +946,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roadType: 1
-  vehicles: []
+  movingObjcetNumber: {x: 1, y: 3}
+  moveSpeed: {x: 0.5, y: 3.5}
+  randomDirection: 1

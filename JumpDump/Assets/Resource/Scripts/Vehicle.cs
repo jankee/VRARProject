@@ -4,19 +4,28 @@ using UnityEngine;
 
 public class Vehicle : MonoBehaviour
 {
-    // Use this for initialization
-    private void Start()
-    {
-    }
-
     // Update is called once per frame
-    private IEnumerator MoveForward()
+    public IEnumerator MoveForward(Vector3 start, Vector3 end, float speed, int dir)
     {
-        while (true)
+        if (dir == -1)
         {
-            //transform.position = Vector3.MoveTowards(transform.position, )
+            while (transform.position.x > end.x)
+            {
+                transform.Translate(Vector3.forward * speed * Time.deltaTime);
+
+                yield return null;
+            }
+        }
+        else
+        {
+            while (transform.position.x < end.x)
+            {
+                transform.Translate(Vector3.forward * speed * Time.deltaTime);
+
+                yield return null;
+            }
         }
 
-        yield return null;
+        Destroy(gameObject);
     }
 }

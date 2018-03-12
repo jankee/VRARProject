@@ -11,6 +11,7 @@ TagManager:
   - Score
   - Water
   - Raft
+  - Vehicle
   layers:
   - Default
   - TransparentFX

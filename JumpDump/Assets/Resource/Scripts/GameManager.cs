@@ -50,6 +50,8 @@ public class GameManager : Singleton<GameManager>
 
     private GameObject player;
 
+    private int scoreKeep = 0;
+
     public GameObject Player
     {
         get
@@ -198,7 +200,13 @@ public class GameManager : Singleton<GameManager>
 
     public void ScoreUp()
     {
-        Score++;
+        //자신의 최대 치를 자신의 위치를 비교하여 스코어를 올림
+        if (scoreKeep < (int)player.transform.position.z)
+        {
+            scoreKeep = (int)player.transform.position.z;
+
+            Score++;
+        }
 
         // 클릭 카운트가 베스트클릭카운트보다 높을시 갱신
         if (Score > BestScore)

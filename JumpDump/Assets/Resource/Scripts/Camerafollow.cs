@@ -75,10 +75,14 @@ public class Camerafollow : MonoBehaviour
 
         InputManager.Instance.IsMoved = false;
 
-        if (endPosRoutine != null)
+        //캐릭터가 뒤로 가고 있지 안다면
+        if (InputManager.Instance.IsBakeMoved == false)
         {
-            //우선 움직이면 코투틴이 멈춘다
-            StopCoroutine(endPosRoutine);
+            if (endPosRoutine != null)
+            {
+                //우선 움직이면 코투틴이 멈춘다
+                StopCoroutine(endPosRoutine);
+            }
         }
 
         //타겟의 위치값을 저장

@@ -29,6 +29,8 @@ public class RoadGenerator : Singleton<RoadGenerator>
 
     private int roadCount = 0;
 
+    private int roadEndCount = 0;
+
     // Use this for initialization
     private void Start()
     {
@@ -163,6 +165,8 @@ public class RoadGenerator : Singleton<RoadGenerator>
     {
         this.transform.position = Vector3.zero;
 
+        roadEndCount = roadStart;
+
         foreach (Road road in roadsList)
         {
             Destroy(road.gameObject);
@@ -262,6 +266,7 @@ public class RoadGenerator : Singleton<RoadGenerator>
 
         Player[] tmpPlayer = GameObject.FindObjectsOfType<Player>();
 
+        //로드가 생성되는 기준을 알기 위해 제일 앞에 있는 플레어의 z값을 확인
         for (int i = 0; i < tmpPlayer.Length; i++)
         {
             if (roadCount < (int)tmpPlayer[i].transform.position.z)
@@ -275,23 +280,50 @@ public class RoadGenerator : Singleton<RoadGenerator>
                 print(" Count : " + roadCount);
             }
         }
+
+        //플레이어 중 가장 뒤에 있는 위치값을 찾는다
+        for (int i = 0; i < tmpPlayer.Length; i++)
+        {
+            int tmpEndCount = (int)tmpPlayer[i].transform.position.z;
+            print(" 1 : " + tmpEndCount);
+
+            if (tmpEndCount < (int)tmpPlayer[i].transform.position.z)
+            {
+                tmpEndCount = (int)tmpPlayer[i].transform.position.z;
+            }
+
+            tmpEndCount += roadEndCount;
+
+            print(" 2 : " + tmpEndCount);
+
+            RemoveRoad(tmpEndCount);
+        }
     }
 
-    public void RemoveRoad(Vector3 vector)
+    public void RemoveRoad(int value)
     {
-        //road의 z 위치 값이 19를 넘거나 -6 이하 로 있으면 지울려고 합니다.
-        if (roadsList.Count > 26)
+        //그래서 foreach문이 실행이 안됩니다.
+        foreach (Road road in roadsList)
         {
-            //그래서 foreach문이 실행이 안됩니다.
-            foreach (Road road in roadsList)
+            //print(road.name + " : " + road.transform.position + ", " + road.transform.localPosition);
+            if (road.transform.position.z < value)
             {
-                print(road.name + " : " + road.transform.position + ", " + road.transform.localPosition);
-                if (road.transform.position.z > 19 || road.transform.position.z < -6)
-                {
-                    roadsList.Remove(road);
-                    Destroy(road.gameObject);
-                }
+                roadsList.Remove(road);
+                Destroy(road.gameObject);
+                break;
             }
         }
+
+        //람다식 방법
+        //var findRoads = roadsList.FindAll(
+        //    (Road r) =>
+        //    {
+        //        if (r.transform.position.z < value)
+        //            return true;
+        //        else
+        //            return false;
+        //    });
+
+        //Destroy(findRoads.);
     }
 }

@@ -8,17 +8,34 @@ public class Player : MonoBehaviour
     private float delay;
 
     [SerializeField]
-    private float HP;
+    private float hp;
 
     private Animator animator;
 
+    private PlayerHealth playerHealth;
+
     [SerializeField]
     private float speedTime;
+
+    public float HP
+    {
+        get
+        {
+            return hp;
+        }
+
+        set
+        {
+            hp = value;
+        }
+    }
 
     // Use this for initialization
     private void Start()
     {
         animator = transform.GetChild(0).GetComponent<Animator>();
+
+        playerHealth = GetComponent<PlayerHealth>();
     }
 
     private void Update()
@@ -37,23 +54,23 @@ public class Player : MonoBehaviour
         {
             case "left":
                 this.transform.eulerAngles = new Vector3(0, 270, 0);
-                StartCoroutine(SmoothMovement(Vector3.left));
+                StartCoroutine(SmoothMovement(Vector3.left, 0.45f));
                 break;
 
-            case "down":
+            case "Back":
                 this.transform.eulerAngles = new Vector3(0, 180, 0);
-                StartCoroutine(SmoothMovement(Vector3.back));
+                StartCoroutine(SmoothMovement(Vector3.back, 0.45f));
                 break;
 
             case "right":
                 this.transform.eulerAngles = new Vector3(0, 90, 0);
-                StartCoroutine(SmoothMovement(Vector3.right));
+                StartCoroutine(SmoothMovement(Vector3.right, 0.45f));
                 break;
 
             case "up":
                 this.transform.eulerAngles = new Vector3(0, 0, 0);
-                StartCoroutine(SmoothMovement(Vector3.forward));
-                GameManager.Instance.ScoreUp();
+                StartCoroutine(SmoothMovement(Vector3.forward, 0.45f));
+
                 break;
         }
     }
@@ -78,6 +95,8 @@ public class Player : MonoBehaviour
         {
             case "Water":
                 print("Water");
+
+                playerHealth.TakeDamage(10f);
                 //GameManager.Instance.GamePause();
                 //GameManager.Instance.IsPaused = true;
                 //GameManager.Instance.IsGameOver = true;
@@ -86,6 +105,12 @@ public class Player : MonoBehaviour
             case "Raft":
                 //Destroy(gameObject);
                 TakeOnRaft(other);
+                break;
+
+            case "Vehicle":
+                StartCoroutine(SmoothMovement(Vector3.back, 0.333f));
+                animator.SetTrigger("DAMAGE");
+                playerHealth.TakeDamage(20f);
                 break;
         }
     }
@@ -108,33 +133,47 @@ public class Player : MonoBehaviour
     /// </summary>
     /// <param name="end"></param>
     /// <returns></returns>
-    private IEnumerator SmoothMovement(Vector3 end)
+    private IEnumerator SmoothMovement(Vector3 end, float aniTime)
     {
-        float timer = 0.45f;
+        // 움직임이 있을 때 다시 입력이 들어오면 리턴
+        if (InputManager.Instance.IsMoved == true)
+        {
+            yield break;
+        }
+
+        InputManager.Instance.IsMoved = true;
+
+        float timer = aniTime;
         float cooltime = 0f;
 
+        //자신의 위치 값에 받은 end값을 더 함
         Vector3 starPos = this.transform.position;
 
         starPos = FloatRound(starPos);
 
         Vector3 endPos = starPos + end;
 
-        print(" 1 ");
-
         while (cooltime < timer)
         {
             cooltime += Time.deltaTime;
 
-            this.transform.localPosition = Vector3.Lerp(starPos, endPos, cooltime / timer);
+            this.transform.position = Vector3.Lerp(starPos, endPos, cooltime / timer);
 
             yield return null;
         }
 
-        print("3");
-
         this.transform.position = FloatRound(endPos);
 
+        if (aniTime == 0.333f)
+        {
+            StartCoroutine(TakeStun(2f));
+        }
+
         InputManager.Instance.IsMoved = false;
+
+        InputManager.Instance.IsBakeMoved = false;
+
+        GameManager.Instance.ScoreUp();
 
         //로드 제네레이터의 플레이어 함수를 찾는다
         RoadGenerator.Instance.FindPlayer();
@@ -146,5 +185,15 @@ public class Player : MonoBehaviour
         value = new Vector3(Mathf.Round(value.x), Mathf.Round(value.y), Mathf.Round(value.z));
 
         return value;
+    }
+
+    public IEnumerator TakeStun(float timer)
+    {
+        InputManager.Instance.IsMoved = true;
+
+        yield return new WaitForSeconds(timer);
+
+        animator.SetBool("STUN", false);
+        InputManager.Instance.IsMoved = false;
     }
 }
