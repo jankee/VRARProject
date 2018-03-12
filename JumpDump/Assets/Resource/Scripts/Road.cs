@@ -60,11 +60,11 @@ public class Road : MonoBehaviour
         }
     }
 
+    [SerializeField]
     private Vector3 laneStart = new Vector3(-15, 0, 0);
-    private Vector3 laneEnd = new Vector3(15, 0, 0);
 
     [SerializeField]
-    private Vector2 movingObjcetNumber = new Vector2(1, 3);
+    private Vector3 laneEnd = new Vector3(15, 0, 0);
 
     [SerializeField]
     private Vector2 moveSpeed = new Vector2(0.5f, 3.5f);
@@ -84,18 +84,6 @@ public class Road : MonoBehaviour
         if (randomDirection == true && ran > 1.5f)
         {
             moveDirection = -1;
-
-            //moveSpeed = -moveSpeed;
         }
-
-        //newVehicle.transform.Translate(Vector3.forward * moveSpeed.x * Time.deltaTime);
-    }
-
-    private void Update()
-    {
-        //if (vehicles.Length > 0)
-        //{
-        //    newVehicle.transform.Translate(Vector3.forward * moveSpeed.x * Time.deltaTime);
-        //}
     }
 }

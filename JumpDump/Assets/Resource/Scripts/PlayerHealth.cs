@@ -3,19 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerHealth : Singleton<PlayerHealth>
+public class PlayerHealth : MonoBehaviour
 {
     [SerializeField]
     private Image hpImage;
 
     private float OriginHP;
 
-    private Animator anim;
+    private Player player;
 
     // Use this for initialization
     private void Start()
     {
-        anim = gameObject.GetComponentInChildren<Animator>();
+        player = gameObject.transform.root.GetComponentInChildren<Player>();
 
         HPInitialize();
     }
@@ -40,7 +40,14 @@ public class PlayerHealth : Singleton<PlayerHealth>
 
         hpImage.fillAmount = tmpValue / OriginHP;
 
-        StartCoroutine(FallIntoWater(2f));
+        if (value == 10f)
+        {
+            StartCoroutine(player.FallIntoWater(2f));
+        }
+        else if (value == 20f)
+        {
+            StartCoroutine(player.TakeStun(1f));
+        }
 
         if (tmpValue <= 0)
         {
@@ -48,16 +55,17 @@ public class PlayerHealth : Singleton<PlayerHealth>
         }
     }
 
-    private IEnumerator FallIntoWater(float value)
+    public void TakeHP(float value)
     {
-        InputManager.Instance.IsMoved = true;
+        float tmpValue = hpImage.fillAmount * 100f;
 
-        anim.SetBool("WATER", true);
+        if (tmpValue >= 100)
+        {
+            return;
+        }
 
-        yield return new WaitForSeconds(value);
+        tmpValue += value;
 
-        InputManager.Instance.IsMoved = false;
-
-        anim.SetBool("WATER", false);
+        hpImage.fillAmount = tmpValue / OriginHP;
     }
 }

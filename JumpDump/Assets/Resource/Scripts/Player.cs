@@ -38,10 +38,6 @@ public class Player : MonoBehaviour
         playerHealth = GetComponent<PlayerHealth>();
     }
 
-    private void Update()
-    {
-    }
-
     /// <summary>
     /// 방향을 정하고 SmoothMovement 코루틴을 실행
     /// </summary>
@@ -108,8 +104,8 @@ public class Player : MonoBehaviour
                 break;
 
             case "Vehicle":
-                StartCoroutine(SmoothMovement(Vector3.back, 0.333f));
-                animator.SetTrigger("DAMAGE");
+                StartCoroutine(SmoothMovement(Vector3.back, 0.3f));
+
                 playerHealth.TakeDamage(20f);
                 break;
         }
@@ -153,6 +149,12 @@ public class Player : MonoBehaviour
 
         Vector3 endPos = starPos + end;
 
+        //만약 데미지 값이 있다면
+        if (aniTime == 0.3f)
+        {
+            animator.SetTrigger("DAMAGE");
+        }
+
         while (cooltime < timer)
         {
             cooltime += Time.deltaTime;
@@ -163,11 +165,6 @@ public class Player : MonoBehaviour
         }
 
         this.transform.position = FloatRound(endPos);
-
-        if (aniTime == 0.333f)
-        {
-            StartCoroutine(TakeStun(2f));
-        }
 
         InputManager.Instance.IsMoved = false;
 
@@ -187,13 +184,27 @@ public class Player : MonoBehaviour
         return value;
     }
 
-    public IEnumerator TakeStun(float timer)
+    public IEnumerator FallIntoWater(float value)
     {
         InputManager.Instance.IsMoved = true;
 
-        yield return new WaitForSeconds(timer);
+        animator.SetBool("WATER", true);
+
+        yield return new WaitForSeconds(value);
+
+        InputManager.Instance.IsMoved = false;
+
+        animator.SetBool("WATER", false);
+    }
+
+    public IEnumerator TakeStun(float value)
+    {
+        InputManager.Instance.IsMoved = true;
+
+        yield return new WaitForSeconds(value);
 
         animator.SetBool("STUN", false);
+
         InputManager.Instance.IsMoved = false;
     }
 }

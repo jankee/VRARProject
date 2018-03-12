@@ -100,7 +100,6 @@ public class InputManager : Singleton<InputManager>
                 }
 
                 player.MoveCharacter("up");
-                RoadGenerator.Instance.RoadDirection("up");
                 //roadGene.FindPlayer();
             }
         }
@@ -116,7 +115,6 @@ public class InputManager : Singleton<InputManager>
         {
             this.transform.localEulerAngles = new Vector3(0, -90, 0);
             player.MoveCharacter("left");
-            RoadGenerator.Instance.RoadDirection("left");
         }
         else if (45f <= dirRot && dirRot <= 135f)
         {
@@ -125,19 +123,16 @@ public class InputManager : Singleton<InputManager>
             IsBakeMoved = true;
 
             player.MoveCharacter("Back");
-            RoadGenerator.Instance.RoadDirection("Back");
         }
         else if (135f <= dirRot && dirRot <= 225f)
         {
             this.transform.localEulerAngles = new Vector3(0, 90, 0);
             player.MoveCharacter("right");
-            RoadGenerator.Instance.RoadDirection("right");
         }
         else if (225f <= dirRot && dirRot <= 315f)
         {
             this.transform.localEulerAngles = new Vector3(0, 0, 0);
             player.MoveCharacter("up");
-            RoadGenerator.Instance.RoadDirection("up");
         }
 
         if (IsBakeMoved == false)

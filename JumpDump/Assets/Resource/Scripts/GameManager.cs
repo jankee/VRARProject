@@ -190,6 +190,8 @@ public class GameManager : Singleton<GameManager>
     {
         Coin += coinValue;
 
+        player.GetComponent<PlayerHealth>().TakeHP(10f);
+
         if (uiPanel.coinText)
         {
             uiPanel.coinText.text = Coin.ToString();

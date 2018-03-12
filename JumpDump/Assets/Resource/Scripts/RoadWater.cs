@@ -7,6 +7,9 @@ public class RoadWater : Road
     [SerializeField]
     private GameObject[] vehicles;
 
+    [SerializeField]
+    private Vector2 ranIntVector = new Vector2(0, 10);
+
     private GameObject newVehicle;
 
     private float randomTime = 0;
@@ -37,7 +40,7 @@ public class RoadWater : Road
     {
         while (true)
         {
-            int ranInt = Random.Range(0, 10);
+            int ranInt = (int)Random.Range(ranIntVector.x, ranIntVector.y);
 
             if (ranInt == 0)
             {

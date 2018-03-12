@@ -39,99 +39,6 @@ public class RoadGenerator : Singleton<RoadGenerator>
         InitializationRoad();
     }
 
-    // Update is called once per frame
-    private void Update()
-    {
-        ///로드가 움이지이는 걸 막았음
-        //if (Input.GetKeyDown(KeyCode.W))
-        //{
-        //    this.transform.position += new Vector3(0, 0, -1);
-
-        //    AddRoad(new Vector3(0, 0, -1));
-
-        //    //RemoveRoad();
-        //}
-        //if (Input.GetKeyDown(KeyCode.S))
-        //{
-        //    this.transform.position += new Vector3(0, 0, 1);
-        //}
-        //if (Input.GetKeyDown(KeyCode.A))
-        //{
-        //    this.transform.position += new Vector3(1, 0, 0);
-        //}
-        //if (Input.GetKeyDown(KeyCode.D))
-        //{
-        //    this.transform.position += new Vector3(-1, 0, 0);
-        //}
-    }
-
-    public void RoadDirection(string dir)
-    {
-        ///로드가 움직임을 막았음
-        //switch (dir)
-        //{
-        //    case "right":
-        //        //this.transform.position += new Vector3(-1, 0, 0);
-
-        //        if (moveRoutine != null)
-        //        {
-        //            StopCoroutine(moveRoutine);
-        //            moveRoutine = null;
-        //        }
-
-        //        moveRoutine = StartCoroutine(MoveRoutine(new Vector3(-1, 0, 0)));
-
-        //        //AddRoad(new Vector3(0, 0, -1));
-        //        //RemoveRoad();
-        //        break;
-
-        //    case "down":
-        //        //this.transform.position += new Vector3(0, 0, 1);
-        //        if (moveRoutine != null)
-        //        {
-        //            StopCoroutine(moveRoutine);
-        //            moveRoutine = null;
-        //        }
-
-        //        moveRoutine = StartCoroutine(MoveRoutine(new Vector3(0, 0, 1)));
-
-        //        AddRoad(new Vector3(0, 0, 1));
-        //        //RemoveRoad(new Vector3(0, 0, 1));
-        //        break;
-
-        //    case "left":
-        //        //this.transform.position += new Vector3(1, 0, 0);
-        //        if (moveRoutine != null)
-        //        {
-        //            StopCoroutine(moveRoutine);
-        //            moveRoutine = null;
-        //        }
-
-        //        moveRoutine = StartCoroutine(MoveRoutine(new Vector3(1, 0, 0)));
-
-        //        //AddRoad(new Vector3(0, 0, -1));
-        //        //RemoveRoad();
-        //        break;
-
-        //    case "up":
-
-        //        if (moveRoutine != null)
-        //        {
-        //            StopCoroutine(moveRoutine);
-        //            moveRoutine = null;
-        //        }
-
-        //        moveRoutine = StartCoroutine(MoveRoutine(new Vector3(0, 0, -1)));
-
-        //        //Camerafollow.Instance.MoveCamera(new Vector3(0, 0, -1));
-
-        //        AddRoad(new Vector3(0, 0, -1));
-
-        //        //RemoveRoad(new Vector3(0, 0, -1));
-        //        break;
-        //}
-    }
-
     private IEnumerator MoveRoutine(Vector3 endPos)
     {
         float duration = 0f;
@@ -187,9 +94,9 @@ public class RoadGenerator : Singleton<RoadGenerator>
         int rand;
 
         //플레이어가 있는 0, 1 위치에는 일반 도로 생성
-        if (columCount == 0 || columCount == 1)
+        if (columCount >= 0 && columCount <= 4)
         {
-            rand = 0;
+            rand = 2;
         }
         else
         {
@@ -285,7 +192,6 @@ public class RoadGenerator : Singleton<RoadGenerator>
         for (int i = 0; i < tmpPlayer.Length; i++)
         {
             int tmpEndCount = (int)tmpPlayer[i].transform.position.z;
-            print(" 1 : " + tmpEndCount);
 
             if (tmpEndCount < (int)tmpPlayer[i].transform.position.z)
             {
@@ -293,8 +199,6 @@ public class RoadGenerator : Singleton<RoadGenerator>
             }
 
             tmpEndCount += roadEndCount;
-
-            print(" 2 : " + tmpEndCount);
 
             RemoveRoad(tmpEndCount);
         }
