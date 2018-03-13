@@ -243,8 +243,8 @@ PlayerSettings:
   AndroidTargetDevice: 0
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: C:/Users/user/Documents/DEV/jankee.keystore
-  AndroidKeyaliasName: 
+  AndroidKeystoreName: C:/Users/user/Documents/VRARProject/JumpDump/Keystore/JumpDump_key.keystore
+  AndroidKeyaliasName: jumpdump
   AndroidTVCompatibility: 1
   AndroidIsGame: 1
   AndroidEnableTango: 0

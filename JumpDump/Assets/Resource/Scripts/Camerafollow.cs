@@ -19,30 +19,19 @@ public class Camerafollow : MonoBehaviour
     // 게임 종료 여부
     public static bool IsGameStop = false;
 
-    private GameObject target;
+    private Vector3 targetPos;
 
-    private void Start()
-    {
-        target = GameObject.Find("Player");
-    }
-
-    //private void FloatRound(Vector3 originValue)
+    //private void Start()
     //{
-    //    originPos
-
+    //    target = GameObject.Find("Player");
     //}
 
     //카메라 이동 방법 : RoadGenerator의 자식으로
-    public void OriginPosition()
+    public void OriginPosition(Vector3 tmpTarget)
     {
-        // 이상하게 스타트에서 플레어가
-        if (target == null)
-        {
-            target = GameObject.Find("Player");
-        }
+        targetPos = tmpTarget;
 
-        //타겟의 위지값을 저장
-        Vector3 targetPos = target.transform.position;
+        print("targetPos : " + targetPos);
 
         StartCoroutine(OriginPositionRoutine(targetPos));
     }
@@ -55,6 +44,8 @@ public class Camerafollow : MonoBehaviour
         float timer = 0.25f;
 
         float coolTime = 0f;
+
+        Vector3 targetPosOrigin = tarPos;
 
         //타겟의 위치와 카메라 위치값을 더 함
         tarPos += originPos;
@@ -73,22 +64,20 @@ public class Camerafollow : MonoBehaviour
 
         this.transform.position = tarPos;
 
-        InputManager.Instance.IsMoved = false;
+        //이유를 모르겠음
+        //InputManager.Instance.IsMoved = false;
 
         //캐릭터가 뒤로 가고 있지 안다면
-        if (InputManager.Instance.IsBakeMoved == false)
+        //if (!InputManager.Instance.IsStun)
+        //{
+        if (endPosRoutine != null)
         {
-            if (endPosRoutine != null)
-            {
-                //우선 움직이면 코투틴이 멈춘다
-                StopCoroutine(endPosRoutine);
-            }
+            //우선 움직이면 코투틴이 멈춘다
+            StopCoroutine(endPosRoutine);
         }
+        //}
 
-        //타겟의 위치값을 저장
-        Vector3 targetPos = target.transform.position;
-
-        endPosRoutine = StartCoroutine(TimeOutRoutine(targetPos));
+        endPosRoutine = StartCoroutine(TimeOutRoutine(targetPosOrigin));
     }
 
     /// <summary>
@@ -99,7 +88,11 @@ public class Camerafollow : MonoBehaviour
     {
         yield return new WaitForSeconds(6f);
 
+        print("Origin Pos : " + tarPos);
+
         tarPos += endPos;
+
+        print("tarPos : " + tarPos);
 
         Vector3 camPos = this.transform.position;
 

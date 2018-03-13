@@ -20,11 +20,6 @@ public class PlayerHealth : MonoBehaviour
         HPInitialize();
     }
 
-    // Update is called once per frame
-    private void Update()
-    {
-    }
-
     public void HPInitialize()
     {
         OriginHP = this.GetComponent<Player>().HP;
@@ -39,15 +34,6 @@ public class PlayerHealth : MonoBehaviour
         tmpValue -= value;
 
         hpImage.fillAmount = tmpValue / OriginHP;
-
-        if (value == 10f)
-        {
-            StartCoroutine(player.FallIntoWater(2f));
-        }
-        else if (value == 20f)
-        {
-            StartCoroutine(player.TakeStun(1f));
-        }
 
         if (tmpValue <= 0)
         {

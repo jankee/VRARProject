@@ -50,22 +50,22 @@ public class Player : MonoBehaviour
         {
             case "left":
                 this.transform.eulerAngles = new Vector3(0, 270, 0);
-                StartCoroutine(SmoothMovement(Vector3.left, 0.45f));
+                StartCoroutine(SmoothMovement(Vector3.left, 0.5f));
                 break;
 
             case "Back":
                 this.transform.eulerAngles = new Vector3(0, 180, 0);
-                StartCoroutine(SmoothMovement(Vector3.back, 0.45f));
+                StartCoroutine(SmoothMovement(Vector3.back, 0.5f));
                 break;
 
             case "right":
                 this.transform.eulerAngles = new Vector3(0, 90, 0);
-                StartCoroutine(SmoothMovement(Vector3.right, 0.45f));
+                StartCoroutine(SmoothMovement(Vector3.right, 0.5f));
                 break;
 
             case "up":
                 this.transform.eulerAngles = new Vector3(0, 0, 0);
-                StartCoroutine(SmoothMovement(Vector3.forward, 0.45f));
+                StartCoroutine(SmoothMovement(Vector3.forward, 0.5f));
 
                 break;
         }
@@ -93,9 +93,7 @@ public class Player : MonoBehaviour
                 print("Water");
 
                 playerHealth.TakeDamage(10f);
-                //GameManager.Instance.GamePause();
-                //GameManager.Instance.IsPaused = true;
-                //GameManager.Instance.IsGameOver = true;
+                StartCoroutine(FallIntoWater(2f));
                 break;
 
             case "Raft":
@@ -105,8 +103,14 @@ public class Player : MonoBehaviour
 
             case "Vehicle":
                 StartCoroutine(SmoothMovement(Vector3.back, 0.3f));
-
+                StartCoroutine(TakeStun(1.3f));
                 playerHealth.TakeDamage(20f);
+                break;
+
+            case "Train":
+                StartCoroutine(SmoothMovement(Vector3.back, 0.3f));
+                StartCoroutine(TakeStun(2.3f));
+                playerHealth.TakeDamage(60f);
                 break;
         }
     }
@@ -132,12 +136,13 @@ public class Player : MonoBehaviour
     private IEnumerator SmoothMovement(Vector3 end, float aniTime)
     {
         // 움직임이 있을 때 다시 입력이 들어오면 리턴
-        if (InputManager.Instance.IsMoved == true)
-        {
-            yield break;
-        }
+        //if (InputManager.Instance.IsMoved == true)
+        //{
+        //    yield break;
+        //}
 
         InputManager.Instance.IsMoved = true;
+        InputManager.Instance.IsBakeMoved = true;
 
         float timer = aniTime;
         float cooltime = 0f;
@@ -146,14 +151,21 @@ public class Player : MonoBehaviour
         Vector3 starPos = this.transform.position;
 
         starPos = FloatRound(starPos);
+        print("starPos : " + starPos);
 
         Vector3 endPos = starPos + end;
+
+        endPos = FloatRound(endPos);
+        print("endPos : " + endPos);
 
         //만약 데미지 값이 있다면
         if (aniTime == 0.3f)
         {
             animator.SetTrigger("DAMAGE");
         }
+
+        //카메라 셋팅
+        Camera.main.GetComponent<Camerafollow>().OriginPosition(endPos);
 
         while (cooltime < timer)
         {
@@ -164,10 +176,10 @@ public class Player : MonoBehaviour
             yield return null;
         }
 
-        this.transform.position = FloatRound(endPos);
+        //캐릭터 움직임 마무리
+        transform.position = endPos;
 
         InputManager.Instance.IsMoved = false;
-
         InputManager.Instance.IsBakeMoved = false;
 
         GameManager.Instance.ScoreUp();
@@ -186,25 +198,25 @@ public class Player : MonoBehaviour
 
     public IEnumerator FallIntoWater(float value)
     {
-        InputManager.Instance.IsMoved = true;
+        InputManager.Instance.IsStun = true;
 
         animator.SetBool("WATER", true);
 
         yield return new WaitForSeconds(value);
 
-        InputManager.Instance.IsMoved = false;
-
         animator.SetBool("WATER", false);
+
+        InputManager.Instance.IsStun = false;
     }
 
     public IEnumerator TakeStun(float value)
     {
-        InputManager.Instance.IsMoved = true;
+        InputManager.Instance.IsStun = true;
 
         yield return new WaitForSeconds(value);
 
         animator.SetBool("STUN", false);
 
-        InputManager.Instance.IsMoved = false;
+        InputManager.Instance.IsStun = false;
     }
 }

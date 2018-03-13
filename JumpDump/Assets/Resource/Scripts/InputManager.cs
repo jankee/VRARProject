@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 public class InputManager : Singleton<InputManager>
 {
     //플레이어 담을 변수
+    [SerializeField]
     private Player player;
 
     //마우스 처음 클릭 지점 위치
@@ -21,22 +22,29 @@ public class InputManager : Singleton<InputManager>
 
     public bool IsBakeMoved { get; set; }
 
+    public bool IsStun { get; set; }
+
     [SerializeField]
     private Camera mainCamera;
 
     // Use this for initialization
     private void Start()
     {
+        player = GameManager.Instance.Player.GetComponent<Player>();
+
         IsMoved = false;
 
         IsBakeMoved = false;
+
+        IsStun = false;
     }
 
     // Update is called once per fra
     private void Update()
     {
+        //print("IsMoved : " + IsMoved);
         //
-        if (!GameManager.Instance.IsPaused && EventSystem.current.IsPointerOverGameObject() == false && !IsMoved)
+        if (!GameManager.Instance.IsPaused && EventSystem.current.IsPointerOverGameObject() == false && !IsMoved && !IsStun)
         {
             HandleInput();
         }
@@ -93,11 +101,11 @@ public class InputManager : Singleton<InputManager>
                 }
 
                 //캐릭터가 뒤로 가고 있으면 카메라 무브를 실행 안함
-                if (IsBakeMoved == false)
-                {
-                    //카메라 셋팅
-                    mainCamera.GetComponent<Camerafollow>().OriginPosition();
-                }
+                //if (IsBakeMoved == false)
+                //{
+                //    //카메라 셋팅
+                //    mainCamera.GetComponent<Camerafollow>().OriginPosition();
+                //}
 
                 player.MoveCharacter("up");
                 //roadGene.FindPlayer();
@@ -119,9 +127,6 @@ public class InputManager : Singleton<InputManager>
         else if (45f <= dirRot && dirRot <= 135f)
         {
             this.transform.localEulerAngles = new Vector3(0, 180, 0);
-
-            IsBakeMoved = true;
-
             player.MoveCharacter("Back");
         }
         else if (135f <= dirRot && dirRot <= 225f)
@@ -135,10 +140,11 @@ public class InputManager : Singleton<InputManager>
             player.MoveCharacter("up");
         }
 
-        if (IsBakeMoved == false)
-        {
-            //카메라 셋팅
-            mainCamera.GetComponent<Camerafollow>().OriginPosition();
-        }
+        //if (IsBakeMoved == false)
+        //{
+        //    print("실 행");
+        //    //카메라 셋팅
+        //    mainCamera.GetComponent<Camerafollow>().OriginPosition();
+        //}
     }
 }

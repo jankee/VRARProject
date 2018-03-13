@@ -12,6 +12,7 @@ TagManager:
   - Water
   - Raft
   - Vehicle
+  - Train
   layers:
   - Default
   - TransparentFX
