@@ -42,13 +42,13 @@ public class InputManager : Photon.MonoBehaviour
     {
         //print("IsMoved : " + IsMoved);
         //
-        if (PhotonNetwork.connected && photonView.isMine)
+        //if (PhotonNetwork.connected && photonView.isMine)
+        //{
+        if (!GameManager.Instance.IsPaused && EventSystem.current.IsPointerOverGameObject() == false && !IsMoved && !IsStun)
         {
-            if (!GameManager.Instance.IsPaused && EventSystem.current.IsPointerOverGameObject() == false && !IsMoved && !IsStun)
-            {
-                HandleInput();
-            }
+            HandleInput();
         }
+        //}
     }
 
     public void FindStartPlayer()

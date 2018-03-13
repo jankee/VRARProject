@@ -124,7 +124,7 @@ public class GameManager : Singleton<GameManager>
         //포톤뷰로 캐릭터 생성
         player = PhotonNetwork.Instantiate("Prefabs/" + playerNames[num], Vector3.zero, Quaternion.identity, 0);
 
-        player.name = playerNames[num];
+        //player.name = playerNames[num];
 
         //TODO : 랜덤하게 위치를 바꿔줘야 할것
         //Player.transform.position = Vector3.zero;
