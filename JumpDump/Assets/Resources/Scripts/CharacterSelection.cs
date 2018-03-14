@@ -8,6 +8,9 @@ public class CharacterSelection : Singleton<CharacterSelection>
     [SerializeField]
     private GameObject[] characterArray;
 
+    [SerializeField]
+    private GameManager gameManager;
+
     public GameObject[] CharacterArray
     {
         get
@@ -27,9 +30,9 @@ public class CharacterSelection : Singleton<CharacterSelection>
     {
         index = 0;
 
-        GameManager.Instance.MainCamera.enabled = false;
+        gameManager.MainCamera.enabled = false;
 
-        GameManager.Instance.CharacterCamera.enabled = true;
+        gameManager.CharacterCamera.enabled = true;
 
         for (int i = 0; i < characterArray.Length; i++)
         {
@@ -84,7 +87,7 @@ public class CharacterSelection : Singleton<CharacterSelection>
     {
         PlayerPrefs.SetInt("SELECTPLAYER", index);
 
-        GameManager.Instance.StartPlay();
+        gameManager.StartPlay();
 
         //자신을 비활성화 한다
         gameObject.SetActive(false);
@@ -98,7 +101,7 @@ public class CharacterSelection : Singleton<CharacterSelection>
 
         PlayerPrefs.SetInt("SELECTPLAYER", index);
 
-        GameManager.Instance.StartPlay();
+        gameManager.StartPlay();
 
         //자신을 비활성화 한다
         gameObject.SetActive(false);

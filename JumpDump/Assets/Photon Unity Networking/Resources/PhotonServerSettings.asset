@@ -42,4 +42,7 @@ MonoBehaviour:
   - RequestForPickupItems
   - RequestForPickupTimes
   - TaggedPlayer
+  - FindPlayer
+  - CreateRoad
+  - RemoveRoad
   DisableAutoOpenWizard: 1

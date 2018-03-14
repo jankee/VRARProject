@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : Singleton<GameManager>
+public class GameManager : Photon.MonoBehaviour
 {
     // 게임 종료 여부 (플래그(On/Off) 변수)
     public bool IsGameOver { get; set; }
@@ -84,6 +84,8 @@ public class GameManager : Singleton<GameManager>
     [SerializeField]
     private Light secondLight;
 
+    private RoadGenerator roadGenerator;
+
     private string[] playerNames;
 
     public void Awake()
@@ -124,10 +126,23 @@ public class GameManager : Singleton<GameManager>
         //포톤뷰로 캐릭터 생성
         player = PhotonNetwork.Instantiate("Prefabs/" + playerNames[num], Vector3.zero, Quaternion.identity, 0);
 
-        //player.name = playerNames[num];
+        if (PhotonNetwork.connected)
+        {
+            //길 생성
+            GameObject roadGe = PhotonNetwork.Instantiate("Prefabs/RoadGenerator", Vector3.zero, Quaternion.identity, 0);
+
+            roadGenerator = roadGe.GetComponent<RoadGenerator>();
+        }
+
+        player.name = playerNames[num];
 
         //TODO : 랜덤하게 위치를 바꿔줘야 할것
         //Player.transform.position = Vector3.zero;
+
+        if (PhotonNetwork.connected && PhotonNetwork.isMasterClient)
+        {
+            roadGenerator.InitializationRoad();
+        }
     }
 
     public void UIIntroPanel()
@@ -167,7 +182,10 @@ public class GameManager : Singleton<GameManager>
         mainLight.enabled = false;
         secondLight.enabled = true;
 
-        RoadGenerator.Instance.InitializationRoad();
+        if (PhotonNetwork.connected && PhotonNetwork.isMasterClient)
+        {
+            roadGenerator.InitializationRoad();
+        }
     }
 
     public void StartPlay()

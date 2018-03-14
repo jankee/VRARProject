@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class InputManager : Photon.MonoBehaviour
+public class InputManager : Photon.PunBehaviour
 {
     //플레이어 담을 변수
     [SerializeField]
     private Player player;
+
+    [SerializeField]
+    private GameManager gameManager;
 
     //마우스 처음 클릭 지점 위치
     private Vector3 startPos;
@@ -27,6 +30,10 @@ public class InputManager : Photon.MonoBehaviour
     [SerializeField]
     private Camera mainCamera;
 
+    public override void OnPhotonInstantiate(PhotonMessageInfo info)
+    {
+    }
+
     // Use this for initialization
     private void Start()
     {
@@ -35,6 +42,8 @@ public class InputManager : Photon.MonoBehaviour
         IsBakeMoved = false;
 
         IsStun = false;
+
+        player = null;
     }
 
     // Update is called once per fra
@@ -42,26 +51,45 @@ public class InputManager : Photon.MonoBehaviour
     {
         //print("IsMoved : " + IsMoved);
         //
-        //if (PhotonNetwork.connected && photonView.isMine)
-        //{
-        if (!GameManager.Instance.IsPaused && EventSystem.current.IsPointerOverGameObject() == false && !IsMoved && !IsStun)
+        if (PhotonNetwork.connected && player != null)
         {
-            HandleInput();
+            if (!gameManager.IsPaused && EventSystem.current.IsPointerOverGameObject() == false && !IsMoved && !IsStun)
+            {
+                HandleInput();
+            }
         }
-        //}
     }
 
     public void FindStartPlayer()
     {
-        //if (PhotonNetwork.connected && photonView.isMine)
-        //{
-        player = GameObject.FindObjectOfType<Player>();
-        //}
+        //PhotonNetwork.playerList[0].IsLocal == true
+        if (PhotonNetwork.connected)
+        {
+            PhotonView[] players = GameObject.FindObjectsOfType<PhotonView>();
+
+            for (int i = 0; i < players.Length; i++)
+            {
+                if (players[i].isMine == true)
+                {
+                    for (int j = 0; j < players.Length; j++)
+                    {
+                        if (players[j].tag == "Player")
+                        {
+                            player = players[i].GetComponent<Player>();
+
+                            break;
+                        }
+                    }
+                }
+            }
+        }
     }
 
     //실제 인풋이 들어 오는 함수
     public void HandleInput()
     {
+        //if (PhotonNetwork.connected && photonView.isMine)
+        //{
         Ray ray;
 
         RaycastHit hitInfo;
@@ -115,6 +143,7 @@ public class InputManager : Photon.MonoBehaviour
                 //roadGene.FindPlayer();
             }
         }
+        //}
     }
 
     private void DirectionCheck()

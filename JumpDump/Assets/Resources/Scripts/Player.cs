@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : Photon.MonoBehaviour
 {
     private float speed;
     private float delay;
@@ -15,6 +15,10 @@ public class Player : MonoBehaviour
     private PlayerHealth playerHealth;
 
     private InputManager inputManager;
+
+    private GameManager gameManager;
+
+    private RoadGenerator roadGenerator;
 
     [SerializeField]
     private float speedTime;
@@ -35,11 +39,16 @@ public class Player : MonoBehaviour
     // Use this for initialization
     private void Start()
     {
-        animator = transform.GetChild(0).GetComponent<Animator>();
+        //photonView.isMine == true;
+        animator = GetComponent<Animator>();
 
         playerHealth = GetComponent<PlayerHealth>();
 
         inputManager = GameObject.FindObjectOfType<InputManager>();
+
+        gameManager = GameObject.FindObjectOfType<GameManager>();
+
+        roadGenerator = GameObject.FindObjectOfType<RoadGenerator>();
     }
 
     /// <summary>
@@ -84,7 +93,7 @@ public class Player : MonoBehaviour
         if (other.tag == "Coin")
         {
             int value = other.transform.GetComponent<Coins>().CoinValue;
-            GameManager.Instance.CoinUp(value);
+            gameManager.CoinUp(value);
             Destroy(other.gameObject);
         }
     }
@@ -168,8 +177,12 @@ public class Player : MonoBehaviour
             animator.SetTrigger("DAMAGE");
         }
 
-        //카메라 셋팅
-        Camera.main.GetComponent<Camerafollow>().OriginPosition(endPos);
+        //포톤 처리
+        if (PhotonNetwork.connected && photonView.isMine)
+        {
+            //카메라 셋팅
+            Camera.main.GetComponent<Camerafollow>().OriginPosition(endPos);
+        }
 
         while (cooltime < timer)
         {
@@ -186,10 +199,10 @@ public class Player : MonoBehaviour
         inputManager.IsMoved = false;
         inputManager.IsBakeMoved = false;
 
-        GameManager.Instance.ScoreUp();
+        gameManager.ScoreUp();
 
         //로드 제네레이터의 플레이어 함수를 찾는다
-        RoadGenerator.Instance.FindPlayer();
+        roadGenerator.FindPlayer();
     }
 
     // 소수점값을 반올림 한다

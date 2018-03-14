@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4103145876099710}
   - component: {fileID: 114080521329064700}
+  - component: {fileID: 114694348086293390}
   m_Layer: 0
   m_Name: Road_003
   m_TagString: Untagged
@@ -138,7 +139,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roadType: 4
-  movingObjcetNumber: {x: 1, y: 3}
+  laneStart: {x: -15, y: 0, z: 0}
+  laneEnd: {x: 15, y: 0, z: 0}
   moveSpeed: {x: 0.5, y: 3.5}
   randomDirection: 1
 --- !u!114 &114524087980375138
@@ -153,3 +155,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Coins: {fileID: 1155013296525200, guid: 37eb1da450f470f428dcc2640a658705, type: 2}
+--- !u!114 &114694348086293390
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1162955813084002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ownerId: 0
+  group: 0
+  OwnerShipWasTransfered: 0
+  prefixBackup: -1
+  synchronization: 0
+  onSerializeTransformOption: 3
+  onSerializeRigidBodyOption: 2
+  ownershipTransfer: 0
+  ObservedComponents: []
+  ObservedComponentsFoldoutOpen: 1
+  viewIdField: 0
+  instantiationId: -1
+  currentMasterID: -1
+  isRuntimeInstantiated: 0
