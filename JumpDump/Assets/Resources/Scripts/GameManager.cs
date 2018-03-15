@@ -84,6 +84,7 @@ public class GameManager : Photon.MonoBehaviour
     [SerializeField]
     private Light secondLight;
 
+    [SerializeField]
     private RoadGenerator roadGenerator;
 
     private string[] playerNames;
@@ -106,7 +107,7 @@ public class GameManager : Photon.MonoBehaviour
 
         playerNames = new string[4] { "Player01", "Player02", "Player03", "Player04" };
 
-        SetPlayer();
+        //SetPlayer();
 
         //시작을 한후 일시 정지
         //GamePause();
@@ -126,14 +127,6 @@ public class GameManager : Photon.MonoBehaviour
         //포톤뷰로 캐릭터 생성
         player = PhotonNetwork.Instantiate("Prefabs/" + playerNames[num], Vector3.zero, Quaternion.identity, 0);
 
-        if (PhotonNetwork.connected)
-        {
-            //길 생성
-            GameObject roadGe = PhotonNetwork.Instantiate("Prefabs/RoadGenerator", Vector3.zero, Quaternion.identity, 0);
-
-            roadGenerator = roadGe.GetComponent<RoadGenerator>();
-        }
-
         player.name = playerNames[num];
 
         //TODO : 랜덤하게 위치를 바꿔줘야 할것
@@ -141,8 +134,16 @@ public class GameManager : Photon.MonoBehaviour
 
         if (PhotonNetwork.connected && PhotonNetwork.isMasterClient)
         {
+            //GameObject roadGe = PhotonNetwork.Instantiate("Prefabs/RoadGenerator", Vector3.zero, Quaternion.identity, 0);
+
+            //roadGenerator = roadGe.GetComponent<RoadGenerator>();
+
             roadGenerator.InitializationRoad();
         }
+        //else
+        //{
+        //    roadGenerator = GameObject.FindObjectOfType<RoadGenerator>();
+        //}
     }
 
     public void UIIntroPanel()
@@ -207,7 +208,10 @@ public class GameManager : Photon.MonoBehaviour
         mainLight.enabled = true;
         secondLight.enabled = false;
 
-        SetPlayer();
+        if (PhotonNetwork.connected)
+        {
+            SetPlayer();
+        }
 
         //InputManager에서 플레이어를 찾도록 한다
         inputManager.FindStartPlayer();

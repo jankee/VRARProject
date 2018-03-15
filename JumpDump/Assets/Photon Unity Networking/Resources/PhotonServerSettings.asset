@@ -45,4 +45,5 @@ MonoBehaviour:
   - FindPlayer
   - CreateRoad
   - RemoveRoad
+  - MoveCharacterRPC
   DisableAutoOpenWizard: 1

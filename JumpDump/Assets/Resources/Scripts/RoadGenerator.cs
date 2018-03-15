@@ -8,16 +8,16 @@ public class RoadGenerator : Photon.MonoBehaviour
     private Road[] roads;
 
     [SerializeField]
-    private int roadStart = -8;
+    private int roadStart = -10;
 
     [SerializeField]
-    private int roadEnd = 26;
+    private int roadEnd = 30;
 
     private List<Road> roadsList = new List<Road>();
 
     private RoadType roadType;
 
-    private int columCount = 0;
+    //private int columCount = 0;
 
     private int rowCount = -6;
 
@@ -31,9 +31,13 @@ public class RoadGenerator : Photon.MonoBehaviour
 
     private int lastPos = 0;
 
+    private int roadStartCount = 0;
+
     private int roadEndCount = 0;
 
     private string[] roadName;
+
+    private List<Road> tmpRoadList = new List<Road>();
 
     // Use this for initialization
     private void Start()
@@ -41,6 +45,10 @@ public class RoadGenerator : Photon.MonoBehaviour
         roadName = new string[5] { "Road_001", "Road_002", "Road_003", "Road_004", "Road_005" };
 
         moveRoutine = null;
+
+        roadEndCount = roadEnd - 1;
+
+        roadStartCount = roadStart;
 
         //InitializationRoad();
     }
@@ -76,9 +84,10 @@ public class RoadGenerator : Photon.MonoBehaviour
     //시작되면 화면 26개의 road가 생성됩니다. 로드가 생성되면 roadsList에 등록되게 만들었습니다.
     public void InitializationRoad()
     {
+        //로드 제네레이터 위치 값을 0
         this.transform.position = Vector3.zero;
 
-        roadEndCount = roadStart;
+        //roadEndCount = roadStart;
 
         foreach (Road road in roadsList)
         {
@@ -87,29 +96,29 @@ public class RoadGenerator : Photon.MonoBehaviour
 
         roadsList.Clear();
 
+        //지정된 갯수만큼 랜덤 로드를 생성
         for (int i = roadStart; i < roadEnd; i++)
         {
-            columCount = i;
-
-            RandomRoad(columCount);
+            RandomRoad(i);
         }
     }
 
-    private void RandomRoad(int columCount)
+    private void RandomRoad(int roadNum)
     {
-        int rand;
+        int randomNum;
 
-        //플레이어가 있는 0, 1 위치에는 일반 도로 생성
-        if (columCount >= 0 && columCount <= 4)
+        //플레이어가 있는 0, 1 위치에는 워크로드 생성
+        if (roadNum >= 0 && roadNum <= 4)
         {
-            rand = 2;
+            randomNum = 2;
         }
         else
         {
-            rand = Random.Range(0, 5);
+            //랜덤 하게 번호 저장
+            randomNum = Random.Range(0, roads.Length);
         }
 
-        switch (rand)
+        switch (randomNum)
         {
             case 0:
                 roadType = RoadType.RAILROAD;
@@ -133,11 +142,13 @@ public class RoadGenerator : Photon.MonoBehaviour
         }
 
         //PhotonNetwork.RPC()
-        photonView.RPC("CreateRoad", PhotonTargets.AllViaServer, columCount, roadType);
+        //photonView.RPC("CreateRoad", PhotonTargets.AllViaServer, roadNum, roadType);
+
+        CreateRoad(roadNum, roadType);
     }
 
-    [PunRPC]
-    private void CreateRoad(int num, RoadType roadType)
+    //[PunRPC]
+    private void CreateRoad(int roadNum, RoadType roadType)
     {
         for (int i = 0; i < roads.Length; i++)
         {
@@ -147,17 +158,19 @@ public class RoadGenerator : Photon.MonoBehaviour
                 {
                     if (roads[i].name == roadName[j])
                     {
-                        print("roads : " + roads[i].name + ", roadName : " + roadName[j]);
-                        GameObject tmp = PhotonNetwork.Instantiate("Prefabs/" + roadName[j], transform.position + new Vector3(0, 0, num),
-                            Quaternion.identity, 0);
+                        GameObject tmpRoad = PhotonNetwork.Instantiate("Prefabs/" + roadName[j],
+                                             transform.position + new Vector3(0, 0, roadNum),
+                                             Quaternion.identity, 0);
 
-                        tmp.transform.SetParent(this.transform);
+                        tmpRoad.transform.SetParent(this.transform);
 
-                        roadsList.Add(tmp.GetComponent<Road>());
-
-                        break;
+                        roadsList.Add(tmpRoad.GetComponent<Road>());
                     }
                 }
+
+                //GameObject tmpRoad = PhotonNetwork.Instantiate(roads[i].gameObject,
+                //    transform.position + new Vector3(0, 0, roadNum),
+                //    Quaternion.identity, this.transform);
             }
         }
     }
@@ -189,63 +202,117 @@ public class RoadGenerator : Photon.MonoBehaviour
     //    photonView.RPC("FindPlayer", PhotonTargets.AllViaServer);
     //}
 
+    public Player[] tmpPlayer;
+
     public void FindPlayer()
     {
-        List<Player> tmp = new List<Player>();
+        /*Player[] */
+        tmpPlayer = GameObject.FindObjectsOfType<Player>();
 
-        Player[] tmpPlayer = GameObject.FindObjectsOfType<Player>();
+        Player tmp = new Player();
 
-        print("tmpPlayer : " + tmpPlayer.Length);
+        //맵에 로드 갯수를 확인
+        tmpRoadList.Clear();
 
-        //최초 위치를 기록
-        firstPos = (int)tmpPlayer[0].transform.position.z;
+        tmpRoadList.AddRange(GameObject.FindObjectsOfType<Road>());
 
-        lastPos = (int)tmpPlayer[0].transform.position.z;
+        Road tmpRoad = new Road();
 
-        //로드가 생성되는 기준을 알기 위해 제일 앞에 있는 플레어의 z값을 확인
-        for (int i = 0; i < tmpPlayer.Length; i++)
+        int startNum = 0;
+
+        int lastNum = 0;
+
+        for (int i = 0; i < tmpRoadList.Count; i++)
         {
-            if (firstPos < (int)tmpPlayer[i].transform.position.z)
+            for (int j = 0; j < tmpRoadList.Count; j++)
             {
-                firstPos = (int)tmpPlayer[i].transform.position.z;
+                if (tmpRoadList[i].transform.position.z > tmpRoadList[j].transform.position.z)
+                {
+                    tmpRoad = tmpRoadList[i];
 
-                columCount++;
+                    tmpRoadList[i] = tmpRoadList[j];
 
-                RandomRoad(columCount);
+                    tmpRoadList[j] = tmpRoad;
+                }
+
+                //if (tmpRoadList[i].transform.position.z > tmpRoadList[j].transform.position.z)
+                //{
+                //    startNum = (int)tmpRoadList[i].transform.position.z;
+                //}
+                //else if (tmpRoadList[i].transform.position.z < tmpRoadList[j].transform.position.z)
+                //{
+                //    lastNum = (int)tmpRoadList[i].transform.position.z;
+                //}
             }
         }
 
-        //플레이어 중 가장 뒤에 있는 위치값을 찾는다
-        for (int i = 0; i < tmpPlayer.Length; i++)
+        startNum = (int)tmpRoadList[0].transform.position.z;
+
+        lastNum = (int)tmpRoadList[tmpRoadList.Count - 1].transform.position.z;
+
+        print(" Start Num : " + startNum + " Last Num : " + lastNum);
+
+        if (tmpPlayer.Length != 1)
         {
-            if (lastPos > (int)tmpPlayer[i].transform.position.z)
+            for (int i = 0; i < tmpPlayer.Length; i++)
             {
-                lastPos = (int)tmpPlayer[i].transform.position.z;
+                for (int j = 0; j < tmpPlayer.Length; j++)
+                {
+                    if (tmpPlayer[i].transform.position.z > tmpPlayer[j].transform.position.z)
+                    {
+                        tmp = tmpPlayer[i];
+
+                        tmpPlayer[i] = tmpPlayer[j];
+
+                        tmpPlayer[j] = tmp;
+                    }
+                }
             }
-
-            lastPos += roadEndCount;
-
-            //photonView.RPC("RemoveRoad", PhotonTargets.AllViaServer, lastPos);
-            RemoveRoad(lastPos);
         }
 
-        print(" firstPos : " + firstPos + ", lastPos :" + lastPos);
+        int playerFirstNum = (int)tmpPlayer[0].transform.position.z + roadEndCount;
+
+        int playerLastNum = (int)tmpPlayer[tmpPlayer.Length - 1].transform.position.z + roadStartCount;
+
+        print("playerFirstNum : " + playerFirstNum + ", playerLastNum : " + playerLastNum);
+
+        if (playerFirstNum > startNum)
+        {
+            RandomRoad(playerFirstNum);
+        }
+
+        if (playerLastNum > lastNum)
+        {
+            RemoveRoad(playerLastNum);
+        }
     }
 
     //[PunRPC]
-    public void RemoveRoad(int value)
+    public void RemoveRoad(int endNum)
     {
-        //그래서 foreach문이 실행이 안됩니다.
-        foreach (Road road in roadsList)
+        //List<Road> tmpRoadList = new List<Road>(GameObject.FindObjectsOfType<Road>());
+
+        print("Remove" + endNum);
+
+        //PhotonNetwork.Destroy(tmpRoadList[i].gameObject);
+
+        //Road[] tmpRemove;
+
+        for (int i = 0; i < tmpRoadList.Count; i++)
         {
-            //print(road.name + " : " + road.transform.position + ", " + road.transform.localPosition);
-            if (road.transform.position.z < value)
+            if (tmpRoadList[i].transform.position.z < endNum)
             {
-                roadsList.Remove(road);
-                PhotonNetwork.Destroy(road.gameObject);
-                break;
+                PhotonNetwork.Destroy(tmpRoadList[i].gameObject);
             }
         }
+
+        //tmpRoadList.Remove(tmpRemove);
+        //그래서 foreach문이 실행이 안됩니다.
+        //foreach (Road road in roadsList)
+        //{
+        //    //print(road.name + " : " + road.transform.position + ", " + road.transform.localPosition);
+
+        //}
 
         //람다식 방법
         //var findRoads = roadsList.FindAll(

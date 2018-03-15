@@ -1,7 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[Serializable]
 public class Player : Photon.MonoBehaviour
 {
     private float speed;
@@ -51,11 +53,17 @@ public class Player : Photon.MonoBehaviour
         roadGenerator = GameObject.FindObjectOfType<RoadGenerator>();
     }
 
+    public void MoveCharacter(string dir)
+    {
+        photonView.RPC("MoveCharacterRPC", PhotonTargets.AllViaServer, dir);
+    }
+
     /// <summary>
     /// 방향을 정하고 SmoothMovement 코루틴을 실행
     /// </summary>
     /// <param name="dir"></param>
-    public void MoveCharacter(string dir)
+    [PunRPC]
+    public void MoveCharacterRPC(string dir)
     {
         animator.SetTrigger("JUMP");
 
@@ -201,8 +209,12 @@ public class Player : Photon.MonoBehaviour
 
         gameManager.ScoreUp();
 
-        //로드 제네레이터의 플레이어 함수를 찾는다
-        roadGenerator.FindPlayer();
+        if (PhotonNetwork.connected && photonView.isMine)
+        {
+            print("Master");
+            //로드 제네레이터의 플레이어 함수를 찾는다
+            roadGenerator.FindPlayer();
+        }
     }
 
     // 소수점값을 반올림 한다

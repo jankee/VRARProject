@@ -88,11 +88,7 @@ public class Camerafollow : MonoBehaviour
     {
         yield return new WaitForSeconds(6f);
 
-        print("Origin Pos : " + tarPos);
-
         tarPos += endPos;
-
-        print("tarPos : " + tarPos);
 
         Vector3 camPos = this.transform.position;
 
