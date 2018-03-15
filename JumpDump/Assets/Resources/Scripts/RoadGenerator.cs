@@ -37,6 +37,8 @@ public class RoadGenerator : Photon.MonoBehaviour
 
     private string[] roadName;
 
+    private Player[] tmpPlayer;
+
     private List<Road> tmpRoadList = new List<Road>();
 
     // Use this for initialization
@@ -175,35 +177,6 @@ public class RoadGenerator : Photon.MonoBehaviour
         }
     }
 
-    //public void AddRoad(Vector3 count)
-    //{
-    //    //여기서
-    //    if (count.z == -1)
-    //    {
-    //        //컬럼에 하나를 더 해준다
-    //        columCount++;
-
-    //        rowCount++;
-
-    //        RandomRoad(columCount);
-    //    }
-    //    else if (count.z == 1)
-    //    {
-    //        columCount--;
-
-    //        rowCount--;
-
-    //        RandomRoad(rowCount);
-    //    }
-    //}
-
-    //public void CallFindPlayer()
-    //{
-    //    photonView.RPC("FindPlayer", PhotonTargets.AllViaServer);
-    //}
-
-    public Player[] tmpPlayer;
-
     public void FindPlayer()
     {
         /*Player[] */
@@ -234,15 +207,6 @@ public class RoadGenerator : Photon.MonoBehaviour
 
                     tmpRoadList[j] = tmpRoad;
                 }
-
-                //if (tmpRoadList[i].transform.position.z > tmpRoadList[j].transform.position.z)
-                //{
-                //    startNum = (int)tmpRoadList[i].transform.position.z;
-                //}
-                //else if (tmpRoadList[i].transform.position.z < tmpRoadList[j].transform.position.z)
-                //{
-                //    lastNum = (int)tmpRoadList[i].transform.position.z;
-                //}
             }
         }
 

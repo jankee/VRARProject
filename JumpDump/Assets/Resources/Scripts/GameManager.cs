@@ -117,10 +117,20 @@ public class GameManager : Photon.MonoBehaviour
 
     public void SetPlayer()
     {
-        if (player != null)
+        Player[] players = GameObject.FindObjectsOfType<Player>();
+
+        if (players.Length >= 1)
         {
-            Destroy(player.gameObject);
+            for (int i = 0; i < players.Length; i++)
+            {
+                //if (players[i] != null)
+                //{
+                //    Destroy(player.gameObject);
+                //}
+            }
         }
+
+        print("Player" + players.Length);
 
         int num = PlayerPrefs.GetInt("SELECTPLAYER", 0);
 
@@ -214,7 +224,7 @@ public class GameManager : Photon.MonoBehaviour
         }
 
         //InputManager에서 플레이어를 찾도록 한다
-        inputManager.FindStartPlayer();
+        inputManager.FindIsMinePlayer();
 
         GameUnpause();
     }

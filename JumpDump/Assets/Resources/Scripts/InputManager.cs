@@ -60,7 +60,8 @@ public class InputManager : Photon.PunBehaviour
         }
     }
 
-    public void FindStartPlayer()
+    //자신 플레어를 찾는 메소드
+    public void FindIsMinePlayer()
     {
         //PhotonNetwork.playerList[0].IsLocal == true
         if (PhotonNetwork.connected)
@@ -71,15 +72,19 @@ public class InputManager : Photon.PunBehaviour
             {
                 if (players[i].isMine == true)
                 {
-                    for (int j = 0; j < players.Length; j++)
-                    {
-                        if (players[j].tag == "Player")
-                        {
-                            player = players[i].GetComponent<Player>();
+                    player = players[i].GetComponent<Player>();
 
-                            break;
-                        }
-                    }
+                    break;
+
+                    //for (int j = 0; j < players.Length; j++)
+                    //{
+                    //    if (players[j].tag == "Player")
+                    //    {
+                    //        player = players[i].GetComponent<Player>();
+
+                    //        break;
+                    //    }
+                    //}
                 }
             }
         }
@@ -172,12 +177,5 @@ public class InputManager : Photon.PunBehaviour
             this.transform.localEulerAngles = new Vector3(0, 0, 0);
             player.MoveCharacter("up");
         }
-
-        //if (IsBakeMoved == false)
-        //{
-        //    print("실 행");
-        //    //카메라 셋팅
-        //    mainCamera.GetComponent<Camerafollow>().OriginPosition();
-        //}
     }
 }
