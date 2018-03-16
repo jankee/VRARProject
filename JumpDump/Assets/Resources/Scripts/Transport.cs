@@ -2,10 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Vehicle : MonoBehaviour
+public class Transport : Photon.MonoBehaviour
 {
-    // Update is called once per frame
-    public IEnumerator MoveForward(Vector3 start, Vector3 end, float speed, int dir)
+    public void MoveForward(Vector3 start, Vector3 end, float speed, int dir)
+    {
+        photonView.RPC("MoveForwardRPC", PhotonTargets.AllViaServer, start, end, speed, dir);
+    }
+
+    [PunRPC]
+    public IEnumerator MoveForwardRPC(Vector3 start, Vector3 end, float speed, int dir)
     {
         if (dir == -1)
         {
@@ -26,6 +31,6 @@ public class Vehicle : MonoBehaviour
             }
         }
 
-        Destroy(gameObject);
+        PhotonNetwork.Destroy(gameObject);
     }
 }

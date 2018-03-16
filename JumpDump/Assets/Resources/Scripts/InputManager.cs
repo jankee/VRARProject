@@ -30,10 +30,6 @@ public class InputManager : Photon.PunBehaviour
     [SerializeField]
     private Camera mainCamera;
 
-    public override void OnPhotonInstantiate(PhotonMessageInfo info)
-    {
-    }
-
     // Use this for initialization
     private void Start()
     {
@@ -42,8 +38,6 @@ public class InputManager : Photon.PunBehaviour
         IsBakeMoved = false;
 
         IsStun = false;
-
-        player = null;
     }
 
     // Update is called once per fra
@@ -63,30 +57,11 @@ public class InputManager : Photon.PunBehaviour
     //자신 플레어를 찾는 메소드
     public void FindIsMinePlayer()
     {
-        //PhotonNetwork.playerList[0].IsLocal == true
+        print("Start");
+
         if (PhotonNetwork.connected)
         {
-            PhotonView[] players = GameObject.FindObjectsOfType<PhotonView>();
-
-            for (int i = 0; i < players.Length; i++)
-            {
-                if (players[i].isMine == true)
-                {
-                    player = players[i].GetComponent<Player>();
-
-                    break;
-
-                    //for (int j = 0; j < players.Length; j++)
-                    //{
-                    //    if (players[j].tag == "Player")
-                    //    {
-                    //        player = players[i].GetComponent<Player>();
-
-                    //        break;
-                    //    }
-                    //}
-                }
-            }
+            player = gameManager.Player.GetComponent<Player>();
         }
     }
 

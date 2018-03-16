@@ -471,18 +471,12 @@ Prefab:
       propertyPath: m_RootOrder
       value: 7
       objectReference: {fileID: 0}
-    - target: {fileID: 114407230610089854, guid: 8bf885731de40894484fead9068ac9f2,
+    - target: {fileID: 114665226557247558, guid: 8bf885731de40894484fead9068ac9f2,
         type: 2}
-      propertyPath: viewIdField
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114407230610089854, guid: 8bf885731de40894484fead9068ac9f2,
-        type: 2}
-      propertyPath: instantiationId
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 114407230610089854, guid: 8bf885731de40894484fead9068ac9f2, type: 2}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 46310078}
+    m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8bf885731de40894484fead9068ac9f2, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &1641137739 stripped

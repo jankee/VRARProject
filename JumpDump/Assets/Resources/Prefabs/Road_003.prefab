@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4103145876099710}
-  - component: {fileID: 114080521329064700}
+  - component: {fileID: 114579233618480088}
   - component: {fileID: 114694348086293390}
   m_Layer: 0
   m_Name: Road_003
@@ -127,22 +127,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &114080521329064700
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1162955813084002}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1d26909c29117e4faedd94925e90ff9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  roadType: 4
-  laneStart: {x: -15, y: 0, z: 0}
-  laneEnd: {x: 15, y: 0, z: 0}
-  moveSpeed: {x: 0.5, y: 3.5}
-  randomDirection: 1
 --- !u!114 &114524087980375138
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -155,6 +139,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Coins: {fileID: 1155013296525200, guid: 37eb1da450f470f428dcc2640a658705, type: 2}
+--- !u!114 &114579233618480088
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1162955813084002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a652c9275d391dd49b31274cc0b82003, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roadType: 4
+  laneStart: {x: -15, y: 0, z: 0}
+  laneEnd: {x: 15, y: 0, z: 0}
+  moveSpeed: {x: 2.5, y: 3.5}
+  randomDirection: 1
+  Transports:
+  - {fileID: 1843245118959646, guid: 46c4f08c2af914e44893007e0ee83695, type: 2}
+  - {fileID: 1580200092381438, guid: 34561064934764c4f90967becf80c878, type: 2}
+  repeatChance: {x: 0, y: 4}
 --- !u!114 &114694348086293390
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -174,7 +178,8 @@ MonoBehaviour:
   onSerializeTransformOption: 3
   onSerializeRigidBodyOption: 2
   ownershipTransfer: 0
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: 0}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 0
   instantiationId: -1

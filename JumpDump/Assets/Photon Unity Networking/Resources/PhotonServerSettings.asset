@@ -46,4 +46,7 @@ MonoBehaviour:
   - CreateRoad
   - RemoveRoad
   - MoveCharacterRPC
+  - TransportSet
+  - MoveForwardRPC
+  - InitRoadRPC
   DisableAutoOpenWizard: 1

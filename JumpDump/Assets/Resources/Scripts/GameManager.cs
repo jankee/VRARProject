@@ -117,43 +117,43 @@ public class GameManager : Photon.MonoBehaviour
 
     public void SetPlayer()
     {
-        Player[] players = GameObject.FindObjectsOfType<Player>();
-
-        if (players.Length >= 1)
-        {
-            for (int i = 0; i < players.Length; i++)
-            {
-                //if (players[i] != null)
-                //{
-                //    Destroy(player.gameObject);
-                //}
-            }
-        }
-
-        print("Player" + players.Length);
-
         int num = PlayerPrefs.GetInt("SELECTPLAYER", 0);
 
-        //포톤뷰로 캐릭터 생성
-        player = PhotonNetwork.Instantiate("Prefabs/" + playerNames[num], Vector3.zero, Quaternion.identity, 0);
-
-        player.name = playerNames[num];
+        Player[] tmpPlayer = FindRankPlayer();
 
         //TODO : 랜덤하게 위치를 바꿔줘야 할것
         //Player.transform.position = Vector3.zero;
+        if (tmpPlayer.Length >= 1)
+        {
+            //가장 늦은 플레이어 위치 값에 더 해준 위치값
+            Vector3 tmpPos = tmpPlayer[tmpPlayer.Length - 1].transform.position;
+
+            tmpPos += new Vector3(2f, 0, 0);
+
+            //포톤뷰로 캐릭터 생성
+            player = PhotonNetwork.Instantiate("Prefabs/" + playerNames[num], tmpPos, Quaternion.identity, 0);
+        }
+        else
+        {
+            //포톤뷰로 캐릭터 생성
+            player = PhotonNetwork.Instantiate("Prefabs/" + playerNames[num], Vector3.zero, Quaternion.identity, 0);
+        }
+
+        print("Player" + tmpPlayer.Length);
+
+        player.name = playerNames[num];
+
+        if (PhotonNetwork.connected)
+        {
+            Vector3 tmpPos = player.transform.position;
+
+            mainCamera.GetComponent<Camerafollow>().OriginPosition(tmpPos);
+        }
 
         if (PhotonNetwork.connected && PhotonNetwork.isMasterClient)
         {
-            //GameObject roadGe = PhotonNetwork.Instantiate("Prefabs/RoadGenerator", Vector3.zero, Quaternion.identity, 0);
-
-            //roadGenerator = roadGe.GetComponent<RoadGenerator>();
-
             roadGenerator.InitializationRoad();
         }
-        //else
-        //{
-        //    roadGenerator = GameObject.FindObjectOfType<RoadGenerator>();
-        //}
     }
 
     public void UIIntroPanel()
@@ -229,6 +229,33 @@ public class GameManager : Photon.MonoBehaviour
         GameUnpause();
     }
 
+    public Player[] FindRankPlayer()
+    {
+        Player[] tmpPlayer = GameObject.FindObjectsOfType<Player>();
+
+        Player tmp = new Player();
+
+        if (tmpPlayer.Length != 1)
+        {
+            for (int i = 0; i < tmpPlayer.Length; i++)
+            {
+                for (int j = 0; j < tmpPlayer.Length; j++)
+                {
+                    if (tmpPlayer[i].transform.position.z > tmpPlayer[j].transform.position.z)
+                    {
+                        tmp = tmpPlayer[i];
+
+                        tmpPlayer[i] = tmpPlayer[j];
+
+                        tmpPlayer[j] = tmp;
+                    }
+                }
+            }
+        }
+
+        return tmpPlayer;
+    }
+
     // 코인점수 증가
     public void CoinUp(int coinValue)
     {
@@ -280,6 +307,7 @@ public class GameManager : Photon.MonoBehaviour
 
     public void GameUnpause()
     {
+        print("Unpause");
         //일시중지는 거짓
         IsPaused = false;
 

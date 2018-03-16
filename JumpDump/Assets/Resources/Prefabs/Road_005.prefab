@@ -35,9 +35,10 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4231660050241752}
-  - component: {fileID: 114404404462705878}
+  - component: {fileID: 114575897421801696}
   - component: {fileID: 95151960883804836}
   - component: {fileID: 114089259236632640}
+  - component: {fileID: 114839344999064748}
   m_Layer: 0
   m_Name: Road_005
   m_TagString: Untagged
@@ -298,11 +299,12 @@ MonoBehaviour:
   group: 0
   OwnerShipWasTransfered: 0
   prefixBackup: -1
-  synchronization: 0
+  synchronization: 3
   onSerializeTransformOption: 3
   onSerializeRigidBodyOption: 2
   ownershipTransfer: 0
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: 114839344999064748}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 0
   instantiationId: -1
@@ -320,7 +322,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Coins: {fileID: 1155013296525200, guid: 37eb1da450f470f428dcc2640a658705, type: 2}
---- !u!114 &114404404462705878
+--- !u!114 &114575897421801696
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -328,7 +330,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1388019589728436}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ec0f3d3a4b9bc642ba940ee1026eee3, type: 3}
+  m_Script: {fileID: 11500000, guid: a652c9275d391dd49b31274cc0b82003, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   roadType: 2
@@ -336,6 +338,26 @@ MonoBehaviour:
   laneEnd: {x: 35, y: 0, z: 0}
   moveSpeed: {x: 30, y: 40}
   randomDirection: 1
-  vehicles:
+  Transports:
   - {fileID: 1843245118959646, guid: 82d141301711d4b44a95d79a7f2bc3e5, type: 2}
-  ranIntVector: {x: 0, y: 4}
+  repeatChance: {x: 0, y: 6}
+--- !u!114 &114839344999064748
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1388019589728436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b8c4a61274f60b4ea5fb4299cfdbf14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowLayerWeightsInspector: 1
+  ShowParameterInspector: 1
+  m_SynchronizeParameters:
+  - Type: 9
+    SynchronizeType: 1
+    Name: LIGHTING
+  m_SynchronizeLayers:
+  - SynchronizeType: 1
+    LayerIndex: 0

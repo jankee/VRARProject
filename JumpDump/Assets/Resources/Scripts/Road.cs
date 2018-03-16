@@ -11,7 +11,7 @@ public enum RoadType
     ROADWAY02,
 }
 
-public class Road : MonoBehaviour
+public class Road : Photon.MonoBehaviour
 {
     [SerializeField]
     private RoadType roadType;
@@ -85,5 +85,18 @@ public class Road : MonoBehaviour
         {
             moveDirection = -1;
         }
+    }
+
+    public void InitRoad()
+    {
+        photonView.RPC("InitRoadRPC", PhotonTargets.AllViaServer);
+    }
+
+    [PunRPC]
+    private void InitRoadRPC()
+    {
+        Transform parent = GameObject.FindObjectOfType<RoadGenerator>().transform;
+
+        this.transform.SetParent(parent);
     }
 }

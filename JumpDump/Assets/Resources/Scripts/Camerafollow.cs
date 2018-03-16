@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Camerafollow : MonoBehaviour
+public class Camerafollow : Photon.MonoBehaviour
 {
     // 카메라 지정
     //private Camera cam;
@@ -33,7 +33,10 @@ public class Camerafollow : MonoBehaviour
 
         print("targetPos : " + targetPos);
 
-        StartCoroutine(OriginPositionRoutine(targetPos));
+        if (PhotonNetwork.connected)
+        {
+            StartCoroutine(OriginPositionRoutine(targetPos));
+        }
     }
 
     private IEnumerator OriginPositionRoutine(Vector3 tarPos)

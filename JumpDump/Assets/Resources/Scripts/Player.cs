@@ -62,7 +62,7 @@ public class Player : Photon.MonoBehaviour
     /// </summary>
     /// <param name="dir"></param>
     [PunRPC]
-    public void MoveCharacterRPC(string dir)
+    private void MoveCharacterRPC(string dir)
     {
         animator.SetTrigger("JUMP");
 
@@ -208,7 +208,7 @@ public class Player : Photon.MonoBehaviour
 
         gameManager.ScoreUp();
 
-        if (PhotonNetwork.connected && photonView.isMine)
+        if (PhotonNetwork.connected && PhotonNetwork.isMasterClient)
         {
             print("Master");
             //로드 제네레이터의 플레이어 함수를 찾는다

@@ -41,6 +41,9 @@ public class RoadGenerator : Photon.MonoBehaviour
 
     private List<Road> tmpRoadList = new List<Road>();
 
+    [SerializeField]
+    private GameManager gameManager;
+
     // Use this for initialization
     private void Start()
     {
@@ -51,6 +54,8 @@ public class RoadGenerator : Photon.MonoBehaviour
         roadEndCount = roadEnd - 1;
 
         roadStartCount = roadStart;
+
+        //gameManager = GameObject.FindObjectOfType<GameManager>();
 
         //InitializationRoad();
     }
@@ -164,7 +169,7 @@ public class RoadGenerator : Photon.MonoBehaviour
                                              transform.position + new Vector3(0, 0, roadNum),
                                              Quaternion.identity, 0);
 
-                        tmpRoad.transform.SetParent(this.transform);
+                        tmpRoad.GetComponent<Road>().InitRoad();
 
                         roadsList.Add(tmpRoad.GetComponent<Road>());
                     }
@@ -175,14 +180,14 @@ public class RoadGenerator : Photon.MonoBehaviour
                 //    Quaternion.identity, this.transform);
             }
         }
+
+        print(roadsList.Count);
     }
 
     public void FindPlayer()
     {
-        /*Player[] */
-        tmpPlayer = GameObject.FindObjectsOfType<Player>();
-
-        Player tmp = new Player();
+        ///*Player[] */
+        //tmpPlayer = GameObject.FindObjectsOfType<Player>();
 
         //맵에 로드 갯수를 확인
         tmpRoadList.Clear();
@@ -216,23 +221,8 @@ public class RoadGenerator : Photon.MonoBehaviour
 
         print(" Start Num : " + startNum + " Last Num : " + lastNum);
 
-        if (tmpPlayer.Length != 1)
-        {
-            for (int i = 0; i < tmpPlayer.Length; i++)
-            {
-                for (int j = 0; j < tmpPlayer.Length; j++)
-                {
-                    if (tmpPlayer[i].transform.position.z > tmpPlayer[j].transform.position.z)
-                    {
-                        tmp = tmpPlayer[i];
-
-                        tmpPlayer[i] = tmpPlayer[j];
-
-                        tmpPlayer[j] = tmp;
-                    }
-                }
-            }
-        }
+        //캐릭터 배열의 순서를 정함
+        tmpPlayer = gameManager.FindRankPlayer();
 
         int playerFirstNum = (int)tmpPlayer[0].transform.position.z + roadEndCount;
 
