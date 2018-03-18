@@ -87,7 +87,7 @@ public class GameManager : Photon.MonoBehaviour
     [SerializeField]
     private RoadGenerator roadGenerator;
 
-    private string[] playerNames;
+    //private string[] playerNames;
 
     public void Awake()
     {
@@ -105,18 +105,37 @@ public class GameManager : Photon.MonoBehaviour
 
         UIIntroPanel();
 
-        playerNames = new string[4] { "Player01", "Player02", "Player03", "Player04" };
-
-        //SetPlayer();
-
         //시작을 한후 일시 정지
         //GamePause();
         Time.timeScale = 0;
         IsPaused = false;
     }
 
+    public void Start()
+    {
+        if (PhotonNetwork.connected)
+        {
+            roadGenerator = GameObject.FindObjectOfType<RoadGenerator>();
+        }
+    }
+
     public void SetPlayer()
     {
+        //GameObject tmpRoadGenerator;
+
+        //마스터만 로드제네레이터를 생성한다
+        if (PhotonNetwork.isMasterClient)
+        {
+            GameObject tmpRoadGenerator = PhotonNetwork.Instantiate("Prefabs/RoadGenerator", Vector3.zero,
+                Quaternion.identity, 0);
+
+            //만약 생성이 되어 있다면
+            roadGenerator = tmpRoadGenerator.GetComponent<RoadGenerator>();
+        }
+
+        //만약 생성이 되어 있다면
+        //roadGenerator = tmpRoadGenerator.GetComponent<RoadGenerator>();
+
         int num = PlayerPrefs.GetInt("SELECTPLAYER", 0);
 
         Player[] tmpPlayer = FindRankPlayer();
@@ -131,17 +150,15 @@ public class GameManager : Photon.MonoBehaviour
             tmpPos += new Vector3(2f, 0, 0);
 
             //포톤뷰로 캐릭터 생성
-            player = PhotonNetwork.Instantiate("Prefabs/" + playerNames[num], tmpPos, Quaternion.identity, 0);
+            player = PhotonNetwork.Instantiate("Prefabs/" + characterArray[num].name, tmpPos, Quaternion.identity, 0);
         }
         else
         {
             //포톤뷰로 캐릭터 생성
-            player = PhotonNetwork.Instantiate("Prefabs/" + playerNames[num], Vector3.zero, Quaternion.identity, 0);
+            player = PhotonNetwork.Instantiate("Prefabs/" + characterArray[num].name, Vector3.zero, Quaternion.identity, 0);
         }
 
-        print("Player" + tmpPlayer.Length);
-
-        player.name = playerNames[num];
+        player.name = characterArray[num].name;
 
         if (PhotonNetwork.connected)
         {

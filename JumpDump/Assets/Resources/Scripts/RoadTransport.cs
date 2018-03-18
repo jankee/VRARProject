@@ -5,7 +5,7 @@ using UnityEngine;
 public class RoadTransport : Road
 {
     [SerializeField]
-    private GameObject[] Transports;
+    private GameObject[] transports;
 
     [SerializeField]
     private Vector2 repeatChance = new Vector2(1, 10);
@@ -21,40 +21,61 @@ public class RoadTransport : Road
 
         //randomTime.x = Random.Range(randomTime.x, randomTime.y);
 
-        anim = GetComponent<Animator>();
-
-        StartCoroutine(ProcessRoutine());
-
         if (PhotonNetwork.isMasterClient)
         {
+            anim = GetComponent<Animator>();
+
+            StartCoroutine(ProcessRoutine());
+
             if (MoveDirection == -1)
             {
+                print("1");
                 StartCoroutine(CreateTransport(LaneEnd, LaneStart));
-
-                return;
             }
-
-            StartCoroutine(CreateTransport(LaneStart, LaneEnd));
+            else
+            {
+                print("2");
+                StartCoroutine(CreateTransport(LaneStart, LaneEnd));
+            }
         }
+    }
+
+    public void InitRoad()
+    {
+        photonView.RPC("InitRoadRPC", PhotonTargets.AllViaServer);
+    }
+
+    [PunRPC]
+    private void InitRoadRPC()
+    {
+        Transform parent = GameObject.FindObjectOfType<RoadGenerator>().transform;
+
+        this.transform.SetParent(parent);
     }
 
     private IEnumerator CreateTransport(Vector3 start, Vector3 end)
     {
-        if (anim != null)
+        if (transports.Length > 0 && PhotonNetwork.isMasterClient)
         {
-            anim.SetTrigger("LIGHTING");
+            //애니메이터가 있다면
+            if (anim != null)
+            {
+                anim.SetTrigger("LIGHTING");
 
-            yield return new WaitForSeconds(2.5f);
+                yield return new WaitForSeconds(2.5f);
+            }
+
+            int selNum = Random.Range(0, transports.Length);
+
+            print("Transport : " + transports.Length);
+
+            print("Prefabs/" + transports[selNum].name);
+
+            newTransport = PhotonNetwork.Instantiate("Prefabs/" + transports[selNum].name, this.transform.position + start, Quaternion.identity, 0);
+
+            //서버동기화
+            photonView.RPC("TransportSet", PhotonTargets.AllViaServer, start, end);
         }
-
-        int selNum = Random.Range(0, Transports.Length);
-
-        print("Prefabs/" + Transports[selNum].name);
-
-        newTransport = PhotonNetwork.Instantiate("Prefabs/" + Transports[selNum].name, this.transform.position + start, Quaternion.identity, 0);
-
-        //서버동기화
-        photonView.RPC("TransportSet", PhotonTargets.AllViaServer, start, end);
     }
 
     [PunRPC]
@@ -74,26 +95,21 @@ public class RoadTransport : Road
         {
             while (true)
             {
-                yield return null;
-
                 int randomNum = (int)Random.Range(this.repeatChance.x, this.repeatChance.y);
 
-                print("repeatChance : " + repeatChance);
+                print("repeatChance : " + randomNum);
 
                 if ((int)randomNum == 0)
                 {
                     if (MoveDirection == -1)
                     {
                         StartCoroutine(CreateTransport(LaneEnd, LaneStart));
-
-                        yield return new WaitForSeconds(1f);
-
-                        yield break;
                     }
-
-                    StartCoroutine(CreateTransport(LaneStart, LaneEnd));
+                    else
+                    {
+                        StartCoroutine(CreateTransport(LaneStart, LaneEnd));
+                    }
                 }
-
                 yield return new WaitForSeconds(2f);
             }
         }

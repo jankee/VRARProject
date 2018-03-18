@@ -224,7 +224,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4012976157424070}
-  - component: {fileID: 114841354196191188}
+  - component: {fileID: 114942819047831392}
   - component: {fileID: 114241496898750182}
   m_Layer: 0
   m_Name: Road_001
@@ -961,7 +961,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Coins: {fileID: 1155013296525200, guid: 37eb1da450f470f428dcc2640a658705, type: 2}
---- !u!114 &114841354196191188
+--- !u!114 &114942819047831392
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -969,7 +969,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1980394585027098}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1d26909c29117e4faedd94925e90ff9, type: 3}
+  m_Script: {fileID: 11500000, guid: a652c9275d391dd49b31274cc0b82003, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   roadType: 1
@@ -977,3 +977,5 @@ MonoBehaviour:
   laneEnd: {x: 15, y: 0, z: 0}
   moveSpeed: {x: 0.5, y: 3.5}
   randomDirection: 1
+  transports: []
+  repeatChance: {x: 0, y: 4}

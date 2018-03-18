@@ -155,7 +155,7 @@ MonoBehaviour:
   laneEnd: {x: 15, y: 0, z: 0}
   moveSpeed: {x: 2.5, y: 3.5}
   randomDirection: 1
-  Transports:
+  transports:
   - {fileID: 1843245118959646, guid: 46c4f08c2af914e44893007e0ee83695, type: 2}
   - {fileID: 1580200092381438, guid: 34561064934764c4f90967becf80c878, type: 2}
   repeatChance: {x: 0, y: 4}

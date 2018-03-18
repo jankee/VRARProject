@@ -86,17 +86,4 @@ public class Road : Photon.MonoBehaviour
             moveDirection = -1;
         }
     }
-
-    public void InitRoad()
-    {
-        photonView.RPC("InitRoadRPC", PhotonTargets.AllViaServer);
-    }
-
-    [PunRPC]
-    private void InitRoadRPC()
-    {
-        Transform parent = GameObject.FindObjectOfType<RoadGenerator>().transform;
-
-        this.transform.SetParent(parent);
-    }
 }

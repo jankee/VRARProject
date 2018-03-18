@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4792785714261144}
   - component: {fileID: 114665226557247558}
+  - component: {fileID: 114179655791435948}
   m_Layer: 0
   m_Name: RoadGenerator
   m_TagString: Untagged
@@ -40,6 +41,32 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114179655791435948
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1519342632723064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ownerId: 0
+  group: 0
+  OwnerShipWasTransfered: 0
+  prefixBackup: -1
+  synchronization: 0
+  onSerializeTransformOption: 3
+  onSerializeRigidBodyOption: 2
+  ownershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 0}
+  ObservedComponentsFoldoutOpen: 1
+  viewIdField: 0
+  instantiationId: -1
+  currentMasterID: -1
+  isRuntimeInstantiated: 0
 --- !u!114 &114665226557247558
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -52,11 +79,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roads:
-  - {fileID: 114841354196191188, guid: 8d10393221c15c64a95ed456e0b200ba, type: 2}
+  - {fileID: 114942819047831392, guid: 8d10393221c15c64a95ed456e0b200ba, type: 2}
   - {fileID: 114346390800970108, guid: 3e1f3213385d26347bf1aa123a755ac0, type: 2}
   - {fileID: 114579233618480088, guid: 94fe0390392b82342a966033d799d376, type: 2}
   - {fileID: 114476784973099986, guid: 363a32235373cdb4791fc75befa6b59f, type: 2}
   - {fileID: 114575897421801696, guid: eae341ac000aa64458c7c1b8ea7e9b26, type: 2}
-  roadStart: -10
-  roadEnd: 30
+  roadStart: -1
+  roadEnd: 1
   gameManager: {fileID: 0}

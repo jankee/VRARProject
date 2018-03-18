@@ -31,8 +31,6 @@ public class Camerafollow : Photon.MonoBehaviour
     {
         targetPos = tmpTarget;
 
-        print("targetPos : " + targetPos);
-
         if (PhotonNetwork.connected)
         {
             StartCoroutine(OriginPositionRoutine(targetPos));
@@ -80,7 +78,10 @@ public class Camerafollow : Photon.MonoBehaviour
         }
         //}
 
-        endPosRoutine = StartCoroutine(TimeOutRoutine(targetPosOrigin));
+        if (PhotonNetwork.connected)
+        {
+            endPosRoutine = StartCoroutine(TimeOutRoutine(targetPosOrigin));
+        }
     }
 
     /// <summary>

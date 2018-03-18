@@ -338,7 +338,7 @@ MonoBehaviour:
   laneEnd: {x: 35, y: 0, z: 0}
   moveSpeed: {x: 30, y: 40}
   randomDirection: 1
-  Transports:
+  transports:
   - {fileID: 1843245118959646, guid: 82d141301711d4b44a95d79a7f2bc3e5, type: 2}
   repeatChance: {x: 0, y: 6}
 --- !u!114 &114839344999064748

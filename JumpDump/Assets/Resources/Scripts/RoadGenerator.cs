@@ -55,7 +55,7 @@ public class RoadGenerator : Photon.MonoBehaviour
 
         roadStartCount = roadStart;
 
-        //gameManager = GameObject.FindObjectOfType<GameManager>();
+        gameManager = GameObject.FindObjectOfType<GameManager>();
 
         //InitializationRoad();
     }
@@ -151,6 +151,8 @@ public class RoadGenerator : Photon.MonoBehaviour
         //PhotonNetwork.RPC()
         //photonView.RPC("CreateRoad", PhotonTargets.AllViaServer, roadNum, roadType);
 
+        print("Road Num :" + roadNum + ", Road Type : " + roadType);
+
         CreateRoad(roadNum, roadType);
     }
 
@@ -161,27 +163,17 @@ public class RoadGenerator : Photon.MonoBehaviour
         {
             if (roads[i].RoadType == roadType)
             {
-                for (int j = 0; j < roadName.Length; j++)
-                {
-                    if (roads[i].name == roadName[j])
-                    {
-                        GameObject tmpRoad = PhotonNetwork.Instantiate("Prefabs/" + roadName[j],
-                                             transform.position + new Vector3(0, 0, roadNum),
-                                             Quaternion.identity, 0);
+                GameObject tmpRoad = PhotonNetwork.Instantiate("Prefabs/" + roads[i].name,
+                                         transform.position + new Vector3(0, 0, roadNum),
+                                         Quaternion.identity, 0);
 
-                        tmpRoad.GetComponent<Road>().InitRoad();
+                tmpRoad.GetComponent<RoadTransport>().InitRoad();
 
-                        roadsList.Add(tmpRoad.GetComponent<Road>());
-                    }
-                }
-
-                //GameObject tmpRoad = PhotonNetwork.Instantiate(roads[i].gameObject,
-                //    transform.position + new Vector3(0, 0, roadNum),
-                //    Quaternion.identity, this.transform);
+                roadsList.Add(tmpRoad.GetComponent<Road>());
             }
         }
 
-        print(roadsList.Count);
+        //print(roadsList.Count);
     }
 
     public void FindPlayer()
