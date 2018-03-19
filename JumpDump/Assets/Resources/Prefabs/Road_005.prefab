@@ -57,7 +57,6 @@ GameObject:
   - component: {fileID: 33545096207218618}
   - component: {fileID: 65673738566841286}
   - component: {fileID: 23403567196437740}
-  - component: {fileID: 114137763649163214}
   m_Layer: 0
   m_Name: RoadMesh
   m_TagString: Untagged
@@ -310,18 +309,6 @@ MonoBehaviour:
   instantiationId: -1
   currentMasterID: -1
   isRuntimeInstantiated: 0
---- !u!114 &114137763649163214
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1467223036559850}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f40ae39f41139b42bcb4b4577291591, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Coins: {fileID: 1155013296525200, guid: 37eb1da450f470f428dcc2640a658705, type: 2}
 --- !u!114 &114575897421801696
 MonoBehaviour:
   m_ObjectHideFlags: 1

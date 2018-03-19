@@ -84,6 +84,6 @@ MonoBehaviour:
   - {fileID: 114579233618480088, guid: 94fe0390392b82342a966033d799d376, type: 2}
   - {fileID: 114476784973099986, guid: 363a32235373cdb4791fc75befa6b59f, type: 2}
   - {fileID: 114575897421801696, guid: eae341ac000aa64458c7c1b8ea7e9b26, type: 2}
-  roadStart: -1
-  roadEnd: 1
+  roadStart: -10
+  roadEnd: 30
   gameManager: {fileID: 0}

@@ -70,7 +70,6 @@ GameObject:
   - component: {fileID: 33016854218086408}
   - component: {fileID: 65192597621928932}
   - component: {fileID: 23064419707820468}
-  - component: {fileID: 114591404512081820}
   m_Layer: 0
   m_Name: ItemCoin
   m_TagString: Untagged
@@ -225,6 +224,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4012976157424070}
   - component: {fileID: 114942819047831392}
+  - component: {fileID: 114628861070248452}
   - component: {fileID: 114241496898750182}
   m_Layer: 0
   m_Name: Road_001
@@ -949,18 +949,19 @@ MonoBehaviour:
   instantiationId: -1
   currentMasterID: -1
   isRuntimeInstantiated: 0
---- !u!114 &114591404512081820
+--- !u!114 &114628861070248452
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1488148905453800}
+  m_GameObject: {fileID: 1980394585027098}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8f40ae39f41139b42bcb4b4577291591, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Coins: {fileID: 1155013296525200, guid: 37eb1da450f470f428dcc2640a658705, type: 2}
+  randomCoin: {x: 0, y: 4}
 --- !u!114 &114942819047831392
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -49,4 +49,8 @@ MonoBehaviour:
   - TransportSet
   - MoveForwardRPC
   - InitRoadRPC
+  - StartRoutine
+  - SetupParentRPC
+  - CreateCoins
+  - SetupCoin
   DisableAutoOpenWizard: 1

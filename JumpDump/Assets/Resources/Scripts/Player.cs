@@ -54,7 +54,7 @@ public class Player : Photon.MonoBehaviour
 
     public void MoveCharacter(string dir)
     {
-        photonView.RPC("MoveCharacterRPC", PhotonTargets.AllViaServer, dir);
+        photonView.RPC("MoveCharacterRPC", PhotonTargets.All, dir);
     }
 
     /// <summary>
