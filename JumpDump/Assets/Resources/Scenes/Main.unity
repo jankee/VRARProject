@@ -416,6 +416,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   msgText: {fileID: 645596196}
+  gameManager: {fileID: 46310078}
 --- !u!1 &1357601257 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1184369990516796, guid: 91913107661f0bf4c932fd247f4c81c7,
@@ -683,7 +684,17 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114301838089413152, guid: 91913107661f0bf4c932fd247f4c81c7,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 46310078}
     - target: {fileID: 114823207201790604, guid: 91913107661f0bf4c932fd247f4c81c7,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 46310078}
+    - target: {fileID: 114931517701652180, guid: 91913107661f0bf4c932fd247f4c81c7,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -704,16 +715,6 @@ Prefab:
       value: 
       objectReference: {fileID: 46310078}
     - target: {fileID: 114081062403082100, guid: 91913107661f0bf4c932fd247f4c81c7,
-        type: 2}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 46310078}
-    - target: {fileID: 114301838089413152, guid: 91913107661f0bf4c932fd247f4c81c7,
-        type: 2}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 46310078}
-    - target: {fileID: 114931517701652180, guid: 91913107661f0bf4c932fd247f4c81c7,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 

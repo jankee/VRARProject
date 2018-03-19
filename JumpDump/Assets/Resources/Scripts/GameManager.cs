@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : Photon.MonoBehaviour
 {
@@ -63,6 +64,19 @@ public class GameManager : Photon.MonoBehaviour
         }
     }
 
+    public bool IsJoinedRoom
+    {
+        get
+        {
+            return isJoinedRoom;
+        }
+
+        set
+        {
+            isJoinedRoom = value;
+        }
+    }
+
     [SerializeField]
     private GameObject introPanel;
 
@@ -86,6 +100,8 @@ public class GameManager : Photon.MonoBehaviour
 
     [SerializeField]
     private RoadGenerator roadGenerator;
+
+    private bool isJoinedRoom = false;
 
     //private string[] playerNames;
 
@@ -117,6 +133,11 @@ public class GameManager : Photon.MonoBehaviour
         {
             roadGenerator = GameObject.FindObjectOfType<RoadGenerator>();
         }
+    }
+
+    public void Update()
+    {
+        introPanel.GetComponent<Button>().interactable = isJoinedRoom;
     }
 
     public void SetPlayer()

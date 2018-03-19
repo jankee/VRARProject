@@ -8,6 +8,9 @@ public class ConnectManager : MonoBehaviour
     [SerializeField]
     private Text msgText;
 
+    [SerializeField]
+    private GameManager gameManager;
+
     private void Awake()
     {
         if (!PhotonNetwork.connected)
@@ -36,6 +39,8 @@ public class ConnectManager : MonoBehaviour
     public void OnJoinedRoom()
     {
         msgText.text = "[정보] 로비에 생성된 방에 접속함";
+
+        gameManager.IsJoinedRoom = true;
     }
 
     // Update is called once per frame

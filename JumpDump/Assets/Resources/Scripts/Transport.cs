@@ -25,11 +25,6 @@ public class Transport : Photon.MonoBehaviour
         PhotonView pv = PhotonView.Find(roadId);
 
         this.transform.SetParent(pv.transform);
-
-        //if (PhotonNetwork.isMasterClient)
-        //{
-        //    this.transform.SetParent(pv.transform);
-        //}
     }
 
     public void MoveForward(Vector3 start, Vector3 end, float speed, int dir)

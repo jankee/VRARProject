@@ -37,10 +37,10 @@ public class CoinGenerator : Photon.MonoBehaviour
 
         coinPos = Random.Range(-5, 6);
 
-        //GameObject tmpCoin = Instantiate(Coins, this.transform);
+        GameObject tmpCoin = Instantiate(Coins, this.transform);
 
-        GameObject tmpCoin = PhotonNetwork.Instantiate("Prefabs/" + Coins.name,
-            new Vector3(coinPos, 0, 0), Quaternion.identity, 0);
+        //GameObject tmpCoin = PhotonNetwork.Instantiate("Prefabs/" + Coins.name,
+        //    new Vector3(coinPos, 0, 0), Quaternion.identity, 0);
 
         tmpCoin.transform.SetParent(parentPos);
 
