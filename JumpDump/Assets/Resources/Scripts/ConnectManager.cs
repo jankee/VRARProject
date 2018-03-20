@@ -1,7 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
+using GooglePlayGames;
+using GooglePlayGames.BasicApi;
 
 public class ConnectManager : MonoBehaviour
 {
@@ -9,15 +12,61 @@ public class ConnectManager : MonoBehaviour
     private Text msgText;
 
     [SerializeField]
+    private Text gooleMsgTest;
+
+    [SerializeField]
     private GameManager gameManager;
+
+    private Action<bool> signInCallback;
 
     private void Awake()
     {
+        //안드로이드 빌더 초기화
+        PlayGamesClientConfiguration config = new PlayGamesClientConfiguration.Builder().Build();
+
+        PlayGamesPlatform.DebugLogEnabled = true;
+
+        PlayGamesPlatform.Activate();
+
+        signInCallback = (bool success) =>
+        {
+            if (success)
+            {
+                gooleMsgTest.text = "로그인 성공";
+            }
+            else
+            {
+                gooleMsgTest.text = "로그인 실패";
+            }
+        };
+
         if (!PhotonNetwork.connected)
         {
             PhotonNetwork.ConnectUsingSettings("v1.0");
 
             msgText.text = "[정보] 서버 접속 및 로비 생성을 시도함";
+        }
+    }
+
+    private void Start()
+    {
+        SignIn();
+    }
+
+    private void SignIn()
+    {
+        if (PlayGamesPlatform.Instance.IsAuthenticated() == false)
+        {
+            PlayGamesPlatform.Instance.Authenticate(signInCallback);
+        }
+    }
+
+    private void SignOut()
+    {
+        if (PlayGamesPlatform.Instance.IsAuthenticated() == true)
+        {
+            gooleMsgTest.text = "로그 아웃!";
+            PlayGamesPlatform.Instance.SignOut();
         }
     }
 

@@ -71,8 +71,26 @@ GameObject:
   - component: {fileID: 65192597621928932}
   - component: {fileID: 23064419707820468}
   m_Layer: 0
-  m_Name: ItemCoin
+  m_Name: Road
   m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1495709774556856
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4092954302636264}
+  - component: {fileID: 65198544651683818}
+  - component: {fileID: 65286480480859686}
+  - component: {fileID: 54288752288756900}
+  m_Layer: 0
+  m_Name: Collider
+  m_TagString: EndRoad
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -226,8 +244,6 @@ GameObject:
   - component: {fileID: 114942819047831392}
   - component: {fileID: 114628861070248452}
   - component: {fileID: 114241496898750182}
-  - component: {fileID: 65393597025190078}
-  - component: {fileID: 65209028662529944}
   m_Layer: 0
   m_Name: Road_001
   m_TagString: Untagged
@@ -263,6 +279,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 4092954302636264}
   - {fileID: 4687462636305420}
   - {fileID: 4802674959231000}
   - {fileID: 4059395299743486}
@@ -284,7 +301,20 @@ Transform:
   - {fileID: 4128684157437176}
   - {fileID: 4210393930929680}
   m_Father: {fileID: 4012976157424070}
-  m_RootOrder: 2
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4092954302636264
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1495709774556856}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4012976157424070}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4128684157437176
 Transform:
@@ -338,7 +368,7 @@ Transform:
   - {fileID: 4967268833096804}
   - {fileID: 4207676437423588}
   m_Father: {fileID: 4012976157424070}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4415822770141700
 Transform:
@@ -379,7 +409,7 @@ Transform:
   - {fileID: 4513704820727096}
   - {fileID: 4972883951814166}
   m_Father: {fileID: 4012976157424070}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4687462636305420
 Transform:
@@ -389,10 +419,10 @@ Transform:
   m_GameObject: {fileID: 1488148905453800}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -0.5, z: 0}
-  m_LocalScale: {x: 50, y: 1, z: 1}
+  m_LocalScale: {x: 100, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4012976157424070}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4802674959231000
 Transform:
@@ -407,7 +437,7 @@ Transform:
   - {fileID: 4415822770141700}
   - {fileID: 4986634040501592}
   m_Father: {fileID: 4012976157424070}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4967268833096804
 Transform:
@@ -817,6 +847,21 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1985952799386620}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!54 &54288752288756900
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1495709774556856}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!65 &65024878948265084
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -865,30 +910,30 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!65 &65209028662529944
+--- !u!65 &65198544651683818
 BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1980394585027098}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 10, y: 2, z: 1}
-  m_Center: {x: -11.5, y: 1, z: 0}
---- !u!65 &65393597025190078
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1980394585027098}
+  m_GameObject: {fileID: 1495709774556856}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 10, y: 2, z: 1}
   m_Center: {x: 11.5, y: 1, z: 0}
+--- !u!65 &65286480480859686
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1495709774556856}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 10, y: 2, z: 1}
+  m_Center: {x: -11.5, y: 1, z: 0}
 --- !u!65 &65566162414551026
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -1000,8 +1045,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roadType: 1
-  laneStart: {x: -15, y: 0, z: 0}
-  laneEnd: {x: 15, y: 0, z: 0}
+  laneStart: {x: -50, y: 0, z: 0}
+  laneEnd: {x: 50, y: 0, z: 0}
   moveSpeed: {x: 0.5, y: 3.5}
   randomDirection: 1
   transports: []

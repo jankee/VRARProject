@@ -130,7 +130,12 @@ public class Player : Photon.MonoBehaviour
             case "Train":
                 StartCoroutine(SmoothMovement(Vector3.back, 0.3f));
                 StartCoroutine(TakeStun(2.3f));
-                playerHealth.TakeDamage(60f);
+                playerHealth.TakeDamage(40f);
+                break;
+
+            case "EndRoad":
+                print("EndRoad");
+                playerHealth.TakeDamage(5f);
                 break;
         }
     }

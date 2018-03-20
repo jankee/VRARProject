@@ -77,7 +77,7 @@ public class UILogin : MonoBehaviour
             PlayGamesPlatform.Instance.Authenticate(signInCallback);
 
             //업적을 한번 불러 봄
-            Social.ReportProgress(GPGSIds.achievement_1, 100F, null);
+            //Social.ReportProgress(GPGSIds.achievement_1, 100F, null);
         }
     }
 

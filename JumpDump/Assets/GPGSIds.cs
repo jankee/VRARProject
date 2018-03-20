@@ -21,14 +21,10 @@
 /// Resources.
 ///
 
+
 public static class GPGSIds
 {
-    public const string achievement_4 = "CgkIr5TZ55kCEAIQBg"; // <GPGSID>
-    public const string achievement_5 = "CgkIr5TZ55kCEAIQBw"; // <GPGSID>
-    public const string event_2 = "CgkIr5TZ55kCEAIQAg"; // <GPGSID>
-    public const string event_1 = "CgkIr5TZ55kCEAIQAQ"; // <GPGSID>
-    public const string leaderboard = "CgkIr5TZ55kCEAIQCA"; // <GPGSID>
-    public const string achievement_2 = "CgkIr5TZ55kCEAIQBA"; // <GPGSID>
-    public const string achievement_3 = "CgkIr5TZ55kCEAIQBQ"; // <GPGSID>
-    public const string achievement_1 = "CgkIr5TZ55kCEAIQAw"; // <GPGSID>
+        public const string leaderboard = "CgkIvraoob4CEAIQAQ"; // <GPGSID>
+
 }
+

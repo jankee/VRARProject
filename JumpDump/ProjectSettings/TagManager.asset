@@ -13,6 +13,7 @@ TagManager:
   - Raft
   - Vehicle
   - Train
+  - EndRoad
   layers:
   - Default
   - TransparentFX

@@ -36,6 +36,7 @@ public class Road : Photon.MonoBehaviour
         }
     }
 
+    //차량이 생성되는 시작 위치
     public Vector3 LaneStart
     {
         get
@@ -44,6 +45,7 @@ public class Road : Photon.MonoBehaviour
         }
     }
 
+    //차량의 끝 위치
     public Vector3 LaneEnd
     {
         get
