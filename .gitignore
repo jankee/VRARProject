@@ -9,6 +9,10 @@ CrossyRoad/Temp/
 CrossyRoad/Library/
 CrossyRoad/obj/
 
+SherlockAR/Temp/
+SherlockAR/Library/
+SherlockAR/obj/
+
 # ===================================== #
 # Visual Studio / MonoDevelop generated #
 # ===================================== #
@@ -28,6 +32,15 @@ CrossyRoad/*.sln
 *.unityproj
 *.booproj
 
+SherlockAR/*.csproj
+*.pidb
+*.suo
+SherlockAR/*.sln
+*.user
+*.unityproj
+*.booproj
+
+
 # ============ #
 # OS generated #
 # ============ #
@@ -46,3 +59,7 @@ CrossyRoad/.vs/CrossyRoad/v15/Server/sqlite3/storage.ide
 CrossyRoad/.vs/CrossyRoad/v15/Server/sqlite3/db.lock
 CrossyRoad/.vs/CrossyRoad/v15/Server/sqlite3/storage.ide-wal
 CrossyRoad/.vs/CrossyRoad/v15/Server/sqlite3/storage.ide-shm
+SherlockAR/.vs/SherlockAR/v15/Server/sqlite3/storage.ide
+SherlockAR/.vs/SherlockAR/v15/Server/sqlite3/db.lock
+SherlockAR/.vs/SherlockAR/v15/Server/sqlite3/storage.ide-wal
+SherlockAR/.vs/SherlockAR/v15/Server/sqlite3/storage.ide-shm
