@@ -9,7 +9,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -1097633651, guid: b5a7519e94754fb4a8ea0c272031db78, type: 3}
-  m_Name: Quest Example Dialogue
+  m_Name: Quest Tutorial Dialogue
   m_EditorClassIdentifier: 
   version: 1.0
   author: Pixel Crushers
@@ -97,126 +97,83 @@ MonoBehaviour:
   - id: 1
     fields:
     - title: Name
-      value: Find the Terminal
+      value: Find the Termimal
       type: 0
-      typeString: 
-    - title: State
-      value: unassigned
-      type: 0
-      typeString: 
+      typeString: CustomFieldType_Text
+    - title: Pictures
+      value: '[]'
+      type: 3
+      typeString: CustomFieldType_Files
     - title: Description
-      value: Lieutenant West has ordered you to find the terminal.
+      value: Lieutenant McCall has ordered you to find the terminal.
       type: 0
-      typeString: 
+      typeString: CustomFieldType_Text
     - title: Success Description
-      value: You found the terminal in the next room.
+      value: You found the termminal in the next room.
       type: 0
-      typeString: 
+      typeString: CustomFieldType_Text
     - title: Failure Description
       value: 
       type: 0
-      typeString: 
+      typeString: CustomFieldType_Text
+    - title: State
+      value: unassigned
+      type: 0
+      typeString: CustomFieldType_QuestState
     - title: Is Item
       value: False
       type: 2
-      typeString: 
+      typeString: CustomFieldType_Boolean
   - id: 2
     fields:
     - title: Name
       value: Thin the Ranks
       type: 0
-      typeString: 
-    - title: State
-      value: unassigned
-      type: 0
-      typeString: 
+      typeString: CustomFieldType_Text
+    - title: Pictures
+      value: '[]'
+      type: 3
+      typeString: CustomFieldType_Files
     - title: Description
       value: Sergeant Graves has asked you to take out 5 enemy soldiers.
       type: 0
-      typeString: 
+      typeString: CustomFieldType_Text
     - title: Success Description
-      value: You took out 5 enemy soldiers.
+      value: you took out 5 enemy soldiers.
       type: 0
-      typeString: 
+      typeString: CustomFieldType_Text
     - title: Failure Description
       value: 
       type: 0
-      typeString: 
-    - title: Is Item
-      value: False
-      type: 2
-      typeString: 
-    - title: Track
-      value: False
-      type: 2
-      typeString: 
-    - title: Abandonable
-      value: True
-      type: 2
-      typeString: 
-    - title: Entry Count
-      value: 1
-      type: 1
-      typeString: 
-    - title: Entry 1 State
-      value: active
-      type: 0
-      typeString: 
-    - title: Entry 1
-      value: '[lua(Variable["Kills"])] of 5 killed'
-      type: 0
-      typeString: 
-  - id: 3
-    fields:
-    - title: Name
-      value: Get the Coordinates
-      type: 0
-      typeString: 
+      typeString: CustomFieldType_Text
     - title: State
       value: unassigned
       type: 0
-      typeString: 
-    - title: Description
-      value: General Starr has ordered you to deliver codes to Private Hart and return
-        to him with the coordinates.
-      type: 0
-      typeString: 
-    - title: Success Description
-      value: You delivered the coordinates to General Starr.
-      type: 0
-      typeString: 
-    - title: Failure Description
-      value: 
-      type: 0
-      typeString: 
+      typeString: CustomFieldType_QuestState
     - title: Is Item
       value: False
       type: 2
-      typeString: 
-    - title: Track
+      typeString: CustomFieldType_Boolean
+    - title: Trackable
       value: False
       type: 2
-      typeString: 
+      typeString: CustomFieldType_Boolean
+    - title: Abandonable
+      value: True
+      type: 2
+      typeString: CustomFieldType_Boolean
     - title: Entry Count
-      value: 2
+      value: 1
       type: 1
-      typeString: 
+      typeString: CustomFieldType_Number
     - title: Entry 1 State
       value: active
       type: 0
-      typeString: 
+      typeString: CustomFieldType_QuestState
     - title: Entry 1
-      value: Deliver the codes
+      value: '[lua(Variable["Kills''])] of 5 killed'
       type: 0
-      typeString: 
-    - title: Entry 2 State
-      value: unassigned
-      type: 0
-      typeString: 
-    - title: Entry 2
-      value: Return with coordinates
-      type: 0
-      typeString: 
+      typeString: CustomFieldType_Text
   locations: []
   variables:
   - id: 1
@@ -234,11 +191,11 @@ MonoBehaviour:
     - title: Name
       value: Kills
       type: 0
-      typeString: 
+      typeString: CustomFieldType_Text
     - title: Initial Value
       value: 0
       type: 1
-      typeString: 
+      typeString: CustomFieldType_Number
   conversations:
   - id: 1
     fields:
@@ -253,11 +210,11 @@ MonoBehaviour:
     - title: Actor
       value: 1
       type: 5
-      typeString: 
+      typeString: CustomFieldType_Actor
     - title: Conversant
       value: 2
       type: 5
-      typeString: 
+      typeString: CustomFieldType_Actor
     overrideSettings:
       useOverrides: 0
       overrideSubtitleSettings: 0
@@ -332,12 +289,6 @@ MonoBehaviour:
         destinationDialogueID: 5
         isConnector: 0
         priority: 2
-      - originConversationID: 1
-        originDialogueID: 0
-        destinationConversationID: 1
-        destinationDialogueID: 7
-        isConnector: 0
-        priority: 2
       conditionsString: 
       userScript: 
       onExecute:
@@ -347,8 +298,8 @@ MonoBehaviour:
           Culture=neutral, PublicKeyToken=null
       canvasRect:
         serializedVersion: 2
-        x: 0
-        y: 0
+        x: 210
+        y: 20
         width: 160
         height: 30
     - id: 1
@@ -395,7 +346,7 @@ MonoBehaviour:
         destinationDialogueID: 2
         isConnector: 0
         priority: 2
-      conditionsString: Quest["Thin_the_Ranks"].State == "unassigned"
+      conditionsString: CurrentQuestState("Thin the Ranks") == "unassigned"
       userScript: 
       onExecute:
         m_PersistentCalls:
@@ -404,8 +355,8 @@ MonoBehaviour:
           Culture=neutral, PublicKeyToken=null
       canvasRect:
         serializedVersion: 2
-        x: 0
-        y: 0
+        x: 30
+        y: 70
         width: 160
         height: 30
     - id: 2
@@ -447,7 +398,7 @@ MonoBehaviour:
       conditionPriority: 2
       outgoingLinks: []
       conditionsString: 
-      userScript: 'Quest["Thin_the_Ranks"].State = "active"; Variable["Alert"] = "Mission:
+      userScript: 'Quest["Thin_the_Ranks"].State = "active;Variable["Alert"] = "Mission:
         Thin the Ranks"'
       onExecute:
         m_PersistentCalls:
@@ -456,8 +407,8 @@ MonoBehaviour:
           Culture=neutral, PublicKeyToken=null
       canvasRect:
         serializedVersion: 2
-        x: 0
-        y: 0
+        x: 30
+        y: 120
         width: 160
         height: 30
     - id: 3
@@ -504,8 +455,8 @@ MonoBehaviour:
         destinationDialogueID: 4
         isConnector: 0
         priority: 2
-      conditionsString: (Quest["Thin_the_Ranks"].State == "active") and (Variable["Kills"]
-        < 5)
+      conditionsString: ' (CurrentQuestState("Thin the Ranks") == "active") and (Variable["Alert"]
+        == "["Kills"] < 5")'
       userScript: 
       onExecute:
         m_PersistentCalls:
@@ -514,8 +465,8 @@ MonoBehaviour:
           Culture=neutral, PublicKeyToken=null
       canvasRect:
         serializedVersion: 2
-        x: 0
-        y: 0
+        x: 210
+        y: 70
         width: 160
         height: 30
     - id: 4
@@ -565,8 +516,8 @@ MonoBehaviour:
           Culture=neutral, PublicKeyToken=null
       canvasRect:
         serializedVersion: 2
-        x: 0
-        y: 0
+        x: 210
+        y: 120
         width: 160
         height: 30
     - id: 5
@@ -613,10 +564,9 @@ MonoBehaviour:
         destinationDialogueID: 6
         isConnector: 0
         priority: 2
-      conditionsString: (Quest["Thin_the_Ranks"].State == "active") and (Variable["Kills"]
-        >= 5)
-      userScript: 'Quest["Thin_the_Ranks"].State = "success"; Variable["Alert"] =
-        "Completed: Thin the Ranks"'
+      conditionsString: (CurrentQuestState("Thin the Ranks") == "active") and (Variable["Alert"]
+        == "["Kills"] >= 5")
+      userScript: 
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -624,8 +574,8 @@ MonoBehaviour:
           Culture=neutral, PublicKeyToken=null
       canvasRect:
         serializedVersion: 2
-        x: 0
-        y: 0
+        x: 390
+        y: 70
         width: 160
         height: 30
     - id: 6
@@ -675,116 +625,8 @@ MonoBehaviour:
           Culture=neutral, PublicKeyToken=null
       canvasRect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 160
-        height: 30
-    - id: 7
-      fields:
-      - title: Title
-        value: New Dialogue Entry
-        type: 0
-        typeString: 
-      - title: Actor
-        value: 2
-        type: 5
-        typeString: 
-      - title: Conversant
-        value: 1
-        type: 5
-        typeString: 
-      - title: Menu Text
-        value: 
-        type: 0
-        typeString: 
-      - title: Dialogue Text
-        value: Keep an eye out for more enemies.
-        type: 0
-        typeString: 
-      - title: Video File
-        value: 
-        type: 0
-        typeString: 
-      - title: Sequence
-        value: 
-        type: 0
-        typeString: 
-      conversationID: 1
-      isRoot: 0
-      isGroup: 0
-      nodeColor: 
-      delaySimStatus: 0
-      falseConditionAction: Block
-      conditionPriority: 2
-      outgoingLinks:
-      - originConversationID: 1
-        originDialogueID: 7
-        destinationConversationID: 1
-        destinationDialogueID: 8
-        isConnector: 0
-        priority: 2
-      conditionsString: Quest["Thin_the_Ranks"].State == "success"
-      userScript: 
-      onExecute:
-        m_PersistentCalls:
-          m_Calls: []
-        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-          Culture=neutral, PublicKeyToken=null
-      canvasRect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 160
-        height: 30
-    - id: 8
-      fields:
-      - title: Title
-        value: New Dialogue Entry
-        type: 0
-        typeString: 
-      - title: Actor
-        value: 1
-        type: 5
-        typeString: 
-      - title: Conversant
-        value: 2
-        type: 5
-        typeString: 
-      - title: Menu Text
-        value: '[f]Roger, sarge!'
-        type: 0
-        typeString: 
-      - title: Dialogue Text
-        value: 
-        type: 0
-        typeString: 
-      - title: Video File
-        value: 
-        type: 0
-        typeString: 
-      - title: Sequence
-        value: 
-        type: 0
-        typeString: 
-      conversationID: 1
-      isRoot: 0
-      isGroup: 0
-      nodeColor: 
-      delaySimStatus: 0
-      falseConditionAction: Block
-      conditionPriority: 2
-      outgoingLinks: []
-      conditionsString: 
-      userScript: 
-      onExecute:
-        m_PersistentCalls:
-          m_Calls: []
-        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-          Culture=neutral, PublicKeyToken=null
-      canvasRect:
-        serializedVersion: 2
-        x: 0
-        y: 0
+        x: 390
+        y: 120
         width: 160
         height: 30
   - id: 2
@@ -800,11 +642,11 @@ MonoBehaviour:
     - title: Actor
       value: 1
       type: 5
-      typeString: 
+      typeString: CustomFieldType_Actor
     - title: Conversant
       value: 3
       type: 5
-      typeString: 
+      typeString: CustomFieldType_Actor
     overrideSettings:
       useOverrides: 0
       overrideSubtitleSettings: 0
@@ -888,8 +730,8 @@ MonoBehaviour:
           Culture=neutral, PublicKeyToken=null
       canvasRect:
         serializedVersion: 2
-        x: 0
-        y: 0
+        x: 210
+        y: 20
         width: 160
         height: 30
     - id: 1
@@ -936,7 +778,7 @@ MonoBehaviour:
         destinationDialogueID: 2
         isConnector: 0
         priority: 2
-      conditionsString: Quest["Find_the_Terminal"].State == "unassigned"
+      conditionsString: CurrentQuestState("Find the Termimal") == "unassigned"
       userScript: 
       onExecute:
         m_PersistentCalls:
@@ -945,8 +787,8 @@ MonoBehaviour:
           Culture=neutral, PublicKeyToken=null
       canvasRect:
         serializedVersion: 2
-        x: 0
-        y: 0
+        x: 30
+        y: 70
         width: 160
         height: 30
     - id: 2
@@ -954,31 +796,31 @@ MonoBehaviour:
       - title: Title
         value: New Dialogue Entry
         type: 0
-        typeString: 
+        typeString: CustomFieldType_Text
       - title: Actor
         value: 1
         type: 5
-        typeString: 
+        typeString: CustomFieldType_Actor
       - title: Conversant
         value: 3
         type: 5
-        typeString: 
+        typeString: CustomFieldType_Actor
       - title: Menu Text
         value: '[f]Yes, sir!'
         type: 0
-        typeString: 
+        typeString: CustomFieldType_Text
       - title: Dialogue Text
         value: 
         type: 0
-        typeString: 
+        typeString: CustomFieldType_Text
       - title: Video File
         value: 
         type: 0
-        typeString: 
+        typeString: CustomFieldType_Text
       - title: Sequence
         value: 
         type: 0
-        typeString: 
+        typeString: CustomFieldType_Text
       conversationID: 2
       isRoot: 0
       isGroup: 0
@@ -988,8 +830,9 @@ MonoBehaviour:
       conditionPriority: 2
       outgoingLinks: []
       conditionsString: 
-      userScript: 'Quest["Find_the_Terminal"].State = "active"; Variable["Alert"]
-        = "Orders: Find the Terminal"'
+      userScript: 'SetQuestState("Find the Termimal", "active");
+
+        Variable["Alert"] = "Orders:Find the Terminal!"'
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -997,8 +840,8 @@ MonoBehaviour:
           Culture=neutral, PublicKeyToken=null
       canvasRect:
         serializedVersion: 2
-        x: 0
-        y: 0
+        x: 30
+        y: 120
         width: 160
         height: 30
     - id: 3
@@ -1045,7 +888,7 @@ MonoBehaviour:
         destinationDialogueID: 4
         isConnector: 0
         priority: 2
-      conditionsString: Quest["Find_the_Terminal"].State == "active"
+      conditionsString: CurrentQuestState("Find the Termimal") == "active"
       userScript: 
       onExecute:
         m_PersistentCalls:
@@ -1054,8 +897,8 @@ MonoBehaviour:
           Culture=neutral, PublicKeyToken=null
       canvasRect:
         serializedVersion: 2
-        x: 0
-        y: 0
+        x: 210
+        y: 70
         width: 160
         height: 30
     - id: 4
@@ -1105,8 +948,8 @@ MonoBehaviour:
           Culture=neutral, PublicKeyToken=null
       canvasRect:
         serializedVersion: 2
-        x: 0
-        y: 0
+        x: 210
+        y: 120
         width: 160
         height: 30
     - id: 5
@@ -1153,7 +996,7 @@ MonoBehaviour:
         destinationDialogueID: 6
         isConnector: 0
         priority: 2
-      conditionsString: Quest["Find_the_Terminal"].State == "success"
+      conditionsString: CurrentQuestState("Find the Termimal") == "success"
       userScript: 
       onExecute:
         m_PersistentCalls:
@@ -1162,8 +1005,8 @@ MonoBehaviour:
           Culture=neutral, PublicKeyToken=null
       canvasRect:
         serializedVersion: 2
-        x: 0
-        y: 0
+        x: 390
+        y: 70
         width: 160
         height: 30
     - id: 6
@@ -1213,8 +1056,8 @@ MonoBehaviour:
           Culture=neutral, PublicKeyToken=null
       canvasRect:
         serializedVersion: 2
-        x: 0
-        y: 0
+        x: 390
+        y: 120
         width: 160
         height: 30
   - id: 3
@@ -1309,12 +1152,6 @@ MonoBehaviour:
         destinationDialogueID: 5
         isConnector: 0
         priority: 2
-      - originConversationID: 3
-        originDialogueID: 0
-        destinationConversationID: 3
-        destinationDialogueID: 7
-        isConnector: 0
-        priority: 2
       conditionsString: 
       userScript: 
       onExecute:
@@ -1372,7 +1209,7 @@ MonoBehaviour:
         destinationDialogueID: 2
         isConnector: 0
         priority: 2
-      conditionsString: Quest["Get_the_Coordinates"].State == "unassigned"
+      conditionsString: 
       userScript: 
       onExecute:
         m_PersistentCalls:
@@ -1424,8 +1261,7 @@ MonoBehaviour:
       conditionPriority: 2
       outgoingLinks: []
       conditionsString: 
-      userScript: 'Quest["Get_the_Coordinates"].State = "active"; Variable["Alert"]
-        = "Orders: Get the Coordinates"'
+      userScript: 
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -1481,8 +1317,7 @@ MonoBehaviour:
         destinationDialogueID: 4
         isConnector: 0
         priority: 2
-      conditionsString: (Quest["Get_the_Coordinates"].State == "active") and (Quest["Get_the_Coordinates"].Entry_1_State
-        == "active")
+      conditionsString: 
       userScript: 
       onExecute:
         m_PersistentCalls:
@@ -1590,9 +1425,8 @@ MonoBehaviour:
         destinationDialogueID: 6
         isConnector: 0
         priority: 2
-      conditionsString: Quest["Get_the_Coordinates"].Entry_2_State == "active"
-      userScript: 'Quest["Get_the_Coordinates"].State = "success"; Quest["Get_the_Coordinates"].Entry_2_State
-        = "success"; Variable["Alert"] = "Completed: Get the Coordinates"'
+      conditionsString: 
+      userScript: 
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -1643,63 +1477,6 @@ MonoBehaviour:
       conditionPriority: 2
       outgoingLinks: []
       conditionsString: 
-      userScript: 
-      onExecute:
-        m_PersistentCalls:
-          m_Calls: []
-        m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-          Culture=neutral, PublicKeyToken=null
-      canvasRect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 160
-        height: 30
-    - id: 7
-      fields:
-      - title: Title
-        value: New Dialogue Entry
-        type: 0
-        typeString: 
-      - title: Actor
-        value: 4
-        type: 5
-        typeString: 
-      - title: Conversant
-        value: 1
-        type: 5
-        typeString: 
-      - title: Menu Text
-        value: 
-        type: 0
-        typeString: 
-      - title: Dialogue Text
-        value: Thanks again, soldier.
-        type: 0
-        typeString: 
-      - title: Video File
-        value: 
-        type: 0
-        typeString: 
-      - title: Sequence
-        value: 
-        type: 0
-        typeString: 
-      conversationID: 3
-      isRoot: 0
-      isGroup: 0
-      nodeColor: 
-      delaySimStatus: 0
-      falseConditionAction: Block
-      conditionPriority: 2
-      outgoingLinks:
-      - originConversationID: 3
-        originDialogueID: 7
-        destinationConversationID: 3
-        destinationDialogueID: 6
-        isConnector: 0
-        priority: 2
-      conditionsString: Quest["Get_the_Coordinates"].State == "success"
       userScript: 
       onExecute:
         m_PersistentCalls:
@@ -1855,8 +1632,7 @@ MonoBehaviour:
         destinationDialogueID: 2
         isConnector: 0
         priority: 2
-      conditionsString: (Quest["Get_the_Coordinates"].State ~= "active") or (Quest["Get_the_Coordinates"].Entry_1_State
-        ~= "active")
+      conditionsString: 
       userScript: 
       onExecute:
         m_PersistentCalls:
@@ -1964,8 +1740,7 @@ MonoBehaviour:
         destinationDialogueID: 4
         isConnector: 0
         priority: 2
-      conditionsString: (Quest["Get_the_Coordinates"].State == "active") and (Quest["Get_the_Coordinates"].Entry_1_State
-        == "active")
+      conditionsString: 
       userScript: 
       onExecute:
         m_PersistentCalls:
@@ -2023,7 +1798,7 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: Quest["Get_the_Coordinates"].Entry_1_State = "success"
+      userScript: 
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -2131,8 +1906,7 @@ MonoBehaviour:
       conditionPriority: 2
       outgoingLinks: []
       conditionsString: 
-      userScript: Quest["Get_the_Coordinates"].Entry_2_State = "active"; Variable["Alert"]
-        = "Coordinates obtained"
+      userScript: 
       onExecute:
         m_PersistentCalls:
           m_Calls: []
