@@ -398,7 +398,8 @@ MonoBehaviour:
   randomDirection: 1
   transports:
   - {fileID: 1843245118959646, guid: 82d141301711d4b44a95d79a7f2bc3e5, type: 2}
-  repeatChance: {x: 0, y: 6}
+  repeatChance: {x: 0, y: 7}
+  repeatTime: 6
 --- !u!114 &114839344999064748
 MonoBehaviour:
   m_ObjectHideFlags: 1

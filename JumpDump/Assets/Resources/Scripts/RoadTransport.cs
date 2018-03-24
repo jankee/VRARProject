@@ -8,7 +8,10 @@ public class RoadTransport : Road
     private GameObject[] transports;
 
     [SerializeField]
-    private Vector2 repeatChance = new Vector2(1, 10);
+    private Vector2 repeatChance = new Vector2(0, 10);
+
+    [SerializeField]
+    private float repeatTime;
 
     private GameObject newTransport;
 
@@ -31,12 +34,10 @@ public class RoadTransport : Road
 
             if (MoveDirection == -1)
             {
-                print("1");
                 StartCoroutine(CreateTransport(LaneEnd, LaneStart));
             }
             else
             {
-                print("2");
                 StartCoroutine(CreateTransport(LaneStart, LaneEnd));
             }
         }
@@ -113,8 +114,6 @@ public class RoadTransport : Road
             {
                 int randomNum = (int)Random.Range(this.repeatChance.x, this.repeatChance.y);
 
-                print("repeatChance : " + randomNum);
-
                 if ((int)randomNum == 0)
                 {
                     if (MoveDirection == -1)
@@ -126,7 +125,7 @@ public class RoadTransport : Road
                         StartCoroutine(CreateTransport(LaneStart, LaneEnd));
                     }
                 }
-                yield return new WaitForSeconds(2f);
+                yield return new WaitForSeconds(repeatTime);
             }
         }
     }

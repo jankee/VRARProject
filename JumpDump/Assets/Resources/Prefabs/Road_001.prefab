@@ -1051,3 +1051,4 @@ MonoBehaviour:
   randomDirection: 1
   transports: []
   repeatChance: {x: 0, y: 4}
+  repeatTime: 10

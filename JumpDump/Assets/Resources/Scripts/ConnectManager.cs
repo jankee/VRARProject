@@ -12,7 +12,7 @@ public class ConnectManager : MonoBehaviour
     private Text msgText;
 
     [SerializeField]
-    private Text gooleMsgTest;
+    private Text gooleMsgText;
 
     [SerializeField]
     private GameManager gameManager;
@@ -32,11 +32,11 @@ public class ConnectManager : MonoBehaviour
         {
             if (success)
             {
-                gooleMsgTest.text = "로그인 성공";
+                gooleMsgText.text = "로그인 성공";
             }
             else
             {
-                gooleMsgTest.text = "로그인 실패";
+                gooleMsgText.text = "로그인 실패";
             }
         };
 
@@ -65,7 +65,7 @@ public class ConnectManager : MonoBehaviour
     {
         if (PlayGamesPlatform.Instance.IsAuthenticated() == true)
         {
-            gooleMsgTest.text = "로그 아웃!";
+            gooleMsgText.text = "로그 아웃!";
             PlayGamesPlatform.Instance.SignOut();
         }
     }
