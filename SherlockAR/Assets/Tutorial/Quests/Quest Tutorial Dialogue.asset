@@ -181,11 +181,11 @@ MonoBehaviour:
     - title: Name
       value: Alert
       type: 0
-      typeString: 
+      typeString: CustomFieldType_Text
     - title: Initial Value
       value: 
       type: 0
-      typeString: 
+      typeString: CustomFieldType_Text
   - id: 2
     fields:
     - title: Name
@@ -355,7 +355,7 @@ MonoBehaviour:
           Culture=neutral, PublicKeyToken=null
       canvasRect:
         serializedVersion: 2
-        x: 30
+        x: 29
         y: 70
         width: 160
         height: 30
@@ -575,7 +575,7 @@ MonoBehaviour:
       canvasRect:
         serializedVersion: 2
         x: 390
-        y: 70
+        y: 69
         width: 160
         height: 30
     - id: 6
