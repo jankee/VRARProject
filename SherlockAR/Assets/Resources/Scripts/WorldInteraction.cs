@@ -18,6 +18,8 @@ public class WorldInteraction : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) && !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
         {
+            print("Press");
+
             GetInteraction();
         }
     }
@@ -40,6 +42,7 @@ public class WorldInteraction : MonoBehaviour
             }
             else
             {
+                playerAgent.stoppingDistance = 0;
                 playerAgent.destination = interactinInfo.point;
                 print("Point : " + interactinInfo.point);
             }
