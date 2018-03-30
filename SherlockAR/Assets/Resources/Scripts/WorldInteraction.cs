@@ -32,19 +32,22 @@ public class WorldInteraction : MonoBehaviour
 
         if (Physics.Raycast(interactionRay, out interactinInfo, Mathf.Infinity))
         {
+            playerAgent.updateRotation = true;
+
             GameObject interactedObject = interactinInfo.collider.gameObject;
 
-            if (interactedObject.tag == "Interactable Object")
+            if (interactedObject.tag == "Enemy")
             {
                 interactedObject.GetComponent<Interactable>().MoveToInteraction(playerAgent);
-
-                print("interactedObject : " + interactedObject.name);
+            }
+            else if (interactedObject.tag == "Interactable Object")
+            {
+                interactedObject.GetComponent<Interactable>().MoveToInteraction(playerAgent);
             }
             else
             {
                 playerAgent.stoppingDistance = 0;
                 playerAgent.destination = interactinInfo.point;
-                print("Point : " + interactinInfo.point);
             }
         }
     }

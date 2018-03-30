@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//using Newtonsoft.Json;
+
 public class BaseStat
 {
     public List<StatBonus> BaseAdditives { get; set; }
@@ -23,6 +25,16 @@ public class BaseStat
         StatName = statName;
 
         StatDesctiption = statDescription;
+    }
+
+    [Newtonsoft.Json.JsonConstructor]
+    public BaseStat(int baseValue, string statName)
+    {
+        BaseAdditives = new List<StatBonus>();
+
+        BaseValue = baseValue;
+
+        StatName = statName;
     }
 
     public void AddStatBonus(StatBonus statBonus)

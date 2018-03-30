@@ -8,12 +8,16 @@ public class PlayerWeaponController : MonoBehaviour
 
     public GameObject EquippedWeapon { get; set; }
 
+    private Transform spawnProjectile;
+
     private IWeapon equippedWeapon;
 
     private CharacterStats characterStats;
 
     private void Start()
     {
+        spawnProjectile = transform.Find("ProjectileSpawn");
+
         characterStats = GetComponent<CharacterStats>();
     }
 
@@ -31,9 +35,13 @@ public class PlayerWeaponController : MonoBehaviour
 
         equippedWeapon = EquippedWeapon.GetComponent<IWeapon>();
 
-        equippedWeapon.Stats = itemToEquip.Stats;
+        //만약 EquippedWeapon.GetComponent<IProjectileWeapon>()를 가지고 있다면 spawnProjectile를 넘겨준다.
+        if (EquippedWeapon.GetComponent<IProjectileWeapon>() != null)
+        {
+            EquippedWeapon.GetComponent<IProjectileWeapon>().ProjectileSpawn = spawnProjectile;
+        }
 
-        //EquippedWeapon.GetComponent<IWeapon>().Stats = itemToEquip.Stats;
+        equippedWeapon.Stats = itemToEquip.Stats;
 
         EquippedWeapon.transform.SetParent(playerHand.transform);
 
@@ -48,10 +56,19 @@ public class PlayerWeaponController : MonoBehaviour
         {
             PerformWeaponAttack();
         }
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            PerformWeaponSpecialAttack();
+        }
     }
 
     public void PerformWeaponAttack()
     {
-        EquippedWeapon.GetComponent<IWeapon>().PerformAttack();
+        equippedWeapon.PerformAttack();
+    }
+
+    public void PerformWeaponSpecialAttack()
+    {
+        equippedWeapon.PerformSpecialAttack();
     }
 }

@@ -4,27 +4,25 @@ using UnityEngine;
 
 public class InventoryController : MonoBehaviour
 {
+    public static InventoryController Instance { get; set; }
+
     public PlayerWeaponController playerWeaponController;
 
-    public Item sword;
+    public ConsumableController consumableControlller;
 
     private void Start()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+        }
+
         playerWeaponController = GetComponent<PlayerWeaponController>();
 
-        List<BaseStat> swordStaes = new List<BaseStat>();
-
-        swordStaes.Add(new BaseStat(6, "Power", "Your power level."));
-
-        sword = new Item(swordStaes, "sword");
-    }
-
-    // Update is called once per frame
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.V))
-        {
-            playerWeaponController.EquipWeapon(sword);
-        }
+        consumableControlller = GetComponent<ConsumableController>();
     }
 }
