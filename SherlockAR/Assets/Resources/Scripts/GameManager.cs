@@ -17,12 +17,15 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private GameObject dialoguePanel;
 
+    private string[] StartString = { "편지가 도착 했습니다.", "확인 부탁드립니다" };
+
     //private int one = 1;
     //private int
 
     // Use this for initialization
     private void Start()
     {
+        StartScripts();
         dialoguePanel.SetActive(true);
     }
 
@@ -34,5 +37,10 @@ public class GameManager : MonoBehaviour
 
         dialoguePanel.SetActive(false);
         changeButtonPanel.SetActive(false);
+    }
+
+    public void StartScripts()
+    {
+        DialogueSystem.Instance.AddNewDialogue(StartString, "Letter");
     }
 }

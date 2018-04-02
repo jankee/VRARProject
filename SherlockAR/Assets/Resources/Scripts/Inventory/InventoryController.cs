@@ -10,6 +10,8 @@ public class InventoryController : MonoBehaviour
 
     public ConsumableController consumableControlller;
 
+    public List<Item> playerItmes = new List<Item>();
+
     private void Start()
     {
         if (Instance != null && Instance != this)
@@ -24,5 +26,22 @@ public class InventoryController : MonoBehaviour
         playerWeaponController = GetComponent<PlayerWeaponController>();
 
         consumableControlller = GetComponent<ConsumableController>();
+    }
+
+    public void GiveItem(string itemSlug)
+    {
+        playerItmes.Add(ItemDatabase.Instance.GetItem(itemSlug));
+
+        print(playerItmes.Count + " items in inventory. Added: " + itemSlug);
+    }
+
+    public void EquipItme(Item itmeToEquip)
+    {
+        playerWeaponController.EquipWeapon(itmeToEquip);
+    }
+
+    public void ConsumeItme(Item itemToConsume)
+    {
+        consumableControlller.ConsumeItem(itemToConsume);
     }
 }
