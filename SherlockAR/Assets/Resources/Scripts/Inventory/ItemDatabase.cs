@@ -9,7 +9,7 @@ public class ItemDatabase : MonoBehaviour
 
     private List<Item> Items { get; set; }
 
-    private void Start()
+    private void Awake()
     {
         if (Instance != null && Instance != this)
         {

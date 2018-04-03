@@ -7,6 +7,7 @@ public class PotionLog : MonoBehaviour, IConsumable
     public void Consume()
     {
         print("You drink a swig of the potion. cool!");
+        Destroy(gameObject);
     }
 
     public void Consume(CharacterStats stats)

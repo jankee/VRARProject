@@ -1,12 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-//using Newtonsoft.Json;
+using System.Linq;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 public class BaseStat
 {
+    public enum BaseStatType { Power, Toughness, AttackSpeed }
+
     public List<StatBonus> BaseAdditives { get; set; }
+
+    [JsonConverter(typeof(StringEnumConverter))]
+    public BaseStatType StatType { get; set; }
 
     public int BaseValue { get; set; }
 
@@ -28,9 +34,11 @@ public class BaseStat
     }
 
     [Newtonsoft.Json.JsonConstructor]
-    public BaseStat(int baseValue, string statName)
+    public BaseStat(BaseStatType statType, int baseValue, string statName)
     {
         BaseAdditives = new List<StatBonus>();
+
+        this.StatType = statType;
 
         BaseValue = baseValue;
 

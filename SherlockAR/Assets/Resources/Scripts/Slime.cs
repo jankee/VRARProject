@@ -10,8 +10,12 @@ public class Slime : MonoBehaviour, IEnemy
     [SerializeField]
     private float maxHealth;
 
+    private CharacterStats characterStats;
+
     private void Start()
     {
+        characterStats = new CharacterStats(6, 10, 2);
+
         currentHealth = maxHealth;
     }
 
