@@ -5,7 +5,11 @@ public interface IWeapon
 {
     List<BaseStat> Stats { get; set; }
 
-    void PerformAttack();
+    int CurrentDamage { get; set; }
+
+    //CharacterStats CharacterStats { get; set; }
+
+    void PerformAttack(int damage);
 
     void PerformSpecialAttack();
 }

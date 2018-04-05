@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,15 +9,22 @@ public class Sword : MonoBehaviour, IWeapon
 
     public List<BaseStat> Stats { get; set; }
 
+    public CharacterStats CharacterStats { get; set; }
+
+    public int CurrentDamage { get; set; }
+
     private void Start()
     {
         animator = GetComponent<Animator>();
+
+        //CharacterStats = this.transform.parent.parent.parent.GetComponent<Player>().characterStats;
     }
 
-    public void PerformAttack()
+    public void PerformAttack(int damage)
     {
+        CurrentDamage = damage;
+
         animator.SetTrigger("Base_Attack");
-        print(this.name + " : Sword attack!");
     }
 
     public void PerformSpecialAttack()
@@ -28,8 +36,7 @@ public class Sword : MonoBehaviour, IWeapon
     {
         if (other.tag == "Enemy")
         {
-            other.GetComponent<IEnemy>().TakeDamage(Stats[0].GetCalculatedStatValue());
+            other.GetComponent<IEnemy>().TakeDamage(CurrentDamage);
         }
-        print("Hit: " + other.name);
     }
 }

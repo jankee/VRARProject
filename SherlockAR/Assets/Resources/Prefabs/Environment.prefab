@@ -174,6 +174,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4916199820795902}
+  - component: {fileID: 64293054618534710}
   m_Layer: 0
   m_Name: Hill_Dirt_01
   m_TagString: Untagged
@@ -206,7 +207,6 @@ GameObject:
   - component: {fileID: 4585228160781464}
   - component: {fileID: 33718980485431978}
   - component: {fileID: 23588723520794530}
-  - component: {fileID: 64938687702260294}
   m_Layer: 0
   m_Name: Hill_Dirt_01 1
   m_TagString: Untagged
@@ -2194,6 +2194,20 @@ MeshCollider:
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300002, guid: 749f0fcee8899d14d9fc75a4b5997df6, type: 3}
+--- !u!64 &64293054618534710
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1068554658307434}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 0
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300002, guid: 18d9e12d42131514b88d9b8614d57fc7, type: 3}
 --- !u!64 &64309453585589704
 MeshCollider:
   m_ObjectHideFlags: 1
@@ -2261,7 +2275,7 @@ MeshCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Convex: 0
-  m_CookingOptions: 14
+  m_CookingOptions: 0
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300002, guid: 610558ef87ba5b341bf091ea9ef8af0d, type: 3}
 --- !u!64 &64590482929853540
@@ -2320,20 +2334,6 @@ MeshCollider:
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300002, guid: 6f5ac22b894785345bc0de34be8399eb, type: 3}
---- !u!64 &64938687702260294
-MeshCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1142449169828046}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300002, guid: 18d9e12d42131514b88d9b8614d57fc7, type: 3}
 --- !u!64 &64958616785626456
 MeshCollider:
   m_ObjectHideFlags: 1

@@ -48,8 +48,6 @@ public class InventoryController : MonoBehaviour
 
         playerItmes.Add(item);
 
-        print(playerItmes.Count + " items in inventory. Added: " + itemSlug);
-
         UIEventHandler.ItemAddedToInventory(item);
     }
 

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterStats : MonoBehaviour
+public class CharacterStats
 {
     public List<BaseStat> stats = new List<BaseStat>();
 
@@ -12,14 +12,6 @@ public class CharacterStats : MonoBehaviour
         new BaseStat(BaseStat.BaseStatType.Toughness, toughness, "Toughness"),
         new BaseStat(BaseStat.BaseStatType.AttackSpeed, attackSpeed, "AttackSpeed")};
     }
-
-    //private void Start()
-    //{
-    //    stats.Add(new BaseStat(4, "Power", "Your power level."));
-    //    stats.Add(new BaseStat(2, "Toughness", "Your vitality level."));
-
-    //    Debug.Log("stats[0] : " + stats[0].GetCalculatedStatValue());
-    //}
 
     public BaseStat GetStat(BaseStat.BaseStatType stat)
     {
@@ -39,7 +31,7 @@ public class CharacterStats : MonoBehaviour
         foreach (BaseStat statBonus in statBonuses)
         {
             //statBonus2 = statBonus;
-            stats.Find(x => x.StatName == statBonus.StatName).RemoveStatBonus(new StatBonus(statBonus.BaseValue));
+            GetStat(statBonus.StatType).RemoveStatBonus(new StatBonus(statBonus.BaseValue));
         }
     }
 
