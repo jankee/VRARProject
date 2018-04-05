@@ -23,6 +23,8 @@ public class Slime : MonoBehaviour, IEnemy
 
     private Collider[] withinAggroColliders;
 
+    public int Experience { get; set; }
+
     private void Start()
     {
         navAgent = GetComponent<NavMeshAgent>();
@@ -63,11 +65,12 @@ public class Slime : MonoBehaviour, IEnemy
         navAgent.SetDestination(player.transform.position);
 
         this.player = player;
-
-        if (navAgent.remainingDistance <= navAgent.stoppingDistance)
+        //print("remainingDistance : " + navAgent.remainingDistance + ", stoppingDistance : " + navAgent.stoppingDistance);
+        if (navAgent.remainingDistance >= navAgent.stoppingDistance)
         {
             if (!IsInvoking("PerformAttack"))
             {
+                print("Attack Player!!");
                 InvokeRepeating("PerformAttack", 0.5f, 2f);
             }
         }
@@ -83,4 +86,9 @@ public class Slime : MonoBehaviour, IEnemy
     {
         Destroy(gameObject);
     }
+
+    //void IEnemy.Die()
+    //{
+    //    throw new NotImplementedException();
+    //}
 }

@@ -6,14 +6,20 @@ public class Player : MonoBehaviour
 {
     public CharacterStats characterStats;
 
-    public float currentHealth;
+    public int currentHealth;
 
-    public float maxHealth;
+    public int maxHealth;
 
-    private void Awake()
+    public PlayerLevel PlayerLevel { get; set; }
+
+    private void Start()
     {
-        this.currentHealth = maxHealth;
+        PlayerLevel = GetComponent<PlayerLevel>();
+
+        this.currentHealth = this.maxHealth;
         characterStats = new CharacterStats(10, 10, 10);
+
+        //UIEventHandler.HealthChanged(this.currentHealth, this.maxHealth);
     }
 
     public void TakeDamage(int amount)
@@ -24,11 +30,13 @@ public class Player : MonoBehaviour
         {
             Die();
         }
+        UIEventHandler.HealthChanged(this.currentHealth, this.maxHealth);
     }
 
     private void Die()
     {
         print("Player dead. Reset Health.");
         currentHealth = maxHealth;
+        UIEventHandler.HealthChanged(this.currentHealth, this.maxHealth);
     }
 }
