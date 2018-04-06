@@ -51,6 +51,13 @@ public class InventoryController : MonoBehaviour
         UIEventHandler.ItemAddedToInventory(item);
     }
 
+    public void GiveItem(Item item)
+    {
+        playerItmes.Add(item);
+
+        UIEventHandler.ItemAddedToInventory(item);
+    }
+
     public void EquipItme(Item itmeToEquip)
     {
         playerWeaponController.EquipWeapon(itmeToEquip);

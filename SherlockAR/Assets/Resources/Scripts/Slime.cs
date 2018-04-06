@@ -15,6 +15,10 @@ public class Slime : MonoBehaviour, IEnemy
     [SerializeField]
     private float maxHealth;
 
+    public int Experience { get; set; }
+
+    public DropTable DropTable { get; set; }
+
     private Player player;
 
     private NavMeshAgent navAgent;
@@ -23,10 +27,19 @@ public class Slime : MonoBehaviour, IEnemy
 
     private Collider[] withinAggroColliders;
 
-    public int Experience { get; set; }
-
     private void Start()
     {
+        DropTable = new DropTable();
+
+        DropTable.loot = new List<LootDrop>
+        {
+            new LootDrop("sword", 25),
+            new LootDrop("staff", 25),
+            new LootDrop("potion_log", 25)
+        };
+
+        Experience = 250;
+
         navAgent = GetComponent<NavMeshAgent>();
 
         characterStats = new CharacterStats(6, 10, 2);
@@ -82,13 +95,16 @@ public class Slime : MonoBehaviour, IEnemy
         }
     }
 
-    private void Die()
+    public void Die()
     {
+        DropLoot();
+
+        CombatEvent.EnemyDied(this);
+
         Destroy(gameObject);
     }
 
-    //void IEnemy.Die()
-    //{
-    //    throw new NotImplementedException();
-    //}
+    private void DropLoot()
+    {
+    }
 }
