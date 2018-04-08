@@ -19,6 +19,9 @@ public class Slime : MonoBehaviour, IEnemy
 
     public DropTable DropTable { get; set; }
 
+    [SerializeField]
+    private PickupItem pickupItem;
+
     private Player player;
 
     private NavMeshAgent navAgent;
@@ -54,7 +57,6 @@ public class Slime : MonoBehaviour, IEnemy
         if (withinAggroColliders.Length > 0)
         {
             ChasePlayer(withinAggroColliders[0].GetComponent<Player>());
-            print("Found Player I think.");
         }
     }
 
@@ -106,5 +108,11 @@ public class Slime : MonoBehaviour, IEnemy
 
     private void DropLoot()
     {
+        Item item = DropTable.GetDrop();
+
+        if (item != null)
+        {
+            PickupItem instance = Instantiate(pickupItem, transform.position, Quaternion.identity);
+        }
     }
 }
