@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 public interface IEnemy
 {
+    Spawner Spawner { get; set; }
+
     int Experience { get; set; }
 
     void Die();

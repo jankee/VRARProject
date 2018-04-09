@@ -19,6 +19,8 @@ public class Slime : MonoBehaviour, IEnemy
 
     public DropTable DropTable { get; set; }
 
+    public Spawner Spawner { get; set; }
+
     [SerializeField]
     private PickupItem pickupItem;
 
@@ -103,6 +105,8 @@ public class Slime : MonoBehaviour, IEnemy
 
         CombatEvent.EnemyDied(this);
 
+        this.Spawner.Respawn();
+
         Destroy(gameObject);
     }
 
@@ -113,6 +117,8 @@ public class Slime : MonoBehaviour, IEnemy
         if (item != null)
         {
             PickupItem instance = Instantiate(pickupItem, transform.position, Quaternion.identity);
+
+            instance.ItemDrop = item;
         }
     }
 }
