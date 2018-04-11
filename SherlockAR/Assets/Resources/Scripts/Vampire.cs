@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Slime : MonoBehaviour, IEnemy
+public class Vampire : MonoBehaviour, IEnemy
 {
     [SerializeField]
     private LayerMask aggroLayerMask;
@@ -16,7 +15,6 @@ public class Slime : MonoBehaviour, IEnemy
     private float maxHealth;
 
     public int ID { get; set; }
-
     public int Experience { get; set; }
 
     public DropTable DropTable { get; set; }
@@ -30,10 +28,11 @@ public class Slime : MonoBehaviour, IEnemy
 
     private NavMeshAgent navAgent;
 
-    private CharacterStats characterStats;
+    private CharacterStats characterStates;
 
     private Collider[] withinAggroColliders;
 
+    // Use this for initialization
     private void Start()
     {
         DropTable = new DropTable();
@@ -45,13 +44,13 @@ public class Slime : MonoBehaviour, IEnemy
             new LootDrop("potion_log", 25)
         };
 
-        ID = 0;
+        ID = 1;
 
-        Experience = 250;
+        Experience = 300;
 
         navAgent = GetComponent<NavMeshAgent>();
 
-        characterStats = new CharacterStats(6, 10, 2);
+        characterStates = new CharacterStats(6, 10, 2);
 
         currentHealth = maxHealth;
     }
@@ -63,6 +62,25 @@ public class Slime : MonoBehaviour, IEnemy
         if (withinAggroColliders.Length > 0)
         {
             ChasePlayer(withinAggroColliders[0].GetComponent<Player>());
+        }
+    }
+
+    private void ChasePlayer(Player player)
+    {
+        navAgent.SetDestination(player.transform.position);
+
+        this.player = player;
+
+        if (navAgent.remainingDistance <= navAgent.stoppingDistance)
+        {
+            if (!IsInvoking("PerformAttack"))
+            {
+                InvokeRepeating("PerformAttack", 0.5f, 2f);
+            }
+        }
+        else
+        {
+            CancelInvoke("PerformAttack");
         }
     }
 
@@ -81,37 +99,9 @@ public class Slime : MonoBehaviour, IEnemy
         }
     }
 
-    private void ChasePlayer(Player player)
-    {
-        navAgent.SetDestination(player.transform.position);
-
-        this.player = player;
-        //print("remainingDistance : " + navAgent.remainingDistance + ", stoppingDistance : " + navAgent.stoppingDistance);
-        if (navAgent.remainingDistance <= navAgent.stoppingDistance)
-        {
-            if (!IsInvoking("PerformAttack"))
-            {
-                print("Attack Player!!");
-                InvokeRepeating("PerformAttack", 0.5f, 2f);
-            }
-        }
-        else
-        {
-            print("Not within distance.");
-
-            CancelInvoke("PerformAttack");
-        }
-    }
-
     public void Die()
     {
         DropLoot();
-
-        CombatEvent.EnemyDied(this);
-
-        this.Spawner.Respawn();
-
-        Destroy(gameObject);
     }
 
     private void DropLoot()

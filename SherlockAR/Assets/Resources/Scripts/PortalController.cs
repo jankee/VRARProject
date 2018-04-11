@@ -20,7 +20,7 @@ public class PortalController : MonoBehaviour
         panel = transform.Find("Panel_Portal").gameObject;
     }
 
-    private void ActivatePortal(Portal[] portals)
+    public void ActivatePortal(Portal[] portals)
     {
         panel.SetActive(true);
 
@@ -32,11 +32,19 @@ public class PortalController : MonoBehaviour
 
             int x = i;
 
-            portalButton.onClick.AddListener(delegate { OnPortalButtonClick(x); });
+            portalButton.onClick.AddListener(delegate { OnPortalButtonClick(x, portals[i]); });
         }
     }
 
-    private void OnPortalButtonClick(int PortalIndex)
+    private void OnPortalButtonClick(int portalIndex, Portal portal)
     {
+        player.transform.position = portal.TeleportLocation;
+
+        foreach (Button button in GetComponentsInChildren<Button>())
+        {
+            Destroy(button.gameObject);
+        }
+
+        panel.SetActive(false);
     }
 }
