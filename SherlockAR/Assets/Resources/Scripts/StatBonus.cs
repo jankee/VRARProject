@@ -6,10 +6,8 @@ public class StatBonus
 {
     public int BonusValue { get; set; }
 
-    public StatBonus(int bonusValue)
+    public StatBonus(int bounsValue)
     {
-        BonusValue = bonusValue;
-
-        Debug.Log("New stat bonus initiated.");
+        this.BonusValue = bounsValue;
     }
 }

@@ -3,23 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-//using UnityEngine.EventSystems;
-
 public class WorldInteraction : MonoBehaviour
 {
     private NavMeshAgent playerAgent;
 
     private void Start()
     {
-        playerAgent = GetComponent<NavMeshAgent>();
+        playerAgent = this.GetComponent<NavMeshAgent>();
     }
 
     private void Update()
     {
         if (Input.GetMouseButtonDown(0) && !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
         {
-            print("Press");
-
             GetInteraction();
         }
     }
@@ -27,28 +23,22 @@ public class WorldInteraction : MonoBehaviour
     private void GetInteraction()
     {
         Ray interactionRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit interactionInfo;
 
-        RaycastHit interactinInfo;
-
-        if (Physics.Raycast(interactionRay, out interactinInfo, Mathf.Infinity))
+        if (Physics.Raycast(interactionRay, out interactionInfo, Mathf.Infinity))
         {
-            playerAgent.updateRotation = true;
+            GameObject interactionObject = interactionInfo.collider.gameObject;
 
-            GameObject interactedObject = interactinInfo.collider.gameObject;
-
-            if (interactedObject.tag == "Enemy")
+            //인터렉션 오브젝트가 아니면 그 위치까지 이동
+            if (interactionObject.tag == "Interactable Object")
             {
-                interactedObject.GetComponent<Interactable>().MoveToInteraction(playerAgent);
-            }
-            else if (interactedObject.tag == "Interactable Object")
-            {
-                interactedObject.GetComponent<Interactable>().MoveToInteraction(playerAgent);
+                interactionObject.GetComponent<Interactable>().MoveToInteraction(playerAgent);
             }
             else
             {
-                //print(interactinInfo.collider.gameObject.name);
                 playerAgent.stoppingDistance = 0;
-                playerAgent.destination = interactinInfo.point;
+                //바닥을 찍었을 경우
+                playerAgent.destination = interactionInfo.point;
             }
         }
     }

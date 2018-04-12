@@ -2,45 +2,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterStats
+public class CharacterStats : MonoBehaviour
 {
     public List<BaseStat> stats = new List<BaseStat>();
 
-    public CharacterStats(int power, int toughness, int attackSpeed)
+    private void Start()
     {
-        stats = new List<BaseStat>()
-        {
-        new BaseStat(BaseStat.BaseStatType.Power, power, "Power"),
-        new BaseStat(BaseStat.BaseStatType.Toughness, toughness, "Toughness"),
-        new BaseStat(BaseStat.BaseStatType.AttackSpeed, attackSpeed, "Atk Spd")
-        };
+        stats.Add(new BaseStat(4, "Power", "Your Power level."));
+        stats.Add(new BaseStat(5, "Vitality", "Your Vitality level."));
     }
 
-    public BaseStat GetStat(BaseStat.BaseStatType stat)
+    public void AddStatBonus(List<BaseStat> baseStats)
     {
-        return this.stats.Find(x => x.StatType == stat);
-    }
-
-    public void AddStatBonus(List<BaseStat> statBonuses)
-    {
-        foreach (BaseStat statBonus in statBonuses)
+        foreach (BaseStat baseStat in baseStats)
         {
-            GetStat(statBonus.StatType).AddStatBonus(new StatBonus(statBonus.BaseValue));
+            stats.Find(x => x.StatName == baseStat.StatName).AddStatBonus(new StatBonus(baseStat.BaseValue));
         }
     }
 
-    public void RemoveStatBonus(List<BaseStat> statBonuses)
+    public void RemoveStatBonus(List<BaseStat> baseStates)
     {
-        foreach (BaseStat statBonus in statBonuses)
+        foreach (BaseStat baseStat in baseStates)
         {
-            //statBonus2 = statBonus;
-            GetStat(statBonus.StatType).RemoveStatBonus(new StatBonus(statBonus.BaseValue));
+            stats.Find(x => x.StatName == baseStat.StatName).RemoveStatBonus(new StatBonus(baseStat.BaseValue));
         }
     }
-
-    //BaseStat statBonus2;
-    //private bool OOOO(BaseStat x)
-    //{
-    //    return x.StatName == statBonus.StatName;
-    //}
 }

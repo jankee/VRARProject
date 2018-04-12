@@ -5,13 +5,15 @@ using UnityEngine.UI;
 
 public class DialogueSystem : MonoBehaviour
 {
+    //싱글톤
     public static DialogueSystem Instance { get; set; }
 
-    public List<string> dialogueLines = new List<string>();
+    [SerializeField]
+    private GameObject dialoguePanel;
 
-    public string npcName;
+    private string npcName;
 
-    public GameObject dialoguePanel;
+    private List<string> dialogueLines = new List<string>();
 
     private Button continueButton;
 
@@ -21,19 +23,20 @@ public class DialogueSystem : MonoBehaviour
 
     private void Awake()
     {
-        continueButton = dialoguePanel.transform.Find("Continue").GetComponent<Button>();
+        continueButton = dialoguePanel.transform.GetChild(0).GetComponent<Button>();
 
+        dialogueText = dialoguePanel.transform.GetChild(1).GetComponent<Text>();
+
+        nameText = dialoguePanel.transform.GetChild(2).GetChild(0).GetComponent<Text>();
+
+        //버튼 이벤트 처리
         continueButton.onClick.AddListener(delegate { ContinueDialogue(); });
-
-        dialogueText = dialoguePanel.transform.Find("Text").GetComponent<Text>();
-
-        nameText = dialoguePanel.transform.Find("Name").GetChild(0).GetComponent<Text>();
 
         dialoguePanel.SetActive(false);
 
         if (Instance != null && Instance != this)
         {
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         }
         else
         {
@@ -45,13 +48,11 @@ public class DialogueSystem : MonoBehaviour
     {
         dialogueIndex = 0;
 
-        dialogueLines = new List<string>(lines.Length);
-
-        dialogueLines.AddRange(lines);
+        //리스트에 스트링 배열을 넣어 줌
+        dialogueLines = new List<string>(lines);
+        //dialogueLines.AddRange(lines);
 
         this.npcName = npcName;
-
-        print(dialogueLines.Count);
 
         CreateDialogue();
     }
@@ -59,6 +60,7 @@ public class DialogueSystem : MonoBehaviour
     public void CreateDialogue()
     {
         dialogueText.text = dialogueLines[dialogueIndex];
+
         nameText.text = npcName;
 
         dialoguePanel.SetActive(true);

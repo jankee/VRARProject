@@ -5,56 +5,39 @@ using UnityEngine.AI;
 
 public class Interactable : MonoBehaviour
 {
-    [HideInInspector]
-    public NavMeshAgent playerAgent;
+    private NavMeshAgent playerAgent;
 
     private bool hasInteracted;
 
-    private bool isEnemy;
-
-    public virtual void MoveToInteraction(NavMeshAgent playerAgent)
-    {
-        isEnemy = gameObject.tag == "Enemy";
-
-        hasInteracted = false;
-
-        this.playerAgent = playerAgent;
-
-        playerAgent.stoppingDistance = 2.5f;
-
-        //플레이어가 인터렉션 장소까지 올도록 한다
-        playerAgent.destination = this.transform.position;
-
-        Interact();
-    }
-
     private void Update()
     {
-        if (!hasInteracted && playerAgent != null && !playerAgent.pathPending)
+        //플레이어가 있거나 길찾기를 하는중이 아니라면
+        if (playerAgent != null && !playerAgent.pathPending)
         {
-            if (playerAgent.remainingDistance <= playerAgent.stoppingDistance)
+            // 플레이어가 스톱한 거리보다 작은면
+            if (!hasInteracted && playerAgent.remainingDistance <= playerAgent.stoppingDistance)
             {
-                if (!isEnemy)
-                {
-                    Interact();
-                }
-                EnsureLookDirection();
-
+                Interact();
                 hasInteracted = true;
             }
         }
     }
 
-    private void EnsureLookDirection()
+    //플레이어 네비메쉬를 받아서 처리한다
+    public virtual void MoveToInteraction(NavMeshAgent playerAgent)
     {
-        playerAgent.updateRotation = false;
-        Vector3 lookDirection = new Vector3(transform.position.x, playerAgent.transform.position.y, transform.position.z);
-        playerAgent.transform.LookAt(lookDirection);
-        playerAgent.updateRotation = true;
+        hasInteracted = false;
+
+        this.playerAgent = playerAgent;
+
+        playerAgent.stoppingDistance = 2;
+
+        //플레이어 데스티네이션에 인터렉션 오브젝트의 위치 포지션을 준다
+        playerAgent.destination = this.transform.position;
     }
 
     public virtual void Interact()
     {
-        print("Interacting with base class!");
+        Debug.Log("Interacting with base class.");
     }
 }

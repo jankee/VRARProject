@@ -6,6 +6,6 @@ public class ActionItem : Interactable
 {
     public override void Interact()
     {
-        print("Interacting with base Action Item!");
+        Debug.Log("Interacting with base Action Item.");
     }
 }
