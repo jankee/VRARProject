@@ -27,6 +27,7 @@ public class Sword : MonoBehaviour, IWeapon
     {
         if (other.tag == "Enemy")
         {
+            other.GetComponent<IEnemy>().TakeDamage(Stats[0].GetCalculatedStatValue());
         }
     }
 }

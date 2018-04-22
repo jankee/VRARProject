@@ -9,12 +9,16 @@ public class PlayerWeaponController : MonoBehaviour
 
     public GameObject EquippedWeapon { get; set; }
 
+    private Transform spawnProjectile;
+
     private IWeapon equippedWeapon;
 
     private CharacterStats characterStats;
 
     public void Start()
     {
+        spawnProjectile = transform.GetChild(1);
+
         characterStats = this.GetComponent<CharacterStats>();
     }
 
@@ -43,6 +47,12 @@ public class PlayerWeaponController : MonoBehaviour
             playerHand.transform.position, playerHand.transform.rotation);
 
         equippedWeapon = EquippedWeapon.GetComponent<IWeapon>();
+
+        if (EquippedWeapon.GetComponent<IProjectileWeapon>() != null)
+        {
+            //무기에 spawnProjectile을 넣어둔다
+            EquippedWeapon.GetComponent<IProjectileWeapon>().ProjectileSpawn = spawnProjectile;
+        }
 
         equippedWeapon.Stats = itemToEquip.Stats;
 
