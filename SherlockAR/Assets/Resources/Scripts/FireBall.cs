@@ -35,9 +35,9 @@ public class FireBall : MonoBehaviour
         if (collision.transform.tag == "Enemy")
         {
             collision.transform.GetComponent<IEnemy>().TakeDamage(Damage);
-
-            Extinguish();
         }
+        //어디든 부딪치면
+        Extinguish();
     }
 
     private void Extinguish()

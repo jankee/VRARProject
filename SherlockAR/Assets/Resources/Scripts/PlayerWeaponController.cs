@@ -73,4 +73,10 @@ public class PlayerWeaponController : MonoBehaviour
     {
         EquippedWeapon.GetComponent<IWeapon>().PerformSpecialAttack();
     }
+
+    public void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawLine(playerHand.transform.position, playerHand.transform.localPosition + new Vector3(10, 0, 0));
+    }
 }

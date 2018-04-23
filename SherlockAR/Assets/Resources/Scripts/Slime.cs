@@ -30,6 +30,6 @@ public class Slime : MonoBehaviour, IEnemy
 
     public void Die()
     {
-        print("Die");
+        Destroy(gameObject);
     }
 }
