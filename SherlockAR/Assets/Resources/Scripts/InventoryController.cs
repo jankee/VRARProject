@@ -8,6 +8,8 @@ public class InventoryController : MonoBehaviour
 
     public Item sword;
 
+    public Item PotionLog;
+
     private void Start()
     {
         playerWeaponController = this.GetComponent<PlayerWeaponController>();
@@ -17,6 +19,8 @@ public class InventoryController : MonoBehaviour
         swordStats.Add(new BaseStat(6, "Power", "Your Power level."));
 
         sword = new Item(swordStats, "staff");
+
+        PotionLog = new Item(new List<BaseStat>(), "potion_log", "Drink this to log something cool!", "Drink", "Log Potion", false);
     }
 
     public void Update()
