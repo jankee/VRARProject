@@ -4,30 +4,47 @@ using UnityEngine;
 
 public class InventoryController : MonoBehaviour
 {
+    public static InventoryController Instance { get; set; }
+
     public PlayerWeaponController playerWeaponController;
 
-    public Item sword;
+    public ConsumableController consumableController;
 
-    public Item PotionLog;
+    //public Item sword;
+
+    //public Item PotionLog;
 
     private void Start()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+        }
+
         playerWeaponController = this.GetComponent<PlayerWeaponController>();
 
-        List<BaseStat> swordStats = new List<BaseStat>();
+        consumableController = this.GetComponent<ConsumableController>();
 
-        swordStats.Add(new BaseStat(6, "Power", "Your Power level."));
+        //List<BaseStat> swordStats = new List<BaseStat>();
 
-        sword = new Item(swordStats, "staff");
+        //swordStats.Add(new BaseStat(6, "Power", "Your Power level."));
 
-        PotionLog = new Item(new List<BaseStat>(), "potion_log", "Drink this to log something cool!", "Drink", "Log Potion", false);
+        //sword = new Item(swordStats, "staff");
+
+        //PotionLog = new Item(new List<BaseStat>(), "potion_log", "Drink this to log something cool!", "Drink", "Log Potion", false);
     }
 
-    public void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.V))
-        {
-            playerWeaponController.EquipWeapon(sword);
-        }
-    }
+    //public void Update()
+    //{
+    //    if (Input.GetKeyDown(KeyCode.V))
+    //    {
+    //        playerWeaponController.EquipWeapon(sword);
+
+    //        consumableController.ConsumeItem(PotionLog);
+    //    }
+    //}
 }

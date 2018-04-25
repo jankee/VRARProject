@@ -19,6 +19,7 @@ public class Item
         this.ObjectSlug = objectSlug;
     }
 
+    [Newtonsoft.Json.JsonConstructor]
     public Item(List<BaseStat> stats, string objectSlug, string description, string actionName, string itemName, bool itemModifier)
     {
         this.Stats = stats;
