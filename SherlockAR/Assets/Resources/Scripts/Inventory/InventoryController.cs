@@ -10,7 +10,7 @@ public class InventoryController : MonoBehaviour
 
     public ConsumableController consumableController;
 
-    //public Item sword;
+    public List<Item> playerItems = new List<Item>();
 
     //public Item PotionLog;
 
@@ -47,4 +47,21 @@ public class InventoryController : MonoBehaviour
     //        consumableController.ConsumeItem(PotionLog);
     //    }
     //}
+
+    public void GiveItem(string itemSlug)
+    {
+        playerItems.Add(ItemDatabase.Instance.GetItem(itemSlug));
+
+        print(playerItems.Count + " item in inventoty. Added : " + itemSlug);
+    }
+
+    public void EquiItem(Item itemToEquip)
+    {
+        playerWeaponController.EquipWeapon(itemToEquip);
+    }
+
+    public void ConsumeItem(Item itemToConsume)
+    {
+        consumableController.ConsumeItem(itemToConsume);
+    }
 }
