@@ -9,14 +9,15 @@ public class CharacterStats : MonoBehaviour
     private void Start()
     {
         stats.Add(new BaseStat(4, "Power", "Your Power level."));
-        stats.Add(new BaseStat(5, "Vitality", "Your Vitality level."));
+        stats.Add(new BaseStat(5, "Tougness", "Your Toughness level."));
+        stats.Add(new BaseStat(2, "Atk Spd", "Your AttackSpeed level."));
     }
 
-    public void AddStatBonus(List<BaseStat> baseStats)
+    public void AddStatBonus(List<BaseStat> statBonuses)
     {
-        foreach (BaseStat baseStat in baseStats)
+        foreach (BaseStat statBonus in statBonuses)
         {
-            stats.Find(x => x.StatName == baseStat.StatName).AddStatBonus(new StatBonus(baseStat.BaseValue));
+            stats.Find(x => x.StatName == statBonus.StatName).AddStatBonus(new StatBonus(statBonus.BaseValue));
         }
     }
 

@@ -7,15 +7,27 @@ public class InventoryUIItem : MonoBehaviour
 {
     public Item item;
 
+    [SerializeField]
+    private Text itemText;
+
+    [SerializeField]
+    private Image itemImage;
+
     public void SetItem(Item item)
     {
         this.item = item;
+
+        itemText = this.transform.GetChild(1).GetComponent<Text>();
+        itemImage = this.transform.GetChild(0).GetComponent<Image>();
+
         SetupItemValue();
     }
 
     private void SetupItemValue()
     {
-        this.transform.Find("Item_Name").GetComponent<Text>().text = item.ItemName;
+        itemText.text = item.ItemName;
+        itemImage.sprite = Resources.Load<Sprite>("UI/Icons/Items/" + item.ObjectSlug);
+        print(itemImage.name);
     }
 
     public void OnSelectItemButton()
