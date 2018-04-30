@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InventoryController : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class InventoryController : MonoBehaviour
     public PlayerWeaponController playerWeaponController;
 
     public ConsumableController consumableController;
+
+    public InventoryUIDetails inventoryDetailsPanel;
 
     public List<Item> playerItems = new List<Item>();
 
@@ -28,6 +31,10 @@ public class InventoryController : MonoBehaviour
         playerWeaponController = this.GetComponent<PlayerWeaponController>();
 
         consumableController = this.GetComponent<ConsumableController>();
+
+        GiveItem("sword");
+
+        GiveItem("potion_log");
 
         //List<BaseStat> swordStats = new List<BaseStat>();
 
@@ -50,9 +57,18 @@ public class InventoryController : MonoBehaviour
 
     public void GiveItem(string itemSlug)
     {
-        playerItems.Add(ItemDatabase.Instance.GetItem(itemSlug));
+        Item item = ItemDatabase.Instance.GetItem(itemSlug);
+
+        playerItems.Add(item);
 
         print(playerItems.Count + " item in inventoty. Added : " + itemSlug);
+
+        UIEventHandler.ItemAddedToInventory(item);
+    }
+
+    public void SetItemDetails(Item item, Button selectedButton)
+    {
+        inventoryDetailsPanel.SetItem(item, selectedButton);
     }
 
     public void EquiItem(Item itemToEquip)

@@ -10,7 +10,7 @@ public class ItemDatabase : MonoBehaviour
     private List<Item> Items { get; set; }
 
     // Use this for initialization
-    private void Start()
+    private void Awake()
     {
         if (Instance != null && Instance != this)
         {
@@ -28,16 +28,16 @@ public class ItemDatabase : MonoBehaviour
     {
         Items = JsonConvert.DeserializeObject<List<Item>>(Resources.Load<TextAsset>("JSON/Items").ToString());
 
-        print(Items.Count);
-        foreach (Item item in Items)
-        {
-            for (int i = 0; i < item.Stats.Count; i++)
-            {
-                print(item.ItemName);
-                print(item.Stats[i].StatName);
-                print(item.Stats[i].GetCalculatedStatValue());
-            }
-        }
+        //print(Items.Count);
+        //foreach (Item item in Items)
+        //{
+        //    for (int i = 0; i < item.Stats.Count; i++)
+        //    {
+        //        print(item.ItemName);
+        //        print(item.Stats[i].StatName);
+        //        print(item.Stats[i].GetCalculatedStatValue());
+        //    }
+        //}
     }
 
     public Item GetItem(string itemSlug)
