@@ -9,13 +9,13 @@
 		"Stats": [
 			{
 				"StatType": "Power",
-				"BaseValue": 25,
+				"BaseValue": 10,
 				"StatName": "Power"
 			},
 			{
 				"StatType": "Toughness",
 				"BaseValue": 4,
-				"StatName": "Tougness"
+				"StatName": "Toughness"
 			},
 			{
 				"StatType": "AttackSpeed",

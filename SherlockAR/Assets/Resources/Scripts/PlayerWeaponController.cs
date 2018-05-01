@@ -19,7 +19,7 @@ public class PlayerWeaponController : MonoBehaviour
     {
         spawnProjectile = transform.GetChild(1);
 
-        characterStats = this.GetComponent<CharacterStats>();
+        characterStats = this.GetComponent<Player>().characterStats;
     }
 
     public void Update()
