@@ -13,6 +13,8 @@ public class PlayerWeaponController : MonoBehaviour
 
     private IWeapon equippedWeapon;
 
+    private Item currentlyEquippedWeapon;
+
     private CharacterStats characterStats;
 
     public void Start()
@@ -39,6 +41,7 @@ public class PlayerWeaponController : MonoBehaviour
     {
         if (EquippedWeapon != null)
         {
+            InventoryController.Instance.GiveItem(currentlyEquippedWeapon.ObjectSlug);
             characterStats.RemoveStatBonus(EquippedWeapon.GetComponent<IWeapon>().Stats);
             Destroy(playerHand.transform.GetChild(0).gameObject);
         }
@@ -48,25 +51,33 @@ public class PlayerWeaponController : MonoBehaviour
 
         equippedWeapon = EquippedWeapon.GetComponent<IWeapon>();
 
+        //스테프일때
         if (EquippedWeapon.GetComponent<IProjectileWeapon>() != null)
         {
             //무기에 spawnProjectile을 넣어둔다
             EquippedWeapon.GetComponent<IProjectileWeapon>().ProjectileSpawn = spawnProjectile;
         }
-
-        equippedWeapon.Stats = itemToEquip.Stats;
+        else if (EquippedWeapon.GetComponent<Sword>() != null)
+        {
+            EquippedWeapon.GetComponent<Sword>().CharacterStats = characterStats;
+        }
 
         EquippedWeapon.transform.SetParent(playerHand.transform);
 
-        characterStats.AddStatBonus(itemToEquip.Stats);
+        equippedWeapon.Stats = itemToEquip.Stats;
 
-        print(equippedWeapon.Stats[0].GetCalculatedStatValue());
+        currentlyEquippedWeapon = itemToEquip;
+
+        List<BaseStat> tmpBase = itemToEquip.Stats;
+
+        characterStats.AddStatBonus(tmpBase);
+
+        UIEventHandler.ItemEquipped(itemToEquip);
     }
 
     public void PerformWeaponAttack()
     {
-        print("PerformSpecialAttack");
-        EquippedWeapon.GetComponent<IWeapon>().performAttack();
+        equippedWeapon.performAttack(CalculateDamage());
     }
 
     public void PerformSpecialAttack()
@@ -78,5 +89,25 @@ public class PlayerWeaponController : MonoBehaviour
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawLine(playerHand.transform.position, playerHand.transform.localPosition + new Vector3(10, 0, 0));
+    }
+
+    private int CalculateDamage()
+    {
+        int damageToDeal = (characterStats.GetStat(BaseStat.BaseStatType.Power).GetCalculatedStatValue() * 2)
+            + Random.Range(2, 8);
+
+        return damageToDeal += CalculateCrit(damageToDeal);
+    }
+
+    private int CalculateCrit(int damage)
+    {
+        if (Random.value <= 0.1f)
+        {
+            int critDamage = (int)(damage * Random.Range(0.25f, 0.5f));
+
+            return critDamage;
+        }
+
+        return 0;
     }
 }

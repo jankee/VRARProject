@@ -17,8 +17,10 @@ public class InventoryUIItem : MonoBehaviour
     {
         this.item = item;
 
-        itemText = this.transform.GetChild(1).GetComponent<Text>();
-        itemImage = this.transform.GetChild(0).GetComponent<Image>();
+        //print(item.Stats[0].StatType);
+
+        //itemText = this.transform.GetChild(1).GetComponent<Text>();
+        //itemImage = this.transform.GetChild(0).GetComponent<Image>();
 
         SetupItemValue();
     }

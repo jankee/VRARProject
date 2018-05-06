@@ -11,6 +11,8 @@ public class Staff : MonoBehaviour, IWeapon, IProjectileWeapon
 
     public Transform ProjectileSpawn { get; set; }
 
+    public int CurrentDamage { get; set; }
+
     private FireBall fireBall;
 
     public void Start()
@@ -20,7 +22,7 @@ public class Staff : MonoBehaviour, IWeapon, IProjectileWeapon
         animator = this.GetComponent<Animator>();
     }
 
-    public void performAttack()
+    public void performAttack(int damage)
     {
         animator.SetTrigger("Base_Attack");
     }
@@ -35,5 +37,7 @@ public class Staff : MonoBehaviour, IWeapon, IProjectileWeapon
         FireBall fireballInstance = Instantiate(fireBall, ProjectileSpawn.position, ProjectileSpawn.rotation);
 
         fireballInstance.Direction = ProjectileSpawn.forward;
+
+        fireballInstance.Damage = CurrentDamage;
     }
 }

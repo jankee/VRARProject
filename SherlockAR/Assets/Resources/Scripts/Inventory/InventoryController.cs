@@ -34,6 +34,8 @@ public class InventoryController : MonoBehaviour
 
         GiveItem("sword");
 
+        GiveItem("staff");
+
         GiveItem("potion_log");
 
         //List<BaseStat> swordStats = new List<BaseStat>();
@@ -60,8 +62,6 @@ public class InventoryController : MonoBehaviour
         Item item = ItemDatabase.Instance.GetItem(itemSlug);
 
         playerItems.Add(item);
-
-        print(playerItems.Count + " item in inventoty. Added : " + itemSlug);
 
         UIEventHandler.ItemAddedToInventory(item);
     }
